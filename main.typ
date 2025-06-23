@@ -1,4 +1,6 @@
 #import "@preview/cetz:0.4.0"
+#import "@preview/thmbox:0.2.0": *
+
 
 #set document(
   title: "椭圆曲线 - 数论与密码学（第二版）",
@@ -17,13 +19,14 @@
   "Kaiti",
 ))
 
+#set heading(outlined: false)
 #show heading.where(level: 1): it => [
-  #pagebreak()
   #set text(size: 20pt)
   #align(center)[
     #block(it, above: 2em, below: 2em)
   ]
 ]
+
 #show link: set text(fill: red)
 #show ref: set text(fill: red)
 #show footnote: set text(fill: red)
@@ -108,6 +111,18 @@ III. 复分析路径
   indent: 2em,
 )
 
+#set page(numbering: "1")
+#counter(page).update(1)
+
+#show: thmbox-init()
+#set heading(outlined: true)
+#show heading.where(level: 1): it => [
+  #pagebreak()
+  #set text(size: 20pt)
+  #align(center)[
+    #block(it, above: 2em, below: 2em)
+  ]
+]
 #set heading(numbering: (..num) => {
   if num.pos().len() == 1 {
     numbering("第 1 章", num.pos().at(0))
@@ -116,12 +131,116 @@ III. 复分析路径
   }
 })
 
-#set page(numbering: "1")
-#counter(page).update(1)
-
 = 引入
 
+假定有一堆球形炮弹以金字塔的形状堆放，并顶层有一颗，第二层有四颗，第三层有九颗，依此类推。如果这堆炮弹倒塌，是否有可能将这些炮弹重新排列成为一个正方形？
+
+#figure(caption: "炮弹金字塔")[
+  #cetz.canvas({
+    import cetz.draw: *
+
+    circle((2, 0), fill: yellow)
+    circle((2, 2), fill: yellow)
+    circle((0, 2), fill: yellow)
+    circle((-2, 2), fill: yellow)
+    circle((-2, 0), fill: yellow)
+    circle((-2, -2), fill: yellow)
+    circle((0, -2), fill: yellow)
+    circle((2, -2), fill: yellow)
+    circle((1, 1), fill: orange)
+    circle((-1, 1), fill: orange)
+    circle((-1, -1), fill: orange)
+    circle((1, -1), fill: orange)
+    circle((0, 0), fill: red)
+  })
+]
+
+如果金字塔有三层的话，那么这是做不到的，因为这一共有 $1 + 4 + 9 = 14$ 颗炮弹，而这不是一个完全平方数。当然，如果只有一颗球，它能构筑起一个一层高的金字塔，同时也是一个 $1 times 1$ 的正方形。如果没有球，那我们就有一个零层高的金字塔和一个 $0 times 0$ 的正方形。除了这些显然的情况外，还有其他的吗？我们提议使用一个可以追溯到丢番图时期（约公元前 250 年）的数学方法来找到另一个解。
+
+设金字塔高 $x$，那么一共有 $ 1^2 + 2^2 + 3^3 + dots.c + x^2 = frac(x(x + 1)(2x + 1), 6) $ 颗球（见 @exercise:1）。我们期望这是一个完全平方数，也就是我们想要找到关于正整数 $x, y$ 的方程 $ y^2 = frac(x(x + 1)(2x + 1), 6) $ 的解。这样的方程给出了一个 *椭圆曲线*。图像如 @fig:pyramid-elliptic-curve 所示。
+
+#figure(caption: $y^2 = x(x + 1)(2x + 1) \/ 6$)[
+  #cetz.canvas(length: 7em, {
+    import cetz.draw: *
+
+    let y(x) = {
+      let y2 = x * (x + 1) * (2 * x + 1) / 6
+      if y2 < 0 {
+        return ()
+      }
+      let y = calc.sqrt(y2)
+      return ((x, y), (x, -y))
+    }
+
+    for i in range(-100, 100) {
+      let p = y(i / 100)
+      let p2 = y((i + 1) / 100)
+      if p.len() == 0 or p2.len() == 0 {
+        continue
+      }
+      line(p.at(0), p2.at(0))
+      line(p.at(1), p2.at(1))
+    }
+
+    grid(
+      (-1, -1),
+      (1, 1),
+      help-lines: true,
+    )
+  })
+] <fig:pyramid-elliptic-curve>
+
+丢番图的方法使用我们已经知道的点来构造新的点。让我们从点 $(0, 0)$ 和 $(1, 1)$ 开始。过该两点的直线方程是 $y = x$，联立曲线方程可以得到 $ x^2 = frac(x(x + 1)(2x + 1), 6) = frac(1, 3) x^3 + frac(1, 2) x^2 + frac(1, 6) x $ 整理得到 $ x^3 - frac(3, 2) x^2 + frac(1, 2) x = 0 $ 幸运的是，我们已经知道了该方程的两个根 $x = 0$ 和 $x = 1$。这是因为这些根就是切线与曲线的交点的横坐标。我们可以通过因式分解这个多项式来找到第三个根，但有一个更好的方法。注意到对任意的数 $a, b, c$ 都有 $ (x - a)(x - b)(x - c) = x^3 - (a + b + c) x^2 + (a b + a c + b c) x - a b c $ 因此当 $x^3$ 的系数为 $1$ 时，$x^2$ 系数的负值就是所有根的和。
+
+在我们这种情况下，我们有根 $0, 1$ 和 $x$，因此 $ 0 + 1 + x = frac(3, 2) $ 解得 $x = 1 \/ 2$。又因为 $y = x$，所以我们也得到 $y = 1 \/ 2$。很难说这对一堆炮弹有什么实际意义，但至少我们找到了这条曲线上的另外一个点。实际上我们因曲线的对称性还自动获得到了另一个点，也就是 $(1 \/ 2, -1 \/ 2)$。
+
+让我们使用点 $(1 \/ 2, 1 \/ 2)$ 和 $(1, 1)$ 重复上述步骤。为什么使用这些点？因为我们正在寻找落在第一象限的交点，而经过这两个点的直线似乎是最合适的选择。很容易得到直线方程为 $y = 3x - 2$，联立曲线方程可以得到 $ (3x - 2)^2 = frac(x(x + 1)(2x + 1), 6) $ 整理得到 $ x^3 - frac(51, 2) + dots.c = 0 $（使用上述技巧，我们不需要求出低阶）我们已经知道了两个根 $x = 1 \/ 2$ 和 $x = 1$，因此 $ frac(1, 2) + 1 + x = frac(51, 2) $ 解得 $x = 24$。因为 $y = 3x - 2$，所以 $y = 70$。这意味着 $ 1^2 + 2^2 + 3^2 + dots.c + 24^2 = 70^2 $ 如果我们有 4900 个炮弹，我们就可以将它们排列成高为 24 的金字塔，或者一个 $70 times 70$ 的正方形。如果我们继续重复上述步骤，就比如我们使用刚刚得到的点作为我们其一的点，我们将得到这个方程的无穷多个有理数解。然而，可以证明在正整数解中，除了 $x = 1$ 的那个平凡解外，$(24, 70)$ 是这个问题的唯一非平凡解。这需要更加高深的技巧，故在此隐去细节，参见 @anglin1990puzzle。
+
+这还有另一个丢番图方法的例子 —— 是否存在一个直角三角形三条都是有理边，且面积为 5？最小的毕达哥拉斯三元组（勾股数）是 $(3, 4, 5)$，面积为 6，所以我们知道我们不能只把注意力放在整数上。现在再来看看边为 $(8, 15, 17)$ 的三角形，它的面积为 60。如果我们将边除以 2，我们得到一个边为 $(4, 15 \/ 2, 17 \/ 2)$ 的面积为 15 的三角形。所以有可能得到一个边不是整数，但面积是整数的三角形。
+
+#figure(caption: "面积为 5 的有理边三角形")[
+  #cetz.canvas(length: 2.5em, {
+    import cetz.draw: *
+    line((0, 0), (20 / 3, 0), name: "a")
+    content("a", $ a $, anchor: "north", padding: .1)
+    line((20 / 3, 0), (20 / 3, 3 / 2), name: "b")
+    content("b", $ b $, anchor: "west", padding: .1)
+    line((20 / 3, 3 / 2), (0, 0), name: "c")
+    content("c", $ c $, anchor: "south-east", padding: .1)
+  })
+] <fig:triangle-area-5-with-abc>
+
+令我们所找的三角形三条边为 $a, b, c$，如图 @fig:triangle-area-5-with-abc 所示。因为面积 $a b \/ 2 = 5$，我们所找的有理数 $a, b, c$ 就有 $ a^2 + b^2 = c^2, quad a b = 10 $ 简单的变形得到 $ (frac(a + b, 2))^2 = frac(a^2 + 2a b + b^2, 4) = frac(c^2 + 20, 4) = (frac(c, 2))^2 + 5 \ (frac(a - b, 2))^2 = frac(a^2 - 2a b + b^2, 4) = frac(c^2 - 20, 4) = (frac(c, 2))^2 - 5 $ 令 $x = (c \/ 2)^2$，得到 $ x - 5 = (frac(a - b, 2))^2 quad 和 quad (frac(a + b, 2))^2 $ 因此，我们正在寻找一个有理数 $x$，使得 $ x − 5, quad x, quad x + 5 $ 都是有理数的平方。换句话说，我们希望三个有理数的平方构成一个公差为 5 的等差数列。
+
+假设我们能找到这样的 $x$，那么它们的乘积 $(x - 5)(x)(x + 5) = x^3 - 25x$ 也将必是一个有理数的平方，所以我们需要找方程 $ y^2 = x^3 - 25x $ 的有理解。
+
+正如上面所说的，这是椭圆曲线的方程。当然，即使我们找到了一个这样的有理数解，也不能保证它对应一个有理数三角形（参见 @exercise:2）。不过，一旦我们找到了一个满足 $y != 0$ 的有理数解，就可以利用它构造出另一个确实对应有理边三角形的解（参见 @exercise:2）。这正是我们接下来要做的事情。
+
+/// TODO: Keep translate here...
+
+#figure(caption: "面积为 5 的有理边三角形")[
+  #cetz.canvas(length: 2.5em, {
+    import cetz.draw: *
+    line((0, 0), (20 / 3, 0), name: "a")
+    content("a", $ frac(20, 3) $, anchor: "north", padding: .1)
+    line((20 / 3, 0), (20 / 3, 3 / 2), name: "b")
+    content("b", $ frac(3, 2) $, anchor: "west", padding: .1)
+    line((20 / 3, 3 / 2), (0, 0), name: "c")
+    content("c", $ frac(41, 6) $, anchor: "south-east", padding: .1)
+  })
+] <fig:triangle-area-5-with-num>
+
 == 练习
+
+#exercise[
+  使用数学归纳法证明 $ 1^2 + 2^2 + 3^2 + dots.c + x^2 = frac(x(x + 1)(2x + 1), 6) $ 对于所有的正整数 $x$ 都成立。
+] <exercise:1>
+
+#exercise[
+  + 证明若 $x, y$ 是满足 $y^2 = x^3 - 25x$ 的有理数，且 $x$ 是一个有理数的平方，则这无法推出 $x + 5$ 和 $x - 5$ 都是有理数的平方。 /// TODO: Check meaning
+
+  + $n$ 为整数，证明若 $x, y$ 是满足 $y^2 = x^3 - n^2x$ 的有理数，且 $x != 0, plus.minus n$，那么在曲线上作点 $(x, y)$ 的切线与曲线的交点 $(x_1, y_1)$ 满足 $x_1, x_1 - n, x_1 + n$ 都是有理数的平方。（更一般的见定理 8.14）这说明如果我们能找到一个起始点使得 $x != 0, plus.minus n$，那么使用文中的方法就一定能构造出一个面积为 $n$ 的有理数三角形。
+] <exercise:2>
 
 = 理论基础
 
