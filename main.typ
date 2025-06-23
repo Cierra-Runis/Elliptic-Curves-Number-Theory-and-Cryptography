@@ -131,8 +131,8 @@ III. 复分析路径
 
 假定有一堆球形炮弹以金字塔的形状堆放，并顶层有一颗，第二层有四颗，第三层有九颗，依此类推。如果这堆炮弹倒塌，是否有可能将这些炮弹重新排列成为一个正方形？
 
-#figure(caption: "炮弹金字塔")[
-  #cetz.canvas({
+#figure(caption: "炮弹1金字塔")[
+  #cetz.canvas(length: 1.9em, {
     import cetz.draw: *
 
     circle((2, 0), fill: yellow)
@@ -156,7 +156,7 @@ III. 复分析路径
 设金字塔高 $x$，那么一共有 $ 1^2 + 2^2 + 3^3 + dots.c + x^2 = frac(x(x + 1)(2x + 1), 6) $ 颗球（见 @exercise:1）。我们期望这是一个完全平方数，也就是我们想要找到关于正整数 $x, y$ 的方程 $ y^2 = frac(x(x + 1)(2x + 1), 6) $ 的解。这样的方程给出了一个 *椭圆曲线*。图像如 @fig:pyramid-elliptic-curve 所示。
 
 #figure(caption: $y^2 = x(x + 1)(2x + 1) \/ 6$)[
-  #cetz.canvas(length: 7em, {
+  #cetz.canvas(length: 6em, {
     import cetz.draw: *
 
     let y(x) = {
