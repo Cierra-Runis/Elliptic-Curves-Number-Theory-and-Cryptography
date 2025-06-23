@@ -14,10 +14,6 @@
   ),
   size: 12pt,
 )
-#show emph: text.with(font: (
-  (name: "New Computer Modern", covers: "latin-in-cjk"),
-  "Kaiti",
-))
 
 #set heading(outlined: false)
 #show heading.where(level: 1): it => [
