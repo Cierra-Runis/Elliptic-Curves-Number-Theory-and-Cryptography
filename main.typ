@@ -1,4 +1,4 @@
-#import "@preview/cetz:0.4.0"
+#import "@preview/cetz:0.4.0": *
 #import "@preview/thmbox:0.2.0": *
 #import "@preview/hydra:0.6.1": hydra
 
@@ -184,8 +184,8 @@
 假定有一堆球形炮弹以金字塔的形状堆放，并顶层有一颗，第二层有四颗，第三层有九颗，依此类推。如果这堆炮弹倒塌，是否有可能将这些炮弹重新排列成为一个正方形？
 
 #figure(caption: "炮弹金字塔")[
-  #cetz.canvas(length: 2em, {
-    import cetz.draw: *
+  #canvas(length: 2em, {
+    import draw: *
 
     circle((2, 0), fill: white)
     circle((2, 2), fill: white)
@@ -208,8 +208,8 @@
 设金字塔高 $x$，那么一共有 $ 1^2 + 2^2 + 3^3 + dots.c + x^2 = frac(x(x + 1)(2x + 1), 6) $ 颗球（见 @exercise:1-1）。我们期望这是一个完全平方数，也就是我们想要找到关于正整数 $x, y$ 的方程 $ y^2 = frac(x(x + 1)(2x + 1), 6) $ 的解。这样的方程给出了一个 *椭圆曲线*。图像如 @fig:pyramid-elliptic-curve 所示。
 
 #figure(caption: $y^2 = x(x + 1)(2x + 1) \/ 6$)[
-  #cetz.canvas(length: 6em, {
-    import cetz.draw: *
+  #canvas(length: 6em, {
+    import draw: *
 
     let y(x) = {
       let y2 = x * (x + 1) * (2 * x + 1) / 6
@@ -230,11 +230,8 @@
       line(p.at(1), p2.at(1))
     }
 
-    grid(
-      (-1, -1),
-      (1, 1),
-      help-lines: true,
-    )
+    line((-1.05, 0), (1, 0))
+    line((0, -1), (0, 1))
   })
 ] <fig:pyramid-elliptic-curve>
 
@@ -247,8 +244,8 @@
 这还有另一个丢番图方法的例子 —— 是否存在一个直角三角形三条都是有理边，且面积为 5？最小的毕达哥拉斯三元组（勾股数）是 $(3, 4, 5)$，面积为 6，所以我们知道我们不能只把注意力放在整数上。现在再来看看边为 $(8, 15, 17)$ 的三角形，它的面积为 60。如果我们将边除以 2，我们得到一个边为 $(4, 15 \/ 2, 17 \/ 2)$ 的面积为 15 的三角形。所以有可能得到一个边不是整数，但面积是整数的三角形。
 
 #figure(caption: "面积为 5 的有理边三角形")[
-  #cetz.canvas(length: 2.5em, {
-    import cetz.draw: *
+  #canvas(length: 2.5em, {
+    import draw: *
     line((0, 0), (20 / 3, 0), name: "a")
     content("a", $ a $, anchor: "north", padding: .1)
     line((20 / 3, 0), (20 / 3, 3 / 2), name: "b")
@@ -289,8 +286,8 @@
 当然，这是由边为 $(40, 9, 41)$ 的三角形缩小 6 倍得到的。
 
 #figure(caption: "面积为 5 的有理边三角形")[
-  #cetz.canvas(length: 2.5em, {
-    import cetz.draw: *
+  #canvas(length: 2.5em, {
+    import draw: *
     line((0, 0), (20 / 3, 0), name: "a")
     content("a", $ 20 / 3 $, anchor: "north", padding: .1)
     line((20 / 3, 0), (20 / 3, 3 / 2), name: "b")
@@ -383,6 +380,91 @@ $
 = 理论基础
 
 == 魏尔斯特拉斯方程
+
+在本书的大多数情形中，椭圆曲线 $E$ 是形如 $ y^2 = x^3 + A x + B $ 的方程图像，其中 $A$ 和 $B$ 是常数。这个形式被称为 *椭圆曲线的 Weierstrass 方程*。我们需要明确 $A, B, x$ 和 $y$ 分别属于哪个集合。通常，它们被看作某个域中的元素，例如实数域 $RR$、复数域 $CC$、有理数域 $QQ$、有限域 $FF_p (= ZZ_p)$，其中 $p$ 为素数，或更一般的有限域 $FF_q$，其中 $q = p^k$ 且 $k >= 1$。事实上，在本书几乎所有地方，如果读者对域这个概念不熟悉，也可以直接将其理解为上述这些常见的域之一即可。如果 $K$ 是一个域，且 $A, B in K$，那么我们说椭圆曲线 $E$ 是 *定义在* $K$ *上的*。在本书中，$E$ 和 $K$ 一般默认表示一个椭圆曲线及其定义所在的域。
+
+如果我们希望讨论定义在某个扩域 $L supset.eq K$ 上的点，我们记作 $E(L)$。按照定义，这个集合总是包含一个将在本节后面定义的特殊点 $infinity$：
+
+$ E(L) = {infinity} union {(x, y) in L times L divides y^2 = x^3 + A x + B} $
+
+对于大多数域而言，无法画出直观的椭圆曲线图像。然而，为了形成直觉，考虑定义在实数域 $RR$ 上的曲线图像是很有帮助的。它们有两种基本形状，如图 2.1 所示：
+
+#figure(caption: "椭圆曲线的两种基本形状")[
+  #grid(
+    columns: (auto, auto),
+    rows: (auto, auto),
+    column-gutter: 2em,
+    canvas({
+      import draw: *
+
+      import draw: *
+
+      let y(x) = {
+        let y2 = x * x * x - x
+        if y2 < 0 { return () }
+        let y = calc.sqrt(y2)
+        return ((x, y), (x, -y))
+      }
+
+      for i in range(-100, 200) {
+        let p = y(i / 100)
+        let p2 = y((i + 1) / 100)
+        if p.len() == 0 or p2.len() == 0 { continue }
+        line(p.at(0), p2.at(0))
+        line(p.at(1), p2.at(1))
+      }
+      set-style(mark: (end: "barbed"))
+      line((-1, 0), (2, 0))
+      line((0, -3), (0, 3))
+    }),
+    canvas({
+      import draw: *
+
+      let y(x) = {
+        let y2 = x * x * x + x
+        if y2 < 0 {
+          return ()
+        }
+        let y = calc.sqrt(y2)
+        return ((x, y), (x, -y))
+      }
+
+      for i in range(0, 160) {
+        let p = y(i / 100)
+        let p2 = y((i + 1) / 100)
+        if p.len() == 0 or p2.len() == 0 {
+          continue
+        }
+        line(p.at(0), p2.at(0))
+        line(p.at(1), p2.at(1))
+      }
+      set-style(mark: (end: "barbed"))
+      line((-1, 0), (2, 0))
+      line((0, -3), (0, 3))
+    }),
+  )
+] <fig:elliptic-curves-shapes>
+
+第一种情况下，方程 $y^2 = x^3 - x$ 的三次项有三个不相等的实数根。第二种情况下，方程 $y^2 = x^3 + x$ 只有一个实根。
+
+---
+
+那么，如果存在*重根*会发生什么呢？我们*不允许这种情况发生*。也就是说，我们假设：
+
+$$
+4A^3 + 27B^2 \ne 0
+$$
+
+若三次多项式 $x^3 + A x + B$ 的根为 $r_1, r_2, r_3$，则可以证明其判别式（discriminant）为：
+
+$$
+((r_1 - r_2)(r_1 - r_3)(r_2 - r_3))^2 = - (4A^3 + 27B^2)
+$$
+
+---
+
+这段内容是椭圆曲线基础理论的核心之一。如果你还需要图像辅助说明、进一步数学背景（例如判别式为何如此定义），或者继续翻译接下来的章节，我都可以继续协助。
+
 
 == 群运算
 
