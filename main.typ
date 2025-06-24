@@ -6,15 +6,13 @@
   title: "椭圆曲线 - 数论与密码学（第二版）",
 )
 #set par(first-line-indent: (amount: 2em, all: true))
-#set text(
-  font: (
-    "New Computer Modern",
-    // (name: "New Computer Modern", covers: "latin-in-cjk"),
-    "Source Han Serif SC",
-    "JiangChengXieSong 400W",
-  ),
-  size: 12pt,
+#let sans-fonts = (
+  "New Computer Modern",
+  // (name: "New Computer Modern", covers: "latin-in-cjk"),
+  "Source Han Serif SC",
+  "JiangChengXieSong 400W",
 )
+#set text(font: sans-fonts, size: 12pt)
 
 #set heading(outlined: false)
 #show heading.where(level: 1): it => [
@@ -65,6 +63,26 @@
 
 关于椭圆曲线的优秀著作在文献中已有多种。本书并无意取代 Silverman 所著的两卷经典作品 @silverman1986arithmetic、@silverman1994advancedtopics，后者已成为椭圆曲线数论方面的标准参考资料。相反，本书从更基础的视角出发，涵盖了部分相同内容，并加入了对密码学应用的讨论。我们希望读者在阅读本书之后，能更容易理解 Silverman 的著作，并欣赏其略显进阶的处理方式。对于更偏解析方法的椭圆曲线算术研究，建议参考 Knapp @knapp1992elliptic 和 Koblitz @koblitz1993ellipticmodular 的著作，它们在这方面的处理比本书或 Silverman 的 @silverman1986arithmetic 更为深入。在椭圆曲线密码学方面，Blake 等人近期的著作 @blake2000elliptic 提供了多个算法的更详尽细节，尽管其中几乎没有证明，仍是学习椭圆曲线密码学的重要资料。本书旨在为理解该书中所用的数学提供良好的入门与解释。此外，Enge @enge1999elliptic、Koblitz @koblitz1998algebraiccrypto @koblitz1994course 以及 Menezes @menezes1993eccpubkey 等人的著作也从密码学角度探讨了椭圆曲线，值得深入阅读。
 
+#thmbox(
+  variant: "符号说明",
+  numbering: none,
+  title-fonts: sans-fonts,
+)[
+  符号 $ZZ, FF_q, QQ, RR, CC$ 分别表示整数域、有 $q$ 个元素的有限域、有理数域、实数域和复数域。我们使用 $ZZ_n$（而不是 $ZZ \/ n ZZ$）来表示模 $n$ 的整数。然而，当 $p$ 是素数，并且我们将 $ZZ_p$ 作为域而不是作为群或环来使用时，我们使用 $FF_p$，以与 $FF_q$ 的记号保持一致。注意，$ZZ_p$ 并不表示 $p$ 进整数。我们之所以这样选用，主要出于排版的考虑，因为模 $p$ 的整数频繁出现，而 $p$ 进整数的符号仅在第 13 章的少数几个例子中出现（其中我们用 $cal(O)_p$ 表示）。$p$ 进有理数表示为 $QQ_p$。
+
+  如果 $K$ 是一个域，那么 $overline(K)$ 表示其代数闭包。如果 $R$ 是一个环，则 $R^times$ 表示 $R$ 中的可逆元素。当 $K$ 是域时，$K^times$ 因此表示 $K$ 的非零元素所构成的乘法群。在全书中，字母 $K$ 和 $E$ 通常分别用来表示一个域和一条椭圆曲线（但在第 9 章中，$K$ 有几处用来表示椭圆积分）。
+]
+
+#thmbox(
+  variant: "致谢",
+  numbering: none,
+  title-fonts: sans-fonts,
+)[
+  作者感谢 CRC Press 的 Bob Stern 提议撰写本书并给予鼓励，也感谢 CRC Press 编辑团队在本书准备过程中提供的帮助。
+
+  Ed Eikenberg、Jim Owings、Susan Schmoyer、Brian Conrad 和 Sam Wagstaff 提出了许多建议，使得手稿得到了极大的改进。当然，仍有提升的空间。欢迎将建议和勘误发送至 #link("mailto:lcw@math.umd.edu")[作者邮箱]。勘误列表将发布在 #link("www.math.umd.edu/~lcw/ellipticcurves.html")[本书的网站] 上。
+]
+
 = 第二版前言
 
 读者在阅读第二版前言时最常提出的问题就是“有什么新内容”，主要增加了以下内容：
@@ -93,20 +111,15 @@
 
 所有读者：第 1、2、3、4 章提供了该主题的基础介绍，所有人都应阅读这些章节。
 
-I. 密码学路径
-继续阅读第 5、6、7 章，然后跳转到第 11 章和第 13 章。
-
-II. 数论路径
-阅读第 8、9、10、11、12、14、15 章。之后建议回头阅读先前跳过的章节，以了解该领域在实际应用中的用法。
-
-III. 复分析路径
-阅读第 9、10 章以及第 12.1 节。
+#enum(
+  numbering: "I.",
+  enum.item[密码学路径：继续阅读第 5、6、7 章，然后跳转到第 11 章和第 13 章],
+  enum.item[数论路径：阅读第 8、9、10、11、12、14、15 章，之后建议回头阅读先前跳过的章节，以了解该领域在实际应用中的用法],
+  enum.item[复分析路径：阅读第 9、10 章以及第 12.1 节],
+)
 
 #pagebreak()
-#outline(
-  title: "目录",
-  indent: 2em,
-)
+#outline(title: "目录", indent: 2em)
 
 #set page(numbering: "1", header: context {
   if calc.odd(here().page()) {
