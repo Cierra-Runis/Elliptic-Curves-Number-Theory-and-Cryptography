@@ -102,8 +102,7 @@ II. 数论路径
 III. 复分析路径
 阅读第 9、10 章以及第 12.1 节。
 
-= 译者的话
-
+#pagebreak()
 #outline(
   title: "目录",
   indent: 2em,
