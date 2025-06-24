@@ -42,6 +42,16 @@
   sans-fonts: sans-fonts,
 )
 
+#let exercise-counter = counter("exercise")
+#show: sectioned-counter(exercise-counter)
+#let exercise = thmbox.with(
+  counter: exercise-counter,
+  variant: "练习",
+  color: colors.light-aqua,
+  title-fonts: sans-fonts,
+  sans-fonts: sans-fonts,
+)
+
 /// https://typst-doc-cn.github.io/guide/FAQ/math-equation.html
 #set math.equation(
   numbering: "(1.1)", /// FIXME: Only show the number
@@ -125,7 +135,7 @@
 
 + 对 Weil 配对 和 Tate-Lichtenbaum 配对 提供更完整的处理，包括 Tate-Lichtenbaum 配对的初等定义、其非退化性的证明，以及 Weil 配对两种常见定义相等的证明
 
-+ 加入 Doud 提出的用于计算有理数域上椭圆曲线扭点的解析方法
++ 加入 Doud 提出的用于计算有理数域上椭圆曲线挠点的解析方法
 
 + 补充了一些用于确定有限域上椭圆曲线点群的新技术
 
@@ -698,19 +708,21 @@ $
 #exercise[
 ] <exercise:2-24>
 
-= Torsion Points
+= 挠点 <chap:torsion-points>
 
-== Torsion Points
+挠点，即阶数是有限的点，在椭圆曲线的研究中扮演着重要角色。我们将在 @chap:elliptic-curves-over-finite-fields 中看到它们在有限域上的椭圆曲线中所起的作用，在那里所有的点都是挠点；而在 @chap:elliptic-curves-over-Q 中，我们将在一个称为降维的过程中使用到 2-挠点。在本章中，我们首先考虑 2-阶与 3-阶的基本情形，然后再确定一般情况。最后，我们将讨论重要的 Weil 配对与 Tate-Lichtenbaum 配对。
+
+== 挠点 <sec:torsion-points>
 
 == Division Polynomials
 
-== The Weil Pairing
+== The Weil Pairing <sec:torsion-points-weil-pairing>
 
-== The Tate-Lichtenbaum Pairing
+== The Tate-Lichtenbaum Pairing <sec:torsion-points-tate-lichtenbaum-pairing>
 
 #heading(numbering: none, level: 2)[练习]
 
-= Elliptic Curves over Finite Fields
+= Elliptic Curves over Finite Fields <chap:elliptic-curves-over-finite-fields>
 
 == Examples
 
@@ -846,7 +858,7 @@ $
 
 == The Weil Pairing
 
-== The Tate-Lichtenbaum Pairing
+<sec:torsion-points-tate-lichtenbaum-pairing>
 
 == Computation of the Pairings
 
@@ -856,7 +868,7 @@ $
 
 === The Weil Pairing
 
-=== The Tate-Lichtenbaum Pairing
+=         <sec:torsion-points-tate-lichtenbaum-pairing>
 
 == Nondegeneracy of the Tate-Lichtenbaum Pairing
 
