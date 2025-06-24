@@ -31,7 +31,10 @@
 #show ref: set text(fill: red)
 #show footnote: set text(fill: red)
 
+#let conjecture-counter = counter("conjecture")
+#show: sectioned-counter(conjecture-counter)
 #let conjecture = thmbox.with(
+  counter: conjecture-counter,
   variant: "猜想",
   color: colors.orange,
   title-fonts: sans-fonts,
