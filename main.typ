@@ -1,6 +1,6 @@
 #import "@preview/cetz:0.4.0"
 #import "@preview/thmbox:0.2.0": *
-
+#import "@preview/hydra:0.6.1": hydra
 
 #set document(
   title: "椭圆曲线 - 数论与密码学（第二版）",
@@ -8,7 +8,8 @@
 #set par(first-line-indent: (amount: 2em, all: true))
 #set text(
   font: (
-    (name: "New Computer Modern", covers: "latin-in-cjk"),
+    "New Computer Modern",
+    // (name: "New Computer Modern", covers: "latin-in-cjk"),
     "Source Han Serif SC",
     "JiangChengXieSong 400W",
   ),
@@ -23,6 +24,7 @@
   ]
 ]
 
+#show outline.entry: set text(fill: red)
 #show link: set text(fill: red)
 #show ref: set text(fill: red)
 #show footnote: set text(fill: red)
@@ -52,8 +54,8 @@
   College Park, Maryland, U.S.A.
 ]
 
+#counter(page).update(0)
 #set page(numbering: "I")
-#counter(page).update(1)
 
 = 前言
 
@@ -107,7 +109,16 @@ III. 复分析路径
   indent: 2em,
 )
 
-#set page(numbering: "1")
+#set page(numbering: "1", header: context {
+  if calc.odd(here().page()) {
+    return align(right, emph(hydra()))
+  }
+  let section = hydra(2)
+  if section != none {
+    return align(left, emph(section))
+  }
+  align(left, emph(hydra()))
+})
 #counter(page).update(1)
 
 #show: thmbox-init()
@@ -206,7 +217,7 @@ III. 复分析路径
   })
 ] <fig:triangle-area-5-with-abc>
 
-令我们所找的三角形三条边为 $a, b, c$，如图 @fig:triangle-area-5-with-abc 所示。因为面积 $a b \/ 2 = 5$，我们所找的有理数 $a, b, c$ 就有 $ a^2 + b^2 = c^2, quad a b = 10 $ 简单的变形得到 $ (frac(a + b, 2))^2 = frac(a^2 + 2a b + b^2, 4) = frac(c^2 + 20, 4) = (frac(c, 2))^2 + 5 \ (frac(a - b, 2))^2 = frac(a^2 - 2a b + b^2, 4) = frac(c^2 - 20, 4) = (frac(c, 2))^2 - 5 $ 令 $x = (c \/ 2)^2$，得到 $ x - 5 = (frac(a - b, 2))^2 quad 和 quad  x + 5 = (frac(a + b, 2))^2 $ 因此，我们正在寻找一个有理数 $x$，使得 $ x − 5, quad x, quad x + 5 $ 都是有理数的平方。换句话说，我们希望三个有理数的平方构成一个公差为 5 的等差数列。
+令我们所找的三角形三条边为 $a, b, c$，如图 @fig:triangle-area-5-with-abc 所示。因为面积 $a b \/ 2 = 5$，我们所找的有理数 $a, b, c$ 就有 $ a^2 + b^2 = c^2, quad a b = 10 $ 简单的变形得到 $ (frac(a + b, 2))^2 = frac(a^2 + 2a b + b^2, 4) = frac(c^2 + 20, 4) = (frac(c, 2))^2 + 5 \ (frac(a - b, 2))^2 = frac(a^2 - 2a b + b^2, 4) = frac(c^2 - 20, 4) = (frac(c, 2))^2 - 5 $ 令 $x = (c \/ 2)^2$，得到 $ x - 5 = (frac(a - b, 2))^2 quad 和 quad x + 5 = (frac(a + b, 2))^2 $ 因此，我们正在寻找一个有理数 $x$，使得 $ x − 5, quad x, quad x + 5 $ 都是有理数的平方。换句话说，我们希望三个有理数的平方构成一个公差为 5 的等差数列。
 
 假设我们能找到这样的 $x$，那么它们的乘积 $(x - 5)(x)(x + 5) = x^3 - 25x$ 也将必是一个有理数的平方，所以我们需要找方程 $ y^2 = x^3 - 25x $ 的有理解。
 
@@ -243,5 +254,270 @@ III. 复分析路径
 == 魏尔斯特拉斯方程
 
 == 群运算
+
+== Projective Space and the Point at Infinity
+
+== Proof of Associativity
+
+=== The Theorem of Pappus and Pascal
+
+== Other Equations of Elliptic Curves
+
+=== Legendre Equation
+
+=== Cubic Equations
+
+=== Quartic Equations
+
+=== Intersection of Two Quadratic Surfaces
+
+== Other Coordinate Systems
+
+=== Projective Coordinates
+
+=== Jacobian Coordinates
+
+=== Edwards Coordinates
+
+== The j-invariant
+
+== Elliptic Curves in Characteristic 2
+
+== Endomorphisms
+
+== Singular Curves
+
+== Elliptic Curves mod n
+
+== Exercises
+
+= Torsion Points
+
+== Torsion Points
+
+== Division Polynomials
+
+== The Weil Pairing
+
+== The Tate-Lichtenbaum Pairing
+
+== Exercises
+
+= Elliptic Curves over Finite Fields
+
+== Examples
+
+== The Frobenius Endomorphism
+
+== Determining the Group Order
+
+=== Subfield Curves
+
+=== Legendre Symbols
+
+=== Orders of Points
+
+=== Baby Step, Giant Step
+
+== A Family of Curves
+
+== Schoof's Algorithm
+
+== Supersingular Curves
+
+== Exercises
+
+= The Discrete Logarithm Problem
+
+== The Index Calculus
+
+== General Attacks on Discrete Logs
+
+=== Baby Step, Giant Step
+
+=== Pollard's $rho$ and $lambda$ Method
+
+== Attacks with Pairings
+
+=== The MOV Attack
+
+=== The Frey-Rück Attack
+
+== Anomalous Curves
+
+== Other Attacks
+
+== Exercises
+
+= Elliptic Curves Cryptography
+
+== The Basic Setup
+
+== Diffe-Hellman Key Exchange
+
+== Massey-Omura Encryption
+
+== ElGamal Public Key Encryption
+
+== ElGamal Digital Signatures
+
+== The Digital Signature Algorithm
+
+== ECIES
+
+== A Public Key Scheme Based on Factoring
+
+== A Cryptosystem Based on the Weil Pairing
+
+== Exercises
+
+= Other Applications
+
+== Factoring Using Elliptic Curves
+
+== Primality Testing
+
+== Exercises
+
+= Elliptic Curves over $QQ$
+
+== The Torsion Subgroup. The Lutz-Nagell Theorem
+
+== Descent and the Weak Mordell-Weil Theorem
+
+== Heights and the Mordell-Weil Theorem
+
+== Examples
+
+== The Height Pairing
+
+== Fermat's Infinite Descent
+
+== 2-Selmer Groups; Shafarevich-Tate Groups
+
+== A Nontrivial Shafarevich-Tate Group
+
+== Galois Cohomology
+
+== Exercises
+
+= Elliptic Curves over $CC$
+
+== Doubly Periodic Functions
+
+== Tori are Elliptic Curves
+
+== Elliptic Curves over $CC$
+
+== Computing Periods
+
+=== The Arithmetic-Geometric Mean
+
+== Division Polynomials
+
+== The Torsion Subgroup: Doud's Method
+
+== Exercises
+
+= Complex Multiplication
+
+== Elliptic Curves over $CC$
+
+== Elliptic Curves over Finite Fields
+
+== Integrality of j-invariant
+
+== Numerical Examples
+
+== Kronecker's Jugendtraum
+
+== Exercises
+
+= Divisors
+
+== Definitions and Examples
+
+== The Weil Pairing
+
+== The Tate-Lichtenbaum Pairing
+
+== Computation of the Pairings
+
+== Genus One Curves and Elliptic Curves
+
+== Equivalence of the Definitions of the Pairings
+
+=== The Weil Pairing
+
+=== The Tate-Lichtenbaum Pairing
+
+== Nondegeneracy of the Tate-Lichtenbaum Pairing
+
+== Exercises
+
+= Isogenies
+
+== The Complex Theory
+
+== The Algebraic Theory
+
+== Vélu's Formulas
+
+== Point Counting
+
+== Complements
+
+== Exercises
+
+= Hyperelliptic Curves
+
+== Basic Definitions
+
+== Divisors
+
+== Cantor's Algorithm
+
+== The Discrete Logarithm Problem
+
+== Exercises
+
+= Zeta Functions
+
+== Elliptic Curves over Finite Fields
+
+== Elliptic Curves over $QQ$
+
+== Exercises
+
+= Fermat's Last Theorem
+
+== Overview
+
+== Galois Representations
+
+== Sketch of Ribet's Proof
+
+== Sketch of Wiles' Proof
+
+#let appendix(body) = {
+  set heading(numbering: "A.1", supplement: [Appendix])
+  counter(heading).update(0)
+  body
+}
+#show: appendix
+
+= Number Theory
+
+= Groups
+
+= Fields
+
+= Computer Packages
+
+== Pari
+
+== Magma
+
+== SAGE
 
 #bibliography("/references.bib", title: "参考文献")
