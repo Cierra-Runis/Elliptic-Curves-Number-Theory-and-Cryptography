@@ -1,6 +1,7 @@
 #import "@preview/cetz:0.4.0": *
 #import "@preview/thmbox:0.2.0": *
 #import "@preview/hydra:0.6.1": hydra
+#import "@preview/subpar:0.2.2"
 
 #set document(
   title: "椭圆曲线 - 数论与密码学（第二版）",
@@ -186,6 +187,7 @@
 #figure(caption: "炮弹金字塔")[
   #canvas(length: 2em, {
     import draw: *
+    set-style(stroke: 0.5pt)
 
     circle((2, 0), fill: white)
     circle((2, 2), fill: white)
@@ -210,6 +212,7 @@
 #figure(caption: $y^2 = x(x + 1)(2x + 1) \/ 6$)[
   #canvas(length: 6em, {
     import draw: *
+    set-style(stroke: 0.5pt)
 
     let y(x) = {
       let y2 = x * (x + 1) * (2 * x + 1) / 6
@@ -246,6 +249,8 @@
 #figure(caption: "面积为 5 的有理边三角形")[
   #canvas(length: 2.5em, {
     import draw: *
+    set-style(stroke: 0.5pt)
+
     line((0, 0), (20 / 3, 0), name: "a")
     content("a", $ a $, anchor: "north", padding: .1)
     line((20 / 3, 0), (20 / 3, 3 / 2), name: "b")
@@ -288,6 +293,8 @@
 #figure(caption: "面积为 5 的有理边三角形")[
   #canvas(length: 2.5em, {
     import draw: *
+    set-style(stroke: 0.5pt)
+
     line((0, 0), (20 / 3, 0), name: "a")
     content("a", $ 20 / 3 $, anchor: "north", padding: .1)
     line((20 / 3, 0), (20 / 3, 3 / 2), name: "b")
@@ -387,84 +394,80 @@ $
 
 $ E(L) = {infinity} union {(x, y) in L times L divides y^2 = x^3 + A x + B} $
 
-对于大多数域而言，无法画出直观的椭圆曲线图像。然而，为了形成直觉，考虑定义在实数域 $RR$ 上的曲线图像是很有帮助的。它们有两种基本形状，如图 2.1 所示：
+对于大多数域而言，无法画出直观的椭圆曲线图像。然而，为了形成直觉，考虑定义在实数域 $RR$ 上的曲线图像是很有帮助的。它们有两种基本形状，如 @fig:elliptic-curves-shapes 所示：
 
-#figure(caption: "椭圆曲线的两种基本形状")[
-  #grid(
-    columns: (auto, auto),
-    rows: (auto, auto),
-    column-gutter: 2em,
-    canvas({
-      import draw: *
+#subpar.grid(
+  caption: "椭圆曲线的两种基本形状",
+  columns: (1fr, 1fr),
+  label: <fig:elliptic-curves-shapes>,
+  supplement: "图",
+  numbering-sub: "(1)",
+  figure(caption: $y^2 = x^3 - x$, canvas(length: 3em, {
+    import draw: *
+    set-style(stroke: 0.5pt)
 
-      import draw: *
+    let y(x) = {
+      let y2 = x * x * x - x
+      if y2 < 0 { return () }
+      let y = calc.sqrt(y2)
+      return ((x, y), (x, -y))
+    }
 
-      let y(x) = {
-        let y2 = x * x * x - x
-        if y2 < 0 { return () }
-        let y = calc.sqrt(y2)
-        return ((x, y), (x, -y))
-      }
+    for i in range(-100, 200) {
+      let p = y(i / 100)
+      let p2 = y((i + 1) / 100)
+      if p.len() == 0 or p2.len() == 0 { continue }
+      line(p.at(0), p2.at(0))
+      line(p.at(1), p2.at(1))
+    }
 
-      for i in range(-100, 200) {
-        let p = y(i / 100)
-        let p2 = y((i + 1) / 100)
-        if p.len() == 0 or p2.len() == 0 { continue }
-        line(p.at(0), p2.at(0))
-        line(p.at(1), p2.at(1))
-      }
-      set-style(mark: (end: "barbed"))
-      line((-1, 0), (2, 0))
-      line((0, -3), (0, 3))
-    }),
-    canvas({
-      import draw: *
+    line((-1.05, 0), (2, 0))
+    line((0, -2.5), (0, 2.5))
+  })),
+  figure(caption: $y^2 = x^3 + x$, canvas(length: 3em, {
+    import draw: *
+    set-style(stroke: 0.5pt)
 
-      let y(x) = {
-        let y2 = x * x * x + x
-        if y2 < 0 {
-          return ()
-        }
-        let y = calc.sqrt(y2)
-        return ((x, y), (x, -y))
-      }
+    let y(x) = {
+      let y2 = x * x * x + x
+      if y2 < 0 { return () }
+      let y = calc.sqrt(y2)
+      return ((x, y), (x, -y))
+    }
 
-      for i in range(0, 160) {
-        let p = y(i / 100)
-        let p2 = y((i + 1) / 100)
-        if p.len() == 0 or p2.len() == 0 {
-          continue
-        }
-        line(p.at(0), p2.at(0))
-        line(p.at(1), p2.at(1))
-      }
-      set-style(mark: (end: "barbed"))
-      line((-1, 0), (2, 0))
-      line((0, -3), (0, 3))
-    }),
-  )
-] <fig:elliptic-curves-shapes>
+    for i in range(0, 160) {
+      let p = y(i / 100)
+      let p2 = y((i + 1) / 100)
+      if p.len() == 0 or p2.len() == 0 { continue }
+      line(p.at(0), p2.at(0))
+      line(p.at(1), p2.at(1))
+    }
+
+    line((-0.05, 0), (2, 0))
+    line((0, -2.5), (0, 2.5))
+  })),
+)
 
 第一种情况下，方程 $y^2 = x^3 - x$ 的三次项有三个不相等的实数根。第二种情况下，方程 $y^2 = x^3 + x$ 只有一个实根。
 
----
+那么，如果存在重根会发生什么呢？我们不允许这种情况发生。也就是说，我们假定 $ 4A^3 + 27B^2 != 0 $
 
-那么，如果存在*重根*会发生什么呢？我们*不允许这种情况发生*。也就是说，我们假设：
+若三次多项式 $x^3 + A x + B$ 的根为 $r_1, r_2, r_3$，则可以证明其判别式为 $ ((r_1 - r_2)(r_1 - r_3)(r_2 - r_3))^2 = - (4A^3 + 27B^2) $
 
-$$
-4A^3 + 27B^2 \ne 0
-$$
+因此，三次方程的根必须是互不相同的。然而，当根不互异时的情形依然很有趣，我们将在 @subsec:singular-curves 中讨论这一情况。
 
-若三次多项式 $x^3 + A x + B$ 的根为 $r_1, r_2, r_3$，则可以证明其判别式（discriminant）为：
+为了获得更多的灵活性，我们还允许使用更一般形式的方程 $ y^2 + a_1 x y + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6 $ <eq:generalized-weierstrass-equation> 其中 $a_1, dots.c, a_6$ 是常数。这个更一般的形式（我们称之为 *广义 Weierstrass 方程*）在处理特征为 2 或 3 的域时非常有用。如果域的特征不是 2，我们可以对 $y$ 完全平方，做如下变形：
 
-$$
-((r_1 - r_2)(r_1 - r_3)(r_2 - r_3))^2 = - (4A^3 + 27B^2)
-$$
+$
+  (y + frac(a_1 x, 2) + frac(a_3, 2))^2 =
+  x^3 + (a_2 + frac(a_1^2, 4)) x^2
+  + (a_4 + frac(a_1 a_3, 2)) x
+  + (frac(a_3^2, 4) + a_6)
+$
 
----
+这可以写成 $ y_1^2 = x^3 + a'_2 x^2 + a'_4 x + a'_6 $
 
-这段内容是椭圆曲线基础理论的核心之一。如果你还需要图像辅助说明、进一步数学背景（例如判别式为何如此定义），或者继续翻译接下来的章节，我都可以继续协助。
-
+其中 $y_1 = y + a_1 x \/ 2 + a_3 \/ 2$，$a'_2, a'_4, a'_6$ 是某些新的常数。如果域的特征还不是 3，我们可以令 $x_1 = x + a'_2 \/ 3$，从而得到 $ y_1^2 = x_1^3 + A x_1 + B $ 其中 $A$、$B$ 为某些常数。
 
 == 群运算
 
@@ -498,7 +501,7 @@ $$
 
 == Endomorphisms
 
-== Singular Curves
+== Singular Curves <subsec:singular-curves>
 
 == Elliptic Curves mod n
 
