@@ -11,7 +11,7 @@
   "Source Han Serif SC",
   "JiangChengXieSong 400W",
 )
-#set text(font: sans-fonts, size: 12pt)
+#set text(font: sans-fonts, size: 13pt)
 
 #set heading(outlined: false, supplement: none)
 #show heading.where(level: 1): it => [
@@ -19,6 +19,10 @@
   #align(center)[
     #block(it, above: 2em, below: 2em)
   ]
+]
+#show heading.where(level: 2): it => [
+  #set text(size: 16pt)
+  #block(it, above: 1.5em, below: 1.5em)
 ]
 
 #set figure(supplement: "图")
@@ -176,23 +180,23 @@
 
 假定有一堆球形炮弹以金字塔的形状堆放，并顶层有一颗，第二层有四颗，第三层有九颗，依此类推。如果这堆炮弹倒塌，是否有可能将这些炮弹重新排列成为一个正方形？
 
-#figure(caption: "炮弹1金字塔")[
-  #cetz.canvas(length: 1.9em, {
+#figure(caption: "炮弹金字塔")[
+  #cetz.canvas(length: 2em, {
     import cetz.draw: *
 
-    circle((2, 0), fill: yellow)
-    circle((2, 2), fill: yellow)
-    circle((0, 2), fill: yellow)
-    circle((-2, 2), fill: yellow)
-    circle((-2, 0), fill: yellow)
-    circle((-2, -2), fill: yellow)
-    circle((0, -2), fill: yellow)
-    circle((2, -2), fill: yellow)
-    circle((1, 1), fill: orange)
-    circle((-1, 1), fill: orange)
-    circle((-1, -1), fill: orange)
-    circle((1, -1), fill: orange)
-    circle((0, 0), fill: red)
+    circle((2, 0), fill: white)
+    circle((2, 2), fill: white)
+    circle((0, 2), fill: white)
+    circle((-2, 2), fill: white)
+    circle((-2, 0), fill: white)
+    circle((-2, -2), fill: white)
+    circle((0, -2), fill: white)
+    circle((2, -2), fill: white)
+    circle((1, 1), fill: white)
+    circle((-1, 1), fill: white)
+    circle((-1, -1), fill: white)
+    circle((1, -1), fill: white)
+    circle((0, 0), fill: white)
   })
 ]
 
@@ -345,7 +349,7 @@ $
 
 因此，当 $a b c != 0$ 时，方程 $a^3 + b^3 = c^3$ 没有整数解。
 
-== 练习
+#heading(numbering: none, level: 2)[练习]
 
 #exercise[
   使用数学归纳法证明 $ 1^2 + 2^2 + 3^2 + dots.c + x^2 = frac(x(x + 1)(2x + 1), 6) $ 对于所有的正整数 $x$ 都成立。
@@ -413,7 +417,7 @@ $
 
 == Elliptic Curves mod n
 
-== 练习
+#heading(numbering: none, level: 2)[练习]
 
 = Torsion Points
 
@@ -425,7 +429,7 @@ $
 
 == The Tate-Lichtenbaum Pairing
 
-== 练习
+#heading(numbering: none, level: 2)[练习]
 
 = Elliptic Curves over Finite Fields
 
@@ -449,7 +453,7 @@ $
 
 == Supersingular Curves
 
-== 练习
+#heading(numbering: none, level: 2)[练习]
 
 = The Discrete Logarithm Problem
 
@@ -471,7 +475,7 @@ $
 
 == Other Attacks
 
-== 练习
+#heading(numbering: none, level: 2)[练习]
 
 = Elliptic Curves Cryptography
 
@@ -493,7 +497,7 @@ $
 
 == A Cryptosystem Based on the Weil Pairing
 
-== 练习
+#heading(numbering: none, level: 2)[练习]
 
 = Other Applications
 
@@ -501,7 +505,7 @@ $
 
 == Primality Testing
 
-== 练习
+#heading(numbering: none, level: 2)[练习]
 
 = Elliptic Curves over $QQ$ <chap:elliptic-curves-over-Q>
 
@@ -523,7 +527,7 @@ $
 
 == Galois Cohomology
 
-== 练习
+#heading(numbering: none, level: 2)[练习]
 
 = Elliptic Curves over $CC$
 
@@ -541,7 +545,7 @@ $
 
 == The Torsion Subgroup: Doud's Method
 
-== 练习
+#heading(numbering: none, level: 2)[练习]
 
 = Complex Multiplication
 
@@ -555,7 +559,7 @@ $
 
 == Kronecker's Jugendtraum
 
-== 练习
+#heading(numbering: none, level: 2)[练习]
 
 = Divisors
 
@@ -577,7 +581,7 @@ $
 
 == Nondegeneracy of the Tate-Lichtenbaum Pairing
 
-== 练习
+#heading(numbering: none, level: 2)[练习]
 
 = Isogenies
 
@@ -591,7 +595,7 @@ $
 
 == Complements
 
-== 练习
+#heading(numbering: none, level: 2)[练习]
 
 = Hyperelliptic Curves
 
@@ -603,7 +607,7 @@ $
 
 == The Discrete Logarithm Problem
 
-== 练习
+#heading(numbering: none, level: 2)[练习]
 
 = Zeta Functions <chap:zeta-functions>
 
@@ -611,7 +615,7 @@ $
 
 == Elliptic Curves over $QQ$
 
-== 练习
+#heading(numbering: none, level: 2)[练习]
 
 = Fermat's Last Theorem <chap:fermat-last-theorem>
 
