@@ -289,7 +289,7 @@ III. 复分析路径
 
 == Elliptic Curves mod n
 
-== Exercises
+== 练习
 
 = Torsion Points
 
@@ -301,7 +301,7 @@ III. 复分析路径
 
 == The Tate-Lichtenbaum Pairing
 
-== Exercises
+== 练习
 
 = Elliptic Curves over Finite Fields
 
@@ -325,7 +325,7 @@ III. 复分析路径
 
 == Supersingular Curves
 
-== Exercises
+== 练习
 
 = The Discrete Logarithm Problem
 
@@ -347,7 +347,7 @@ III. 复分析路径
 
 == Other Attacks
 
-== Exercises
+== 练习
 
 = Elliptic Curves Cryptography
 
@@ -369,7 +369,7 @@ III. 复分析路径
 
 == A Cryptosystem Based on the Weil Pairing
 
-== Exercises
+== 练习
 
 = Other Applications
 
@@ -377,7 +377,7 @@ III. 复分析路径
 
 == Primality Testing
 
-== Exercises
+== 练习
 
 = Elliptic Curves over $QQ$
 
@@ -399,7 +399,7 @@ III. 复分析路径
 
 == Galois Cohomology
 
-== Exercises
+== 练习
 
 = Elliptic Curves over $CC$
 
@@ -417,7 +417,7 @@ III. 复分析路径
 
 == The Torsion Subgroup: Doud's Method
 
-== Exercises
+== 练习
 
 = Complex Multiplication
 
@@ -431,7 +431,7 @@ III. 复分析路径
 
 == Kronecker's Jugendtraum
 
-== Exercises
+== 练习
 
 = Divisors
 
@@ -453,7 +453,7 @@ III. 复分析路径
 
 == Nondegeneracy of the Tate-Lichtenbaum Pairing
 
-== Exercises
+== 练习
 
 = Isogenies
 
@@ -467,7 +467,7 @@ III. 复分析路径
 
 == Complements
 
-== Exercises
+== 练习
 
 = Hyperelliptic Curves
 
@@ -479,7 +479,7 @@ III. 复分析路径
 
 == The Discrete Logarithm Problem
 
-== Exercises
+== 练习
 
 = Zeta Functions
 
@@ -487,7 +487,7 @@ III. 复分析路径
 
 == Elliptic Curves over $QQ$
 
-== Exercises
+== 练习
 
 = Fermat's Last Theorem
 
