@@ -180,7 +180,7 @@
   }
 })
 
-= 引入
+= 引入 <chap:introduction>
 
 假定有一堆球形炮弹以金字塔的形状堆放，并顶层有一颗，第二层有四颗，第三层有九颗，依此类推。如果这堆炮弹倒塌，是否有可能将这些炮弹重新排列成为一个正方形？
 
@@ -386,7 +386,7 @@ $
 
 = 理论基础
 
-== 魏尔斯特拉斯方程
+== Weierstrass 方程
 
 在本书的大多数情形中，椭圆曲线 $E$ 是形如 $ y^2 = x^3 + A x + B $ 的方程图像，其中 $A$ 和 $B$ 是常数。这个形式被称为 *椭圆曲线的 Weierstrass 方程*。我们需要明确 $A, B, x$ 和 $y$ 分别属于哪个集合。通常，它们被看作某个域中的元素，例如实数域 $RR$、复数域 $CC$、有理数域 $QQ$、有限域 $FF_p (= ZZ_p)$，其中 $p$ 为素数，或更一般的有限域 $FF_q$，其中 $q = p^k$ 且 $k >= 1$。事实上，在本书几乎所有地方，如果读者对域这个概念不熟悉，也可以直接将其理解为上述这些常见的域之一即可。如果 $K$ 是一个域，且 $A, B in K$，那么我们说椭圆曲线 $E$ 是 *定义在* $K$ *上的*。在本书中，$E$ 和 $K$ 一般默认表示一个椭圆曲线及其定义所在的域。
 
@@ -454,7 +454,7 @@ $ E(L) = {infinity} union {(x, y) in L times L divides y^2 = x^3 + A x + B} $
 
 若三次多项式 $x^3 + A x + B$ 的根为 $r_1, r_2, r_3$，则可以证明其判别式为 $ ((r_1 - r_2)(r_1 - r_3)(r_2 - r_3))^2 = - (4A^3 + 27B^2) $
 
-因此，三次方程的根必须是互不相同的。然而，当根不互异时的情形依然很有趣，我们将在 @subsec:singular-curves 中讨论这一情况。
+因此，三次方程的根必须是互不相同的。然而，当根不互异时的情形依然很有趣，我们将在 @sec:singular-curves 中讨论这一情况。
 
 为了获得更多的灵活性，我们还允许使用更一般形式的方程 $ y^2 + a_1 x y + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6 $ <eq:generalized-weierstrass-equation> 其中 $a_1, dots.c, a_6$ 是常数。这个更一般的形式（我们称之为 *广义 Weierstrass 方程*）在处理特征为 2 或 3 的域时非常有用。如果域的特征不是 2，我们可以对 $y$ 完全平方，做如下变形：
 
@@ -469,9 +469,124 @@ $
 
 其中 $y_1 = y + a_1 x \/ 2 + a_3 \/ 2$，$a'_2, a'_4, a'_6$ 是某些新的常数。如果域的特征还不是 3，我们可以令 $x_1 = x + a'_2 \/ 3$，从而得到 $ y_1^2 = x_1^3 + A x_1 + B $ 其中 $A$、$B$ 为某些常数。
 
+在本书的大部分内容中，我们将使用 Weierstrass 方程建立理论，在某些情况下指出在特征为 2 和 3 的情形下应作的修改。在 @sec:elliptic-curves-in-characteristic-2 中，我们将更详细地讨论特征为 2 的情形，因为普通 Weierstrass 方程在这种情形下不再适用。相反，对于形如 $y^2 = x^3 + A x + B$ 的曲线，在特征为 3 的情况下，这些公式依然成立，但也存在不符合此形式的曲线。特征为 3 的一般情形可以通过处理形如 $y^2 = x^3 + C x^2 + A x + B$ 的曲线来实现。
+
+最后，假设我们从如下方程出发 $ c y^2 = d x^3 + a x + b $
+
+其中 $c, d != 0$。我们将该式两边乘以 $c^3 d^2$，得到 $ (c^2 d y)^2 = (c d x)^3 + (a c^2 d)(c d x) + (b c^3 d^2) $
+
+替换变量 $ y_1 = c^2 d y, quad x_1 = c d x $
+
+得到的便是 Weierstrass 形式的方程。
+
+本章稍后还会出现一些其他类型的方程，它们可以变换为 Weierstrass 形式，在特定语境下非常有用。
+
+出于技术需要，在椭圆曲线上添加一个无穷远点是有益的。在 @sec:projective-space-and-the-point-at-infinity 我们将对这一概念进行严格定义。但现在，我们可以将其视为一个形式点 $(infinity, infinity)$，通常简写为 $infinity$，位于 $y$ 轴的顶端。从计算角度看，$infinity$ 是一个形式符号，满足某些计算规则。例如，若称一条直线通过 $infinity$，则当且仅当它是垂直线（即 $x =$ 常数）。这个 $infinity$ 点也许看起来不自然，但我们将看到，引入它带来了很多便利。
+
+我们还约定，$infinity$ 不仅在 $y$ 轴的顶端，也在底端。换言之，我们设想 $y$ 轴两端“缠绕”并在背面于 $infinity$ 相遇。这看似奇怪，但当工作在非实数域（如有限域）时，元素通常没有自然的顺序，这种“上下”的区分就失去了意义。在 @sec:projective-space-and-the-point-at-infinity 引入射影坐标之后，这种情况将被严谨处理。因此，最好的做法是将 $infinity$ 视为满足某些代数规则的形式符号。此外，我们约定两条竖直线在 $infinity$ 处相交。出于对称性考虑，如果它们在 $y$ 轴顶端相交，也应在底端相交。但两条直线应只在一点相交，因此“顶端的 $infinity$”与“底端的 $infinity$”必须视为同一个点。这将成为 $infinity$ 的一个非常有用的性质。
+
 == 群运算
 
-== Projective Space and the Point at Infinity
+正如我们在 @chap:introduction 看到的，我们可以从椭圆曲线上的两个点，甚至是一个点，构造出另一个点。现在我们来更深入地分析这个过程。
+
+#figure(caption: "椭圆曲线上的点加法")[
+  #canvas(length: 1.25em, {
+    import draw: *
+    set-style(stroke: 0.5pt)
+
+    let y(x) = {
+      let y2 = x * x * x - x + 6
+      if y2 < 0 { return () }
+      let y = calc.sqrt(y2)
+      return ((x, y), (x, -y))
+    }
+
+    for i in range(-200, 250) {
+      let p = y(i / 100)
+      let p2 = y((i + 1) / 100)
+      if p.len() == 0 or p2.len() == 0 { continue }
+      line(p.at(0), p2.at(0))
+      line(p.at(1), p2.at(1))
+    }
+
+    line((-3, -1.5), (2.5, 4))
+    circle((-1.978908, -0.478908), name: "P1", radius: 0)
+    content("P1", $ P_1 $, anchor: "north-west")
+    circle((0.920693, 2.420693), name: "P2", radius: 0)
+    content("P2", $ P_2 $, anchor: "north", padding: .3)
+    circle((2.058215, 3.558215), name: "P'3", radius: 0)
+    content("P'3", $ P'_3 $, anchor: "west", padding: .3)
+    circle((2.058215, -3.558215), name: "P3", radius: 0)
+    content("P3", $ P_3 $, anchor: "west", padding: .3)
+
+    line((2.058215, 4.75), (2.058215, -4.75), stroke: (dash: "dashed"))
+
+    line((-3, 0), (3, 0))
+    line((0, -5), (0, 5))
+  })
+] <fig:elliptic-curve-point-addition>
+
+从椭圆曲线 $E: y^2 = x^3 + A x + B$ 上两点 $ P_1 = (x_1, y_1), quad P_2 = (x_2, y_2) $ 开始。我们按以下步骤计算 $P_3$：连接 $P_1$ 和 $P_2$ 得到直线 $L$，与曲线相交新的点 $P'_3$，以 $x$ 轴为对称轴翻转点 $P'_3$（也就是改变 $y$ 坐标符号）得到点 $P_3$。我们定义 $ P_1 + P_2 = P_3 $
+
+下面的例子将表明，这种操作并不等同于将两个点的坐标直接相加。也许用 $P_1 +_E P_2$ 这样的记号来表示这种运算会更恰当，但我们选择更简洁的记号，因为我们从不会通过坐标相加的方式来进行点的加运算。
+
+假定 $P_1 != P_2$，且两个都不是 $infinity$，连接 $P_1$ 和 $P_2$ 的直线斜率为 $ m = frac(y_1 - y_2, x_2 - x_1) $ 如果 $x_1 = x_2$，那么 $L$ 是竖直的。我们之后再讨论这种情形，所以先假设 $x_1 != x_2$。那么 $L$ 的方程为 $ y = m (x - x_1) + y_1 $
+
+为了找到与 $E$ 的交点，代入得到 $ (m (x - x_1) + y_1)^2 = x^3 + A x + B $ 整理得到如下形式 $ 0 = x^3 - m^2 x^2 + dots.c $
+
+三次方程的三个根对应于直线 $L$ 与椭圆曲线 $E$ 的三个交点。一般而言，求解一个三次方程并不容易，但在这里我们已经知道两个根 $x_1$ 和 $x_2$，因为点 $P_1$ 和 $P_2$ 同时在 $L$ 和 $E$ 上。因此，我们可以通过因式分解来求出第三个 $x$ 坐标值，但其实还有更简单的方法。就像 @chap:introduction 所述，若三次多项式 $x^3 + a x^2 + b x + c$ 根为 $r, s, t$，则 $ x^3 + a x^2 + b x + c = (x - r)(x - s)(x - t) = x^3 - (r + s + t) x^2 + dots.c $
+
+因此 $ r + s + t = -a $
+
+如果已知两个根 $r, s$，就可以得到第三个根 $t = -a - r - s$，在我们的情形中，这意味着 $ x = m^2 - x_1 - x_2 $ 并且 $ y = m (x - x_1) + y_1 $
+
+最后关于 $x$ 轴翻转得到点 $P_3 = (x_3, y_3)$ 有 $ x_3 = m^2 - x_1 - x_2, quad y_3 = m (x_1 - x_3) - y_1 $
+
+若 $x_1 = x_2$ 但 $y_1 != y_2$，说明通过 $P_1$ 和 $P_2$ 的直线是竖直的，它与曲线 $E$ 的交点是无穷远点 $infinity$。将 $infinity$ 关于 $x$ 轴翻转仍为 $infinity$（这也是我们将 $infinity$ 放在 $y$ 轴顶端与底端的原因）。因此，在这种情况下 $P_1 + P_2 = infinity$。
+
+现在考虑 $P_1 = P_2 = (x_1, y_1)$ 的情况。当两点非常接近时，它们之间的连线趋近于切线，所以在它们完全重合时，我们取过该点的切线作为 $L$。通过隐函数求导我们可以计算出切线的斜率 $m$：$ 2y frac("d"y, "d"x) = 3x^2 + A quad "因此" quad m = frac("d"y, "d"x) = frac(3x_1^2 + A, 2y_1) $
+
+如果 $y_1 = 0$，那么直线是垂直线，我们记 $P_1 + P_2 = infinity$，与之前相同。（技术细节：若 $y_1 = 0$，则分子 $3x_1^2 + A != 0$，见 @exercise:2-5）因此假定 $y_1 != 0$，直线 $L$ 的方程和前文一样为 $ y = m (x - x_1) + y_1 $
+
+我们可以得到 $ 0 = x^3 - m^2 x^2 + dots.c $ 这次我们只知道一个根 $x_1$，但因为 $L$ 是 $E$ 在点 $P_1$ 处的切线，所以 $x_1$ 是一个重根。因此重复上文的过程，我们可以得到 $ x_3 = m^2 - 2 x_1, quad y_3 = m (x_1 - x_3) - y_1 $
+
+最后，假定 $P_2 = infinity$，那么经过 $P_1$ 和 $infinity$ 的直线是竖直的，交 $E$ 于 $P_1$ 关于 $x$ 轴翻转得到的 $P'_1$ 上。因为 $P_3 = P_1 + P_2$，再次翻转 $P'_1$ 回了 $P_1$。因此 $ P_1 + infinity = P_1 $ 对所有在 $E$ 上的 $P_1$ 都成立。当然，我们将其拓展到 $infinity + infinity = infinity$。
+
+我们将上述讨论总结如下：
+
+#note(title: "群运算", sans: true)[
+  有椭圆曲线 $E: y^2 = x^3 + A x + B$，令 $P_1 = (x_1, y_1), P_2 = (x_2, y_2)$ 是 $E$ 上的点且 $P_1, P_2 != infinity$。定义 $P_1 + P_2 = P_3 = (x_3, y_3)$ 为：
+
+  + 若 $x_1 != x_2$，则 $ x_3 = m^2 - x_1 - x_2, quad y_3 = m (x_1 - x_3) - y_1, quad m = frac(y_2 - y_1, x_2 - x_1) $
+
+  + 若 $x_1 = x_2$ 但 $y_1 != y_2$，则 $P_1 + P_2 = infinity$。
+
+  + 若 $P_1 = P_2$ 且 $y_1 != 0$，则 $ x_3 = m^2 - 2 x_1, quad y_3 = m (x_1 - x_3) - y_1, quad m = frac(3 x_1^2 + A, 2 y_1) $
+
+  + 若 $P_1 = P_2$ 且 $y_1 = 0$，则 $P_1 + P_2 = infinity$。
+
+  此外，定义 $ P + infinity = P $ 对所有 $P in E$ 成立。
+]
+
+注意到当 $P_1$ 和 $P_2$ 的坐标属于某个包含 $A$ 和 $B$ 的域 $L$ 时，它们的和 $P_1 + P_2$ 的坐标也属于 $L$。因此，集合 $E(L)$ 在上述点的加法下是封闭的。
+
+这种加法运算乍看之下可能有些不自然。但在 @chap:elliptic-curves-over-C 和 @chap:divisors 中，我们将看到它实际上对应一些非常自然的运算。不过在此之前，我们先来展示它的一些良好性质。
+
+#theorem[
+  定义在椭圆曲线 $E$ 上的点的加法满足以下性质：
+
+  + 对所有 $P_1, P_2 in E$，都有 $P_1 + P_2 = P_2 + P_1$（交换律）。
+
+  + 对所有 $P in E$，都有 $P + infinity = P$（单位元的存在性）。
+
+  + 对所有 $P in E$，都存在 $P' in E$ 使得 $P + P' = infinity$。$P'$ 也常被记作 $-P$（逆元的存在性）。
+
+  + 对所有 $P_1, P_2, P_3 in E$，都有 $(P_1 + P_2) + P_3 = P_1 + (P_2 + P_3)$（结合律）。
+]
+
+/// TODO: Keep translate here...
+
+== Projective Space and the Point at Infinity <sec:projective-space-and-the-point-at-infinity>
 
 == Proof of Associativity
 
@@ -497,15 +612,88 @@ $
 
 == The j-invariant
 
-== Elliptic Curves in Characteristic 2
+== Elliptic Curves in Characteristic 2 <sec:elliptic-curves-in-characteristic-2>
 
 == Endomorphisms
 
-== Singular Curves <subsec:singular-curves>
+== Singular Curves <sec:singular-curves>
 
 == Elliptic Curves mod n
 
 #heading(numbering: none, level: 2)[练习]
+
+#exercise[
+] <exercise:2-1>
+
+#exercise[
+] <exercise:2-2>
+
+#exercise[
+] <exercise:2-3>
+
+#exercise[
+] <exercise:2-4>
+
+#exercise[
+  令 $(x, y)$ 是椭圆曲线 $E: y^2 = x^3 + A x + B$ 上的一点，证明若 $y = 0$，则 $3x^2 + A != 0$。（提示：一个多项式的 $x$ 有重根的条件是什么？）
+] <exercise:2-5>
+
+#exercise[
+] <exercise:2-6>
+
+#exercise[
+] <exercise:2-7>
+
+#exercise[
+] <exercise:2-8>
+
+#exercise[
+] <exercise:2-9>
+
+#exercise[
+] <exercise:2-10>
+
+#exercise[
+] <exercise:2-11>
+
+#exercise[
+] <exercise:2-12>
+
+#exercise[
+] <exercise:2-13>
+
+#exercise[
+] <exercise:2-14>
+
+#exercise[
+] <exercise:2-15>
+
+#exercise[
+] <exercise:2-16>
+
+#exercise[
+] <exercise:2-17>
+
+#exercise[
+] <exercise:2-18>
+
+#exercise[
+] <exercise:2-19>
+
+#exercise[
+] <exercise:2-20>
+
+#exercise[
+] <exercise:2-21>
+
+#exercise[
+] <exercise:2-22>
+
+#exercise[
+] <exercise:2-23>
+
+#exercise[
+] <exercise:2-24>
 
 = Torsion Points
 
@@ -617,7 +805,7 @@ $
 
 #heading(numbering: none, level: 2)[练习]
 
-= Elliptic Curves over $CC$
+= Elliptic Curves over $CC$ <chap:elliptic-curves-over-C>
 
 == Doubly Periodic Functions
 
@@ -649,7 +837,7 @@ $
 
 #heading(numbering: none, level: 2)[练习]
 
-= Divisors
+= Divisors <chap:divisors>
 
 == Definitions and Examples
 
