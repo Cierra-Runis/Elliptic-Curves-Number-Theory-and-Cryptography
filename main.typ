@@ -37,7 +37,7 @@
 #let conjecture-counter = counter("conjecture")
 #show: sectioned-counter(conjecture-counter)
 #let conjecture = thmbox.with(
-  color: colors.orange,
+  color: colors.dark-blue,
   counter: conjecture-counter,
   variant: "猜想",
   title-fonts: sans-fonts,
@@ -62,11 +62,23 @@
   sans-fonts: sans-fonts,
 )
 
-#let theorem-counter = counter("theorem")
-#show: sectioned-counter(theorem-counter)
 #let theorem = thmbox.with(
   color: colors.dark-red,
   variant: "定理",
+  title-fonts: sans-fonts,
+  sans-fonts: sans-fonts,
+)
+
+#let lemma = thmbox.with(
+  color: colors.light-turquoise,
+  variant: "引理",
+  title-fonts: sans-fonts,
+  sans-fonts: sans-fonts,
+)
+
+#let definition = thmbox.with(
+  color: colors.orange,
+  variant: "定义",
   title-fonts: sans-fonts,
   sans-fonts: sans-fonts,
 )
@@ -754,7 +766,7 @@ $
 
 我们证明的基本思路如下：我们从椭圆曲线 $E$ 和其上的点 $P, Q, R$ 开始。为了计算 $-((P + Q) + R)$ 我们需要构造直线 $ell_1 = overline(P Q), m_2 = overline(infinity\, P + Q)$ 和 $ell_3 = overline(R\, P + Q)$，并观察它们与 $E$ 的交点。容易发现点 $P_(i j) = ell_i inter m_j$ 除了可能的 $P_(3 3)$ 外都是 $E$ 上的点。我们将在定理 2.6 中证明如果这八个交点 $P_(i j) != P_(3, 3)$ 都在 $E$ 上，那么 $P_(3 3)$ 也必然在 $E$ 上。因为直线 $ell_3$ 与 $E$ 相交于 $R, P + Q, -((P + Q) + R)$，这就意味着 $P_(3 3) = -((P + Q) + R)$。同理，$-(P + (Q + R)) = P_(3 3)$，所以 $ -((P + Q) + R) = -(P + (Q + R)) $ 因此结合律成立。
 
-在这个证明中，有三个关键的技术细节必须处理：首先，部分点 $P_(i j)$ 可能是无穷远点，所以我们需要使用射影坐标；其次，某条直线可能与 $E$ 相切，这会导致某两个交点 $P_(i j)$ 重合，因此，我们需要仔细定义直线与曲线的交点重数；最后，可能存在两条直线完全相同的情况。在整个证明过程中，处理这些技术细节将占据主要精力。
+在这个证明中，有三个关键的技术细节必须处理：首先，部分点 $P_(i j)$ 可能是无穷远点，所以我们需要使用射影坐标；其次，某条直线可能与 $E$ 相切，这会导致某两个交点 $P_(i j)$ 重合，因此，我们需要仔细定义直线与曲线的相交重数；最后，可能存在两条直线完全相同的情况。在整个证明过程中，处理这些技术细节将占据主要精力。
 
 首先，我们需要讨论定义在 $PP_K^2$ 上的直线。描述一条直线的标准方法是使用一个线性方程：$a x + b y + c z = 0$。不过，有时候使用参数形式来描述一条直线会更为方便：
 
@@ -766,7 +778,45 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
 
 如果存在 $lambda in K^times$ 使得 $(u_1, v_1) = lambda (u_2, v_2)$，那么 $(u_1, v_1)$ 和 $(u_2, v_2)$ 所对应的三元组 $(x, y, z)$ 是等价的。因此，我们可以把参数 $(u,v)$ 看作是在一维射影空间 $PP_K^1$ 中取遍所有的点。于是，一条直线就对应于射影直线 $PP_K^1$ 的一个拷贝嵌入到射影平面中。
 
-我们需要量化一条直线在某点与一条曲线相交的重数，下面的内容将作为一个起点。
+我们需要量化一条直线在某点与一条曲线的相交重数，下面的内容将作为一个起点。
+
+#lemma[
+  设 $G(u, v)$ 是一个非零的齐次多项式，并设 $(u_0 : v_0) in PP^1_K$，则存在一个整数 $k >= 0$ 和一个多项式 $H(u, v)$，使得 $H(u_0, v_0) != 0$，并且有 $ G(u, v) = (v_0 u - u_0 v)^k H(u, v) $
+]
+
+#proof[
+  假设 $v_0 != 0$，设 $m$ 为 $G$ 的次数。令 $g(u) = G(u, v_0)$，通过尽可能多地提取 $u - u_0$ 的因子，我们可以把 $g(u)$ 写作 $(u - u_0)^k h(u)$，其中 $k$ 是某个整数，$h(u)$ 是次数为 $m - k$ 的多项式，且 $h(u_0) != 0$。
+
+  令 $ H(u, v) = frac(v^(m - k), v_0^m) h(frac(u v_0, v)) $ 这就是一个次数为 $m - k$ 的齐次多项式，于是
+
+  $
+    G(u, v) & = (v / v_0)^m g(frac(u v_0, v)) = frac(v^(m - k), v_0^m) (v_0 u - u_0 v)^k h(frac(u v_0, v)) \
+            & = (v_0 u - u_0 v)^k H(u, v)
+  $
+
+  如果 $v_0 = 0$，那么 $u_0 != 0$，交换 $u$ 与 $v$ 的角色，用完全相同的思路就能完成证明。
+]
+
+设多项式 $f(x, y) = 0$ 描述了仿射平面中的一条曲线 $C$，又设 $ x = a_1 t + b_1 quad quad y = a_2 t + b_2 $ 是以参数 $t$ 表示的一条直线 $L$。定义 $ tilde(f)(t) = f(a_1 t + b_1, a_2 t + b_2) $
+
+那么，当 $tilde(f)(t_0) = 0$ 时，直线 $L$ 在 $t = t_0$ 处与曲线 $C$ 相交。若 $(t - t_0)^2$ 整除 $tilde(f)(t)$，则称 $L$ 与 $C$ 在该点相切（如果与 $t_0$ 对应的点是非奇异点，参见引理 @lemma:the-unique-tangent-line-at-a-nonsingular-point）。更一般地说，如果 $(t - t_0)^n$ 是整除 $tilde(f)(t)$ 的最大次数的因式，则称 $L$ 在与 $t = t_0$ 对应的点 $(x, y)$ 与 $C$ 的相交重数为 $n$。
+
+上述内容在齐次情形下的版本如下：设 $F(x, y, z)$ 是一个齐次多项式，因此 $F = 0$ 描述了射影平面 $PP_K^2$ 中的一条曲线 $C$。设 $L$ 是由参数式 @eq:parametric-description-of-line 给出的直线，定义 $ tilde(F)(u, v) = F(a_1u + b_1v, a_2u + b_2v, a_3u + b_3v) $
+
+若 $(v_0u - u_0v)^n$ 是整除 $tilde(F)(u, v)$ 的最大次数的因式，则称 $L$ 在与 $(u : v) = (u_0 : v_0)$ 对应的点 $P = (x_0 : y_0 : z_0)$ 处与 $C$ 的 *相交重数* 为 $n$，记作 $ "ord"_(L, P)(F) = n $
+
+如果 $tilde(F) equiv 0$，那么我们让 $"ord"_(L, P)(F) = infinity$，不难证明 $"ord"_(L, P)(F)$ 与直线 $L$ 的参数化方式的选择无关。注意到当 $v = v_0 = 1$ 是对应上面提到的非齐次情形，此时的定义是一致的（至少当 $z != 0$ 时如此）。齐次形式的好处在于它允许我们以统一的方式处理无穷远点和有限点。
+
+#lemma[]
+
+#proof[]
+
+#definition[]
+
+#lemma[
+  设 $F(x, y, z) = 0$ 定义了一条曲线 $C$。如果 $P$ 是 $C$ 上的一个非奇异点，那么在射影平面 $PP_K^2$ 中，恰好存在唯一一条直线在点 $P$ 与曲线的相交重数至少为 2，这条直线就是曲线 $C$ 在 $P$ 处的切线。
+
+] <lemma:the-unique-tangent-line-at-a-nonsingular-point>
 
 /// TODO: Keep translate here...
 
