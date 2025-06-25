@@ -746,15 +746,58 @@ $
 
 现在我们来看给定的椭圆曲线 $E: y^2 = x^3 + A x + B$，其齐次形式为 $y^2 z = x^3 + A x z^2 + B z^3$。原始曲线上的点 $(x, y)$ 在射影形式中对应于点 $(x : y : 1)$。为了找出椭圆曲线 $E$ 上位于无穷远处的点，我们设 $z = 0$，得 $0 = x^3$，即 $x = 0$，而 $y$ 可以是任意非零数（请注意 $(0 : 0 : 0)$ 是不允许的）。我们以 $y$ 进行诡异化，得到 $(0 : y : 0) = (0 : 1 : 0)$，这是 $E$ 上唯一的无穷远点。此外，由于 $(0 : 1 : 0) = (0 : -1 : 0)$，这意味着 $y$ 轴的“顶部”和“底部”其实是相同的点。
 
-在某些情形下，使用射影坐标可以加快椭圆曲线上的运算（见 @sec:other-coordinate-systems）。然而，在本书中我们几乎总是在仿射（非射影）坐标下工作，并在需要时将无穷远点作为一个特殊情况处理。一个例外是 @sec:proof-of-associativity 中关于群运算结合律的证明，在那里我们会将无穷远点视为与其它点 $(x : y : z)$ 一样来处理，这样更为方便。
+在某些情形下，使用射影坐标可以加快椭圆曲线上的运算（见 @sec:other-coordinate-systems）。然而，在本书中我们几乎总是在仿射（非射影）坐标下工作，并在需要时将无穷远点作为一个特殊情况处理。一个例外是 @sec:proof-of-associativity 中关于群运算结合律的证明，在那里我们会将无穷远点视为与其他点 $(x : y : z)$ 一样来处理，这样更为方便。
 
 == 结合律的证明 <sec:proof-of-associativity>
 
+在本节中，我们将证明椭圆曲线上点加法的结合律。愿意相信这个结论的读者可以跳过本节，不会错过本书其余部分所需的任何内容。不过，作为这个证明的推论，我们将得到两个有趣的几何定理：帕普斯定理和帕斯卡定理。这两个定理虽然与椭圆曲线无关，但本身就非常值得研究。
+
+我们证明的基本思路如下：
+
 /// TODO: Keep translate here...
 
-=== The Theorem of Pappus and Pascal
+=== 帕普斯定理和帕斯卡定理 <subsec:the-theorems-of-pappus-and-pascal>
 
-== Other Equations of Elliptic Curves
+#figure(caption: [帕普斯定理])[
+  #cetz.canvas({
+    import cetz.draw: *
+    set-style(stroke: 1.5pt)
+    /// y = x/8 + 1
+    line((-1, 7 / 8), (9, 17 / 8))
+    /// y = -x/8 - 1
+    line((-1, -7 / 8), (9, -17 / 8))
+    set-style(stroke: 0.5pt)
+
+    circle((0, 1), name: "A", radius: 0)
+    content("A", $ A $, anchor: "south", padding: 0.1)
+    circle((0, -1), name: "A'", radius: 0)
+    content("A'", $ A' $, anchor: "north", padding: 0.1)
+    circle((6, 7 / 4), name: "B", radius: 0)
+    content("B", $ B $, anchor: "south", padding: 0.1)
+    circle((2, -5 / 4), name: "B'", radius: 0)
+    content("B'", $ B' $, anchor: "north", padding: 0.1)
+    circle((8, 2), name: "C", radius: 0)
+    content("C", $ C $, anchor: "south", padding: 0.1)
+    circle((8, -2), name: "C'", radius: 0)
+    content("C'", $ C' $, anchor: "north", padding: 0.1)
+
+    line((0, 1), (2, -5 / 4))
+    line((0, 1), (8, -2))
+
+    line((0, -1), (6, 7 / 4))
+    line((0, -1), (8, 2))
+
+    line((6, 7 / 4), (8, -2))
+    line((2, -5 / 4), (8, 2))
+
+    /// y = 3/10 x - 4/5
+    line((0, -4 / 5), (15 / 2, 29 / 20), stroke: (dash: "dashed"))
+  })
+]
+
+== 椭圆曲线的其他方程式 <sec:other-equations-of-elliptic-curves>
+
+在本书中，我们主要使用 Weierstrass 形式来表示椭圆曲线。然而，椭圆曲线还可以以其他多种形式出现，简要地讨论这些不同的表示方式也是有意义的。
 
 === Legendre Equation
 
@@ -764,7 +807,7 @@ $
 
 === Intersection of Two Quadratic Surfaces
 
-== Other Coordinate Systems <sec:other-coordinate-systems>
+== 其他坐标系 <sec:other-coordinate-systems>
 
 === Projective Coordinates
 
