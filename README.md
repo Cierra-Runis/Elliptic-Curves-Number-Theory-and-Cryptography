@@ -16,6 +16,18 @@
 
 进入 [GitHub Releases](https://github.com/Cierra-Runis/Elliptic-Curves-Number-Theory-and-Cryptography/releases/latest) 页面，下载最新的 `PDF.zip` 文件。
 
+## 参考文献
+
+[Typst Symbols](https://typst.app/docs/reference/symbols/sym/)
+
+[LaTeX-to-Typst Cheat Sheet](https://qwinsi.github.io/tex2typst-webapp/cheat-sheet.html)
+
+[CeTZ Documentation](https://cetz-package.github.io/docs/)
+
+[Typst 中文社区导航 - 常见问题](https://typst-doc-cn.github.io/guide/FAQ.html)
+
+[Typst 中文教程](https://typst-doc-cn.github.io/tutorial/)
+
 ## 许可证
 
 本项目以 [CC0-1.0 许可证](LICENSE) 发布。
