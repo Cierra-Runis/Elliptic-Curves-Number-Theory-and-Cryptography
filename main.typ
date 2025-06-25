@@ -716,7 +716,7 @@ $
 
 + 若 $E$ 是定义在有理数域 $QQ$ 上的椭圆曲线，那么 $E(QQ)$ 是一个有限生成的阿贝尔群。这就是Mordell–Weil 定理，我们将在 @chap:elliptic-curves-over-Q 中给出证明。这样的群与某个形如 $ZZ^r plus.circle F$ 的群同构，其中 $r >= 0$，$F$ 是一个有限群。整数 $r$ 被称为 $E(QQ)$ 的 *秩*。一般来说，确定 $r$ 是一件相当困难的事情，目前尚不清楚 $r$ 是否可以任意大。目前已知存在秩至少为 28 的椭圆曲线。有限群 $F$ 可以通过 @chap:elliptic-curves-over-Q 中的 Lutz–Nagell 定理来容易地计算。此外，Mazur 的一个深刻定理表明：当 $E$ 在所有定义在 $QQ$ 上的椭圆曲线中变化时，$F$ 的可能类型只有有限多种。 /// TODO: Ref to theorems
 
-+ 定义在复数域 $CC$ 上的椭圆曲线同构于一个环面。这一点将在 @chap:elliptic-curves-over-C 中予以证明。环面的常见构造方式是 $ℂ \/ cal(L)$，其中 $cal(L)$ 是复数域中的一个格点。复数的常用加法在商空间 $CC \/ L$ 上诱导出一个群律，该运算通过环面与椭圆曲线之间的同构对应于椭圆曲线上的群律。
++ 定义在复数域 $CC$ 上的椭圆曲线同构于一个环面。这一点将在 @chap:elliptic-curves-over-C 中予以证明。环面的常见构造方式是 $ℂ \/ cal(L)$，其中 $cal(L)$ 是复数域中的一个格点。复数的常用加法在商空间 $CC \/ cal(L)$ 上诱导出一个群律，该运算通过环面与椭圆曲线之间的同构对应于椭圆曲线上的群律。
 
 + 若椭圆曲线 $E$ 定义在实数域 $RR$ 上，那么 $E(RR)$ 同构于单位圆 $S^1$，或同构于 $S^1 plus.circle ZZ_2$。第一种情况对应于三次多项式 $x^3 + A x + B$ 只有一个实根的情形（想象 @subfig:elliptic-curves-shapes-2 中图像的两端在 $infinity$ 处接合，形成一个环）。第二种情况对应于该三次式具有三个实根。@subfig:elliptic-curves-shapes-1 中的闭环曲线就是集合 $S^1 plus.circle {1}$，而那条开口的曲线可以通过加入 $infinity$ 使其闭合，从而得到集合 $S^1 plus.circle {0}$。如果我们有一个定义在 $RR$ 上的椭圆曲线 $E$，我们可以考虑它在复数域上的点集 $E(CC)$。这个集合构成一个环面（如前文 3. 所述）。而实点集 $E(RR)$ 是通过将该环面与某个平面相交而得到的。如果这个平面穿过环面中间的洞，我们会得到如 @subfig:elliptic-curves-shapes-1 的曲线；如果没有穿过洞，则得到如 @subfig:elliptic-curves-shapes-2 的曲线（见 @sec:elliptic-curves-over-C-elliptic-curves-over-C）。
 
