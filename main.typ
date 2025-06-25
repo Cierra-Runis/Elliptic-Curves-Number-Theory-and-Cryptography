@@ -1,4 +1,4 @@
-#import "@preview/cetz:0.4.0": *
+#import "@preview/cetz:0.4.0"
 #import "@preview/thmbox:0.2.0": colors, sectioned-counter, thmbox, thmbox-init
 #import "@preview/hydra:0.6.1": hydra
 #import "@preview/subpar:0.2.2"
@@ -214,8 +214,8 @@
 假定有一堆球形炮弹以金字塔的形状堆放，并顶层有一颗，第二层有四颗，第三层有九颗，依此类推。如果这堆炮弹倒塌，是否有可能将这些炮弹重新排列成为一个正方形？
 
 #figure(caption: "炮弹金字塔")[
-  #canvas(length: 2em, {
-    import draw: *
+  #cetz.canvas(length: 2em, {
+    import cetz.draw: *
     set-style(stroke: 0.5pt)
 
     circle((2, 0), fill: white)
@@ -239,8 +239,8 @@
 设金字塔高 $x$，那么一共有 $ 1^2 + 2^2 + 3^3 + dots.c + x^2 = frac(x(x + 1)(2x + 1), 6) $ 颗球（见 @exercise:1-1）。我们期望这是一个完全平方数，也就是我们想要找到关于正整数 $x, y$ 的方程 $ y^2 = frac(x(x + 1)(2x + 1), 6) $ 的解。这样的方程给出了一个 *椭圆曲线*。图像如 @fig:pyramid-elliptic-curve 所示。
 
 #figure(caption: $y^2 = x(x + 1)(2x + 1) \/ 6$)[
-  #canvas(length: 6em, {
-    import draw: *
+  #cetz.canvas(length: 6em, {
+    import cetz.draw: *
     set-style(stroke: 0.5pt)
 
     let y(x) = {
@@ -276,8 +276,8 @@
 这还有另一个丢番图方法的示例 —— 是否存在一个直角三角形三条都是有理边，且面积为 5？最小的毕达哥拉斯三元组（勾股数）是 $(3, 4, 5)$，面积为 6，所以我们知道我们不能只把注意力放在整数上。现在再来看看边为 $(8, 15, 17)$ 的三角形，它的面积为 60。如果我们将边除以 2，我们得到一个边为 $(4, 15 \/ 2, 17 \/ 2)$ 的面积为 15 的三角形。所以有可能得到一个边不是整数，但面积是整数的三角形。
 
 #figure(caption: "面积为 5 的有理边三角形")[
-  #canvas(length: 2.5em, {
-    import draw: *
+  #cetz.canvas(length: 2.5em, {
+    import cetz.draw: *
     set-style(stroke: 0.5pt)
 
     line((0, 0), (20 / 3, 0), name: "a")
@@ -320,8 +320,8 @@
 当然，这是由边为 $(40, 9, 41)$ 的三角形缩小 6 倍得到的。
 
 #figure(caption: "面积为 5 的有理边三角形")[
-  #canvas(length: 2.5em, {
-    import draw: *
+  #cetz.canvas(length: 2.5em, {
+    import cetz.draw: *
     set-style(stroke: 0.5pt)
 
     line((0, 0), (20 / 3, 0), name: "a")
@@ -430,8 +430,8 @@ $ E(L) = {infinity} union {(x, y) in L times L divides y^2 = x^3 + A x + B} $
   label: <fig:elliptic-curves-shapes>,
   supplement: "图",
   numbering-sub: "(1)",
-  figure(caption: $y^2 = x^3 - x$, canvas(length: 3em, {
-    import draw: *
+  figure(caption: $y^2 = x^3 - x$, cetz.canvas(length: 3em, {
+    import cetz.draw: *
     set-style(stroke: 0.5pt)
 
     let y(x) = {
@@ -452,8 +452,8 @@ $ E(L) = {infinity} union {(x, y) in L times L divides y^2 = x^3 + A x + B} $
     line((-1.05, 0), (2, 0))
     line((0, -2.5), (0, 2.5))
   })),
-  figure(caption: $y^2 = x^3 + x$, canvas(length: 3em, {
-    import draw: *
+  figure(caption: $y^2 = x^3 + x$, cetz.canvas(length: 3em, {
+    import cetz.draw: *
     set-style(stroke: 0.5pt)
 
     let y(x) = {
@@ -518,8 +518,8 @@ $
 正如我们在 @chap:introduction 看到的，我们可以从椭圆曲线上的两个点，甚至是一个点，构造出另一个点。现在我们来更深入地分析这个过程。
 
 #figure(caption: "椭圆曲线上的点加法")[
-  #canvas(length: 1.25em, {
-    import draw: *
+  #cetz.canvas(length: 1.25em, {
+    import cetz.draw: *
     set-style(stroke: 0.5pt)
 
     let y(x) = {
