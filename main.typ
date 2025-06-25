@@ -97,6 +97,14 @@
   sans-fonts: sans-fonts,
 )
 
+#let algorithm = thmbox.with(
+  color: colors.purple,
+  variant: "算法",
+  numbering: none,
+  title-fonts: sans-fonts,
+  sans-fonts: sans-fonts,
+)
+
 /// https://typst-doc-cn.github.io/guide/FAQ/math-equation.html
 #set math.equation(
   numbering: "(1.1)", /// FIXME: Only show the number
@@ -684,9 +692,33 @@ $
 
 + 若椭圆曲线 $E$ 定义在实数域 $RR$ 上，那么 $E(RR)$ 同构于单位圆 $S^1$，或同构于 $S^1 plus.circle ZZ_2$。第一种情况对应于三次多项式 $x^3 + A x + B$ 只有一个实根的情形（想象 @subfig:elliptic-curves-shapes-2 中图像的两端在 $infinity$ 处接合，形成一个环）。第二种情况对应于该三次式具有三个实根。@subfig:elliptic-curves-shapes-1 中的闭环曲线就是集合 $S^1 plus.circle {1}$，而那条开口的曲线可以通过加入 $infinity$ 使其闭合，从而得到集合 $S^1 plus.circle {0}$。如果我们有一个定义在 $RR$ 上的椭圆曲线 $E$，我们可以考虑它在复数域上的点集 $E(CC)$。这个集合构成一个环面（如前文 3. 所述）。而实点集 $E(RR)$ 是通过将该环面与某个平面相交而得到的。如果这个平面穿过环面中间的洞，我们会得到如 @subfig:elliptic-curves-shapes-1 的曲线；如果没有穿过洞，则得到如 @subfig:elliptic-curves-shapes-2 的曲线（见 @sec:elliptic-curves-over-C-elliptic-curves-over-C）。
 
+如果 $P$ 在椭圆曲线上，且 $k$ 为正整数，那么 $k P$ 表示 $P + P + dots.c + P$（共 $k$ 次加法）。如果 $k < 0$，则 $k P = (-P) + (-P) + dots.c + (-P)$，共 $abs(k)$ 次加法。计算 $k$ 较大时的 $k P$ 反复将 $P$ 与自身相加是低效的，我们可以使用 *连续倍加法*。比如求 $19P$ 时，我们计算 $ 2P, quad 4P = 2P + 2P, quad 8P = 4P + 4P, quad 16P = 8P + 8P, quad 19P = 16P + 2P + P $
+
+这种方法使我们能够非常快速地计算 $k P$，即使 $k$ 是非常大的整数。唯一的困难在于：如果我们在有理数域中进行计算，点的坐标会增长得非常快（见定理 8.18）。然而，当我们在有限域中计算，例如在 $FF_p$ 上，这就不是问题，因为我们可以持续地对 $p$ 取模，从而使参与计算的数值保持相对较小。注意到结合律使我们在计算这些加法时无需担心求和顺序。/// TODO: Ref to 8.18
+
+连续倍加法可以一般性地表述如下：
+
+#algorithm[整数与点的乘法][
+  令 $P$ 是椭圆曲线上的点，$k$ 是正整数。使用以下步骤可以算出 $k P$。
+
+  + 初始化 $a = k, B = infinity, C = P$
+
+  + 若 $a$ 是偶数，令 $a = a \/ 2$，再令 $B = B, C = 2C$
+
+  + 若 $a$ 是奇数，令 $a = a - 1$，再令 $B = B + C, C = C$
+
+  + 若 $a != 0$，则回到步骤 2
+
+  + 输出 $B$
+
+  输出结果 $B$ 就是 $k P$（见 @exercise:2-8）。
+]
+
+另一方面，如果我们在一个大的有限域上进行运算并且给定了点 $P$ 和 $k P$，那么要确定 $k$ 的值是非常困难的。这被称为 *离散对数问题*，它构成了 @chap:elliptic-curves-cryptography 将要讨论的密码学应用的基础。
+
 /// TODO: Keep translate here...
 
-== Projective Space and the Point at Infinity <sec:projective-space-and-the-point-at-infinity>
+== 射影空间与无穷远点 <sec:projective-space-and-the-point-at-infinity>
 
 == Proof of Associativity <sec:proof-of-associativity>
 
