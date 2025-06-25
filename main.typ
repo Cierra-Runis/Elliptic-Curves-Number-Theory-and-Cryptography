@@ -748,7 +748,7 @@ $
 
 在某些情形下，使用射影坐标可以加快椭圆曲线上的运算（见 @sec:other-coordinate-systems）。然而，在本书中我们几乎总是在仿射（非射影）坐标下工作，并在需要时将无穷远点作为一个特殊情况处理。一个例外是 @sec:proof-of-associativity 中关于群运算结合律的证明，在那里我们会将无穷远点视为与其它点 $(x : y : z)$ 一样来处理，这样更为方便。
 
-== Proof of Associativity <sec:proof-of-associativity>
+== 结合律的证明 <sec:proof-of-associativity>
 
 /// TODO: Keep translate here...
 
