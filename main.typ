@@ -83,6 +83,20 @@
   sans-fonts: sans-fonts,
 )
 
+#let remark = thmbox.with(
+  color: colors.gray,
+  variant: "注记",
+  title-fonts: sans-fonts,
+  sans-fonts: sans-fonts,
+)
+
+#let corollary = thmbox.with(
+  color: colors.pink,
+  variant: "推论",
+  title-fonts: sans-fonts,
+  sans-fonts: sans-fonts,
+)
+
 #let example-counter = counter("example")
 #show: sectioned-counter(example-counter)
 #let example = thmbox.with(
@@ -853,7 +867,107 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
 
 /// TODO: Keep translate here...
 
+#theorem[] <theo:the-nine-point-confluence>
+
+#proof[]
+
+#lemma[]
+
+#proof[]
+
+
+#lemma[]
+
+#proof[]
+
+
+#lemma[]
+
+#proof[]
+
+#remark[]
+
+#lemma[]
+
+#proof[]
+
+#remark[]
+
 === 帕普斯定理和帕斯卡定理 <subsec:the-theorems-of-pappus-and-pascal>
+
+@theo:the-nine-point-confluence 在椭圆曲线之外的领域还有两个很好的应用。
+
+#theorem[帕斯卡定理][
+  令 $A B C D E F$ 是是一个内接于某个二次曲线（椭圆、抛物线或双曲线）上的六边形，其中点 $A,B,C,D,E,F$ 是仿射平面中的互不相同的点。设 $X$ 是 $overline(A B)$ 和 $overline(D E)$ 的交点，$Y$ 是 $overline(B C)$ 和 $overline(E F)$ 的交点，$Z$ 是 $overline(C D)$ 和 $overline(F A)$ 的交点。那么，点 $X, Y, Z$ 共线（见 @fig:pascals-theorem）。
+] <theo:pascals-theorem>
+
+#figure(caption: [帕斯卡定理])[
+  #cetz.canvas(length: 1.75em, {
+    import cetz.draw: *
+    set-style(stroke: 1.5pt)
+    circle((0, 0), radius: (2, 1))
+
+    set-style(stroke: 0.5pt)
+
+    let A = (-2, 0)
+    circle(A, name: "A", radius: 0)
+    content("A", $ A $, anchor: "east", padding: 0.1)
+    let B = (-calc.sqrt(3), 1 / 2)
+    circle(B, name: "B", radius: 0)
+    content("B", $ B $, anchor: "south-east", padding: 0.1)
+    let C = (-calc.sqrt(3), -1 / 2)
+    circle(C, name: "C", radius: 0)
+    content("C", $ C $, anchor: "north-east", padding: 0.1)
+    let D = (calc.sqrt(3), 1 / 2)
+    circle(D, name: "D", radius: 0)
+    content("D", $ D $, anchor: "south-west", padding: 0.1)
+    let E = (calc.sqrt(3), -1 / 2)
+    circle(E, name: "E", radius: 0)
+    content("E", $ E $, anchor: "north-west", padding: 0.1)
+    let F = (0, 1)
+    circle(F, name: "F", radius: 0)
+    content("F", $ F $, anchor: "south", padding: 0.1)
+
+    // 直线 AB
+    line((-2.803848, -1.5), (1.751289, 7))
+    // 直线 DE
+    line((calc.sqrt(3), 7), (calc.sqrt(3), -1.5))
+    // 直线 BC
+    line((-calc.sqrt(3), 7), (-calc.sqrt(3), -1.5))
+    // 直线 EF
+    line((-5, 5.330127), (2.5, -1.165063))
+    // 直线 CD
+    line((-5, -1.434957), (2.5, 0.720728))
+    // 直线 FA
+    line((-5, -1.5), (2.5, 2.25))
+
+    // 交点 X
+    let X = (1.732051, 6.964102)
+    circle(X, name: "X", radius: 0)
+    content("X", $ X $, anchor: "south", padding: 0.1)
+    // 交点 Y
+    let Y = (-1.724564, 2.493516)
+    circle(Y, name: "Y", radius: 0)
+    content("Y", $ Y $, anchor: "east", padding: 0.1)
+    // 交点 Z
+    let Z = (-4.694024, -1.347012)
+    circle(Z, name: "Z", radius: 0)
+    content("Z", $ Z $, anchor: "north-west", padding: 0.1)
+
+    line((-4.812313, -1.5), (1.759807, 7), stroke: (dash: "dashed"))
+  })
+] <fig:pascals-theorem>
+
+#remark[]
+
+#proof[]
+
+#corollary[帕普斯定理][]
+
+#proof[
+  这是 @theo:pascals-theorem 中退化二次曲线的一个情形。此时的“六边形”是 $A B' C A' B C'$
+
+]
 
 #figure(caption: [帕普斯定理])[
   #cetz.canvas({
