@@ -17,6 +17,7 @@
 #set heading(outlined: false, supplement: none)
 #show heading.where(level: 1): it => [
   #set text(size: 20pt)
+  #counter(math.equation).update(0)
   #align(center)[
     #block(it, above: 2em, below: 2em)
   ]
@@ -132,9 +133,9 @@
 )
 
 /// https://typst-doc-cn.github.io/guide/FAQ/math-equation.html
-#set math.equation(
-  numbering: "(1.1)", /// FIXME: Only show the number
-)
+#set math.equation(supplement: "式", numbering: num => (
+  "(" + str(counter(heading).get().first()) + "." + str(num) + ")"
+))
 #show math.equation.where(block: true): it => {
   if not it.has("label") {
     let fields = it.fields()
@@ -259,6 +260,7 @@
 #show heading.where(level: 1): it => [
   #pagebreak()
   #set text(size: 20pt)
+  #counter(math.equation).update(0)
   #align(center)[
     #block(it, above: 2em, below: 2em)
   ]
