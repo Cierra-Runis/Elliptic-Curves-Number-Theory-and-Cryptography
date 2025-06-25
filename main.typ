@@ -108,7 +108,7 @@
   numbering: none,
   title-fonts: sans-fonts,
 )[
-  符号 $ZZ, FF_q, QQ, RR, CC$ 分别表示整数域、有 $q$ 个元素的有限域、有理数域、实数域和复数域。我们使用 $ZZ_n$（而不是 $ZZ \/ n ZZ$）来表示模 $n$ 的整数。然而，当 $p$ 是素数，并且我们将 $ZZ_p$ 作为域而不是作为群或环来使用时，我们使用 $FF_p$，以与 $FF_q$ 的记号保持一致。注意，$ZZ_p$ 并不表示 $p$ 进整数。我们之所以这样选用，主要出于排版的考虑，因为模 $p$ 的整数频繁出现，而 $p$ 进整数的符号仅在第 13 章的少数几个例子中出现（其中我们用 $cal(O)_p$ 表示）。$p$ 进有理数表示为 $QQ_p$。
+  符号 $ZZ, FF_q, QQ, RR, CC$ 分别表示整数域、有 $q$ 个元素的有限域、有理数域、实数域和复数域。我们使用 $ZZ_n$（而不是 $ZZ \/ n ZZ$）来表示模 $n$ 的整数。然而，当 $p$ 是素数，并且我们将 $ZZ_p$ 作为域而不是作为群或环来使用时，我们使用 $FF_p$，以与 $FF_q$ 的记号保持一致。注意，$ZZ_p$ 并不表示 $p$ 进整数。我们之所以这样选用，主要出于排版的考虑，因为模 $p$ 的整数频繁出现，而 $p$ 进整数的符号仅在第 13 章的少数几个示例中出现（其中我们用 $cal(O)_p$ 表示）。$p$ 进有理数表示为 $QQ_p$。
 
   如果 $K$ 是一个域，那么 $overline(K)$ 表示其代数闭包。如果 $R$ 是一个环，则 $R^times$ 表示 $R$ 中的可逆元素。当 $K$ 是域时，$K^times$ 因此表示 $K$ 的非零元素所构成的乘法群。在全书中，字母 $K$ 和 $E$ 通常分别用来表示一个域和一条椭圆曲线（但在第 9 章中，$K$ 有几处用来表示椭圆积分）。
 ]
@@ -149,13 +149,13 @@
 
 本书面向至少两类读者。一类是希望了解椭圆曲线的计算机科学家和密码学家，另一类是希望了解椭圆曲线的数论与几何的数学家。当然，这两类人群之间有一定的重叠。作者自然希望读者能通读全书，但对于只希望从部分章节入手的读者，提出以下阅读建议：
 
-所有读者：第 1、2、3、4 章提供了该主题的基础介绍，所有人都应阅读这些章节。
+所有读者：@chap:introduction、@chap:the-basic-theory、@chap:torsion-points 和 @chap:elliptic-curves-over-finite-fields 提供了该主题的基础介绍，所有人都应阅读这些章节。
 
 #enum(
   numbering: "I.",
-  enum.item[密码学路径：继续阅读第 5、6、7 章，然后跳转到第 11 章和第 13 章],
-  enum.item[数论路径：阅读第 8、9、10、11、12、14、15 章，之后建议回头阅读先前跳过的章节，以了解该领域在实际应用中的用法],
-  enum.item[复分析路径：阅读第 9、10 章以及第 12.1 节],
+  enum.item[密码学路径：继续阅读 @chap:the-discrete-logarithm-problem、@chap:elliptic-curves-cryptography、@chap:other-applications，然后跳转到 @chap:divisors 和 @chap:hyperelliptic-curves。],
+  enum.item[数论路径：阅读第 @chap:elliptic-curves-over-Q、@chap:elliptic-curves-over-C、@chap:complex-multiplication、@chap:divisors、@chap:isogenies、@chap:zeta-functions、@chap:fermat-last-theorem，之后建议回头阅读先前跳过的章节，以了解该领域在实际应用中的用法。],
+  enum.item[复分析路径：阅读第 @chap:elliptic-curves-over-C、@chap:complex-multiplication 以及 @sec:complex-theory。],
 )
 
 #pagebreak()
@@ -254,7 +254,7 @@
 
 让我们使用点 $(1 \/ 2, -1 \/ 2)$ 和 $(1, 1)$ 重复上述步骤。为什么使用这些点？因为我们正在寻找落在第一象限的交点，而经过这两个点的直线似乎是最合适的选择。很容易得到直线方程为 $y = 3x - 2$，联立曲线方程可以得到 $ (3x - 2)^2 = frac(x(x + 1)(2x + 1), 6) $ 整理得到 $ x^3 - frac(51, 2) x^2 + dots.c = 0 $（使用上述技巧，我们不需要求出低阶）我们已经知道了两个根 $x = 1 \/ 2$ 和 $x = 1$，因此 $ frac(1, 2) + 1 + x = frac(51, 2) $ 解得 $x = 24$。因为 $y = 3x - 2$，所以 $y = 70$。这意味着 $ 1^2 + 2^2 + 3^2 + dots.c + 24^2 = 70^2 $ 如果我们有 4900 个炮弹，我们就可以将它们排列成高为 24 的金字塔，或者一个 $70 times 70$ 的正方形。如果我们继续重复上述步骤，就比如我们使用刚刚得到的点作为我们其一的点，我们将得到这个方程的无穷多个有理数解。然而，可以证明在正整数解中，除了 $x = 1$ 的那个平凡解外，$(24, 70)$ 是这个问题的唯一非平凡解。这需要更加高深的技巧，故在此隐去细节，见 @anglin1990puzzle。
 
-这还有另一个丢番图方法的例子 —— 是否存在一个直角三角形三条都是有理边，且面积为 5？最小的毕达哥拉斯三元组（勾股数）是 $(3, 4, 5)$，面积为 6，所以我们知道我们不能只把注意力放在整数上。现在再来看看边为 $(8, 15, 17)$ 的三角形，它的面积为 60。如果我们将边除以 2，我们得到一个边为 $(4, 15 \/ 2, 17 \/ 2)$ 的面积为 15 的三角形。所以有可能得到一个边不是整数，但面积是整数的三角形。
+这还有另一个丢番图方法的示例 —— 是否存在一个直角三角形三条都是有理边，且面积为 5？最小的毕达哥拉斯三元组（勾股数）是 $(3, 4, 5)$，面积为 6，所以我们知道我们不能只把注意力放在整数上。现在再来看看边为 $(8, 15, 17)$ 的三角形，它的面积为 60。如果我们将边除以 2，我们得到一个边为 $(4, 15 \/ 2, 17 \/ 2)$ 的面积为 15 的三角形。所以有可能得到一个边不是整数，但面积是整数的三角形。
 
 #figure(caption: "面积为 5 的有理边三角形")[
   #canvas(length: 2.5em, {
@@ -334,7 +334,7 @@ Tunnel @tunnell1983diophantine 证明了该猜想的充分性：如果存在一�
 
 比如考虑 $n = 5$，此时没有满足 $2x^2 + y^2 + 8z^2 = 5$ 的整数解，故 $0 = 0$，条件显然成立，于是预测存在面积为 5 的有理边直角三角形。再考虑 $n = 1$，此时 $2x^2 + y^2 + 8z^2 = 1$ 的整数解为 $(0, 1, 0)$ 和 $(0, -1, 0)$，两者都是 $z$ 为偶数，故由 $2 != 0$ 得不存在面积为 1 的有理边直角三角形。这最早由费曼通过它的无穷下降法证明（见 @sec:fermat-infinite-descent[]）。
 
-举一个非平凡的例子，考虑 $n = 41$。方程 $2x^2 + y^2 + 8z^2 = 41$ 的整数解为
+举一个非平凡的示例，考虑 $n = 41$。方程 $2x^2 + y^2 + 8z^2 = 41$ 的整数解为
 
 $
   (plus.minus 4, plus.minus 3, 0), quad (plus.minus 4, plus.minus 1, plus.minus 1), quad (plus.minus 2, plus.minus 5, plus.minus 1), quad (plus.minus 2, plus.minus 1, plus.minus 2), quad (0, plus.minus 3, plus.minus 2)
@@ -393,7 +393,7 @@ $
 
 ] <exercise:1-4>
 
-= 理论基础
+= 理论基础 <chap:the-basic-theory>
 
 == Weierstrass 方程
 
@@ -537,7 +537,7 @@ $
 
 从椭圆曲线 $E: y^2 = x^3 + A x + B$ 上两点 $ P_1 = (x_1, y_1), quad P_2 = (x_2, y_2) $ 开始。我们按以下步骤计算 $P_3$：连接 $P_1$ 和 $P_2$ 得到直线 $L$，与曲线相交新的点 $P'_3$，以 $x$ 轴为对称轴翻转点 $P'_3$（也就是改变 $y$ 坐标符号）得到点 $P_3$。我们定义 $ P_1 + P_2 = P_3 $
 
-下面的例子将表明，这种操作并不等同于将两个点的坐标直接相加。也许用 $P_1 +_E P_2$ 这样的记号来表示这种运算会更恰当，但我们选择更简洁的记号，因为我们从不会通过坐标相加的方式来进行点的加运算。
+下面的示例将表明，这种操作并不等同于将两个点的坐标直接相加。也许用 $P_1 +_E P_2$ 这样的记号来表示这种运算会更恰当，但我们选择更简洁的记号，因为我们从不会通过坐标相加的方式来进行点的加运算。
 
 假定 $P_1 != P_2$，且两个都不是 $infinity$，连接 $P_1$ 和 $P_2$ 的直线斜率为 $ m = frac(y_1 - y_2, x_2 - x_1) $ 如果 $x_1 = x_2$，那么 $L$ 是竖直的。我们之后再讨论这种情形，所以先假设 $x_1 != x_2$。那么 $L$ 的方程为 $ y = m (x - x_1) + y_1 $
 
@@ -746,7 +746,7 @@ $
 
 #heading(numbering: none, level: 2)[练习]
 
-= The Discrete Logarithm Problem
+= The Discrete Logarithm Problem <chap:the-discrete-logarithm-problem>
 
 == The Index Calculus
 
@@ -768,7 +768,7 @@ $
 
 #heading(numbering: none, level: 2)[练习]
 
-= Elliptic Curves Cryptography
+= Elliptic Curves Cryptography <chap:elliptic-curves-cryptography>
 
 == The Basic Setup
 
@@ -790,7 +790,7 @@ $
 
 #heading(numbering: none, level: 2)[练习]
 
-= Other Applications
+= Other Applications <chap:other-applications>
 
 == Factoring Using Elliptic Curves
 
@@ -806,7 +806,7 @@ $
 
 == Heights and the Mordell-Weil Theorem
 
-== Examples
+== 示例
 
 == The Height Pairing
 
@@ -838,7 +838,7 @@ $
 
 #heading(numbering: none, level: 2)[练习]
 
-= Complex Multiplication
+= Complex Multiplication <chap:complex-multiplication>
 
 == Elliptic Curves over $CC$
 
@@ -854,11 +854,11 @@ $
 
 = Divisors <chap:divisors>
 
-== Definitions and Examples
+== 定义与示例
 
-== The Weil Pairing
+== The Weil Pairing <sec:divisors-weil-pairing>
 
-<sec:torsion-points-tate-lichtenbaum-pairing>
+== The Tate-Lichtenbaum Pairing <sec:divisors-tate-lichtenbaum-pairing>
 
 == Computation of the Pairings
 
@@ -866,17 +866,17 @@ $
 
 == Equivalence of the Definitions of the Pairings
 
-=== The Weil Pairing
+=== The Weil Pairing <subsec:divisors-weil-pairing>
 
-=         <sec:torsion-points-tate-lichtenbaum-pairing>
+=== The Tate-Lichtenbaum Pairing <subsec:divisors-tate-lichtenbaum-pairing>
 
 == Nondegeneracy of the Tate-Lichtenbaum Pairing
 
 #heading(numbering: none, level: 2)[练习]
 
-= Isogenies
+= Isogenies <chap:isogenies>
 
-== The Complex Theory
+== The Complex Theory <sec:complex-theory>
 
 == The Algebraic Theory
 
@@ -888,7 +888,7 @@ $
 
 #heading(numbering: none, level: 2)[练习]
 
-= Hyperelliptic Curves
+= Hyperelliptic Curves <chap:hyperelliptic-curves>
 
 == Basic Definitions
 
@@ -908,7 +908,7 @@ $
 
 #heading(numbering: none, level: 2)[练习]
 
-= Fermat's Last Theorem <chap:fermat-last-theorem>
+= 费马大定理 <chap:fermat-last-theorem>
 
 == Overview
 
@@ -925,18 +925,18 @@ $
 }
 #show: appendix
 
-= Number Theory
+= Number Theory <appendix:number-theory>
 
-= Groups
+= Groups <appendix:groups>
 
-= Fields
+= Fields <appendix:fields>
 
-= Computer Packages
+= Computer Packages <appendix:computer-packages>
 
-== Pari
+== Pari <subappendix:pari>
 
-== Magma
+== Magma <subappendix:magma>
 
-== SAGE
+== SAGE <subappendix:sage>
 
 #bibliography("/references.bib", title: "参考文献")
