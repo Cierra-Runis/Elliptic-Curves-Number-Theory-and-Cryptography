@@ -32,12 +32,14 @@
 #show ref: set text(fill: red)
 #show footnote: set text(fill: red)
 
+#show figure.where(kind: "thmbox"): set block(breakable: true)
+
 #let conjecture-counter = counter("conjecture")
 #show: sectioned-counter(conjecture-counter)
 #let conjecture = thmbox.with(
+  color: colors.orange,
   counter: conjecture-counter,
   variant: "猜想",
-  color: colors.orange,
   title-fonts: sans-fonts,
   sans-fonts: sans-fonts,
 )
@@ -45,9 +47,9 @@
 #let exercise-counter = counter("exercise")
 #show: sectioned-counter(exercise-counter)
 #let exercise = thmbox.with(
+  color: colors.light-aqua,
   counter: exercise-counter,
   variant: "练习",
-  color: colors.light-aqua,
   title-fonts: sans-fonts,
   sans-fonts: sans-fonts,
 )
@@ -65,6 +67,32 @@
 #let theorem = thmbox.with(
   color: colors.dark-red,
   variant: "定理",
+  title-fonts: sans-fonts,
+  sans-fonts: sans-fonts,
+)
+
+#let example-counter = counter("example")
+#show: sectioned-counter(example-counter)
+#let example = thmbox.with(
+  color: colors.lime,
+  counter: example-counter,
+  variant: "示例",
+  title-fonts: sans-fonts,
+  sans-fonts: sans-fonts,
+)
+
+#let proof = thmbox.with(
+  color: colors.green,
+  variant: "证明",
+  numbering: none,
+  title-fonts: sans-fonts,
+  sans-fonts: sans-fonts,
+)
+
+#let warning = thmbox.with(
+  color: red,
+  variant: "警告",
+  numbering: none,
   title-fonts: sans-fonts,
   sans-fonts: sans-fonts,
 )
@@ -385,6 +413,7 @@ $
 
 因此，当 $a b c != 0$ 时，方程 $a^3 + b^3 = c^3$ 没有整数解。
 
+#pagebreak()
 #heading(numbering: none, level: 2)[练习]
 
 #exercise[
@@ -430,50 +459,59 @@ $ E(L) = {infinity} union {(x, y) in L times L divides y^2 = x^3 + A x + B} $
   label: <fig:elliptic-curves-shapes>,
   supplement: "图",
   numbering-sub: "(1)",
-  figure(caption: $y^2 = x^3 - x$, cetz.canvas(length: 3em, {
-    import cetz.draw: *
-    set-style(stroke: 0.5pt)
+  figure(
+    cetz.canvas(length: 3em, {
+      import cetz.draw: *
+      set-style(stroke: 0.5pt)
 
-    let y(x) = {
-      let y2 = x * x * x - x
-      if y2 < 0 { return () }
-      let y = calc.sqrt(y2)
-      return ((x, y), (x, -y))
-    }
+      let y(x) = {
+        let y2 = x * x * x - x
+        if y2 < 0 { return () }
+        let y = calc.sqrt(y2)
+        return ((x, y), (x, -y))
+      }
 
-    for i in range(-100, 200) {
-      let p = y(i / 100)
-      let p2 = y((i + 1) / 100)
-      if p.len() == 0 or p2.len() == 0 { continue }
-      line(p.at(0), p2.at(0))
-      line(p.at(1), p2.at(1))
-    }
+      for i in range(-100, 200) {
+        let p = y(i / 100)
+        let p2 = y((i + 1) / 100)
+        if p.len() == 0 or p2.len() == 0 { continue }
+        line(p.at(0), p2.at(0))
+        line(p.at(1), p2.at(1))
+      }
 
-    line((-1.05, 0), (2, 0))
-    line((0, -2.5), (0, 2.5))
-  })),
-  figure(caption: $y^2 = x^3 + x$, cetz.canvas(length: 3em, {
-    import cetz.draw: *
-    set-style(stroke: 0.5pt)
+      line((-1.05, 0), (2, 0))
+      line((0, -2.5), (0, 2.5))
+    }),
+    caption: $y^2 = x^3 - x$,
+  ),
+  <subfig:elliptic-curves-shapes-1>,
 
-    let y(x) = {
-      let y2 = x * x * x + x
-      if y2 < 0 { return () }
-      let y = calc.sqrt(y2)
-      return ((x, y), (x, -y))
-    }
+  figure(
+    cetz.canvas(length: 3em, {
+      import cetz.draw: *
+      set-style(stroke: 0.5pt)
 
-    for i in range(0, 160) {
-      let p = y(i / 100)
-      let p2 = y((i + 1) / 100)
-      if p.len() == 0 or p2.len() == 0 { continue }
-      line(p.at(0), p2.at(0))
-      line(p.at(1), p2.at(1))
-    }
+      let y(x) = {
+        let y2 = x * x * x + x
+        if y2 < 0 { return () }
+        let y = calc.sqrt(y2)
+        return ((x, y), (x, -y))
+      }
 
-    line((-0.05, 0), (2, 0))
-    line((0, -2.5), (0, 2.5))
-  })),
+      for i in range(0, 160) {
+        let p = y(i / 100)
+        let p2 = y((i + 1) / 100)
+        if p.len() == 0 or p2.len() == 0 { continue }
+        line(p.at(0), p2.at(0))
+        line(p.at(1), p2.at(1))
+      }
+
+      line((-0.05, 0), (2, 0))
+      line((0, -2.5), (0, 2.5))
+    }),
+    caption: $y^2 = x^3 + x$,
+  ),
+  <subfig:elliptic-curves-shapes-2>,
 )
 
 第一种情况下，方程 $y^2 = x^3 - x$ 的三次项有三个不相等的实数根。第二种情况下，方程 $y^2 = x^3 + x$ 只有一个实根。
@@ -513,7 +551,7 @@ $
 
 我们还约定，$infinity$ 不仅在 $y$ 轴的顶端，也在底端。换言之，我们设想 $y$ 轴两端“缠绕”并在背面于 $infinity$ 相遇。这看似奇怪，但当工作在非实数域（如有限域）时，元素通常没有自然的顺序，这种“上下”的区分就失去了意义。在 @sec:projective-space-and-the-point-at-infinity 引入射影坐标之后，这种情况将被严谨处理。因此，最好的做法是将 $infinity$ 视为满足某些代数规则的形式符号。此外，我们约定两条竖直线在 $infinity$ 处相交。出于对称性考虑，如果它们在 $y$ 轴顶端相交，也应在底端相交。但两条直线应只在一点相交，因此“顶端的 $infinity$”与“底端的 $infinity$”必须视为同一个点。这将成为 $infinity$ 的一个非常有用的性质。
 
-== 群运算 <sec:group-law>
+== 群律 <sec:group-law>
 
 正如我们在 @chap:introduction 看到的，我们可以从椭圆曲线上的两个点，甚至是一个点，构造出另一个点。现在我们来更深入地分析这个过程。
 
@@ -570,7 +608,7 @@ $
 
 最后关于 $x$ 轴翻转得到点 $P_3 = (x_3, y_3)$ 有 $ x_3 = m^2 - x_1 - x_2, quad y_3 = m (x_1 - x_3) - y_1 $
 
-若 $x_1 = x_2$ 但 $y_1 != y_2$，说明通过 $P_1$ 和 $P_2$ 的直线是竖直的，它与曲线 $E$ 的交点是无穷远点 $infinity$。将 $infinity$ 关于 $x$ 轴翻转仍为 $infinity$（这也是我们将 $infinity$ 放在 $y$ 轴顶端与底端的原因）。因此，在这种情况下 $P_1 + P_2 = infinity$。
+若 $x_1 = x_2$ 但 $y_1 != y_2$，说明通过 $P_1$ 和 $P_2$ 的直线是竖直的，它与曲线 $E$ 的交点是 $infinity$。将 $infinity$ 关于 $x$ 轴翻转仍为 $infinity$（这也是我们将 $infinity$ 放在 $y$ 轴顶端与底端的原因）。因此，在这种情况下 $P_1 + P_2 = infinity$。
 
 现在考虑 $P_1 = P_2 = (x_1, y_1)$ 的情况。当两点非常接近时，它们之间的连线趋近于切线，所以在它们完全重合时，我们取过该点的切线作为 $L$。通过隐函数求导我们可以计算出切线的斜率 $m$：$ 2y frac("d"y, "d"x) = 3x^2 + A quad "因此" quad m = frac("d"y, "d"x) = frac(3x_1^2 + A, 2y_1) $
 
@@ -582,7 +620,7 @@ $
 
 我们将上述讨论总结如下：
 
-#note(title: "群运算", sans: true)[
+#note(title: "群律", sans: true)[
   有椭圆曲线 $E: y^2 = x^3 + A x + B$，令 $P_1 = (x_1, y_1), P_2 = (x_2, y_2)$ 是 $E$ 上的点且 $P_1, P_2 != infinity$。定义 $P_1 + P_2 = P_3 = (x_3, y_3)$ 为：
 
   + 若 $x_1 != x_2$，则 $ x_3 = m^2 - x_1 - x_2, quad y_3 = m (x_1 - x_3) - y_1, quad m = frac(y_2 - y_1, x_2 - x_1) $
@@ -612,11 +650,45 @@ $
   + 对所有 $P_1, P_2, P_3 in E$，都有 $(P_1 + P_2) + P_3 = P_1 + (P_2 + P_3)$（结合律）。
 ]
 
+#proof[
+  交换律的证明是显然的，因为连接 $P_1$ 和 $P_2$ 的直线与连接 $P_2$ 和 $P_1$ 的直线是同一条直线。 $infinity$ 的单位元性质由其定义直接得出。对于逆元，令 $P'$ 为 $P$ 关于 $x$ 轴的对称点，那么有 $P + P' = infinity$。
+
+  最后我们需要证明结合律。这是椭圆曲线点的加法最微妙，且是最不直观的性质。事实上，可以为椭圆曲线上的点构造许多满足 1. 2. 3. 性质的运算律，这些律可能比我们当前所定义的加法规则更简单或更复杂。然而，这样的运算律极少能满足结合律。实际上，我们所定义的加法居然满足结合律，确实是一个令人惊讶的事实。毕竟，我们是从两个点 $P_1$ 和 $P_2$ 出发，通过某种操作得到第三个点 $P_1 + P_2$，然后再将其与 $P_3$ 相加得到 $(P_1 + P_2) + P_3$。如果我们反过来先计算 $P_2 + P_3$，再与 $P_1$ 相加，得到 $P_1 + (P_2 + P_3)$，乍一看没有任何明显理由表明这两个结果会是相同的点。
+
+  结合律可以通过代入公式直接计算验证。但会遇到多个不同情况，取决于 $P_1 = P_2$、$P_3 = (P_1 + P_2)$ 等是否成立，这会使得证明过程相当繁琐。不过，我们将采用另一种方法，并在 @sec:proof-of-associativity 中给出。
+]
+
+#warning[
+  对于 WeierStrass 方程，若 $P = (x，y)$，则 $-P = (x，−y)$，对于广义 WeierStrass 方程 @eq:generalized-weierstrass-equation，情况不再如此。如果 $P = (x，y)$ 在 @eq:generalized-weierstrass-equation 描述的曲线上，那么 $ -P =(x，-a_1x -a_3 - y) $（见 @exercise:2-9）。
+]
+
+#example[
+  @chap:introduction 中的计算现可以解释为椭圆曲线上的点加法。我们在椭圆曲线 $ y^2 = frac(x(x + 1)(2x + 1), 6) $ 上有 $ (0, 0) + (1, 1) = (1/2, -1/2), quad (1/2, -1/2) + (1, 1) = (24, -70) $
+
+  在曲线 $ y^2 = x^3 − 25x $ 上有 $ 2(−4, 6) = (−4, 6) + (−4, 6) = (1681/144, − 62279/1728) $
+
+  还有 $ (0, 0) + (−5, 0) = (5, 0), quad 2(0, 0) = 2(−5, 0) = 2(5, 0) = infinity $
+]
+
+#figure(caption: [定义在 $CC$ 上的椭圆曲线])[
+  #image("assets/Simple_Torus.svg")
+]
+
+椭圆曲线上的点构成阿贝尔群这一事实，是大多数有趣性质与应用背后的基础。于是就产生了一个问题：我们所得到的这些点群，具有什么样的结构？下面是一些示例：
+
++ 一个定义在有限域上的椭圆曲线，其在该有限域中的点的个数是有限的。因此，在这种情形下我们得到的是一个有限的阿贝尔群。这类群的性质，以及它们在密码学中的应用，将在后续章节中讨论。
+
++ 若 $E$ 是定义在有理数域 $QQ$ 上的椭圆曲线，那么 $E(QQ)$ 是一个有限生成的阿贝尔群。这就是Mordell–Weil 定理，我们将在 @chap:elliptic-curves-over-Q 中给出证明。这样的群与某个形如 $ZZ^r plus.circle F$ 的群同构，其中 $r >= 0$，$F$ 是一个有限群。整数 $r$ 被称为 $E(QQ)$ 的 *秩*。一般来说，确定 $r$ 是一件相当困难的事情，目前尚不清楚 $r$ 是否可以任意大。目前已知存在秩至少为 28 的椭圆曲线。有限群 $F$ 可以通过 @chap:elliptic-curves-over-Q 中的 Lutz–Nagell 定理来容易地计算。此外，Mazur 的一个深刻定理表明：当 $E$ 在所有定义在 $QQ$ 上的椭圆曲线中变化时，$F$ 的可能类型只有有限多种。 /// TODO: Ref to theorems
+
++ 定义在复数域 $CC$ 上的椭圆曲线同构于一个环面。这一点将在 @chap:elliptic-curves-over-C 中予以证明。环面的常见构造方式是 $ℂ \/ cal(L)$，其中 $cal(L)$ 是复数域中的一个格点。复数的常用加法在商空间 $CC \/ L$ 上诱导出一个群律，该运算通过环面与椭圆曲线之间的同构对应于椭圆曲线上的群律。
+
++ 若椭圆曲线 $E$ 定义在实数域 $RR$ 上，那么 $E(RR)$ 同构于单位圆 $S^1$，或同构于 $S^1 plus.circle ZZ_2$。第一种情况对应于三次多项式 $x^3 + A x + B$ 只有一个实根的情形（想象 @subfig:elliptic-curves-shapes-2 中图像的两端在 $infinity$ 处接合，形成一个环）。第二种情况对应于该三次式具有三个实根。@subfig:elliptic-curves-shapes-1 中的闭环曲线就是集合 $S^1 plus.circle {1}$，而那条开口的曲线可以通过加入 $infinity$ 使其闭合，从而得到集合 $S^1 plus.circle {0}$。如果我们有一个定义在 $RR$ 上的椭圆曲线 $E$，我们可以考虑它在复数域上的点集 $E(CC)$。这个集合构成一个环面（如前文 3. 所述）。而实点集 $E(RR)$ 是通过将该环面与某个平面相交而得到的。如果这个平面穿过环面中间的洞，我们会得到如 @subfig:elliptic-curves-shapes-1 的曲线；如果没有穿过洞，则得到如 @subfig:elliptic-curves-shapes-2 的曲线（见 @sec:elliptic-curves-over-C-elliptic-curves-over-C）。
+
 /// TODO: Keep translate here...
 
 == Projective Space and the Point at Infinity <sec:projective-space-and-the-point-at-infinity>
 
-== Proof of Associativity
+== Proof of Associativity <sec:proof-of-associativity>
 
 === The Theorem of Pappus and Pascal
 
@@ -648,6 +720,7 @@ $
 
 == Elliptic Curves mod n
 
+#pagebreak()
 #heading(numbering: none, level: 2)[练习]
 
 #exercise[
@@ -739,6 +812,7 @@ $
 
 == The Tate-Lichtenbaum Pairing <sec:torsion-points-tate-lichtenbaum-pairing>
 
+#pagebreak()
 #heading(numbering: none, level: 2)[练习]
 
 = Elliptic Curves over Finite Fields <chap:elliptic-curves-over-finite-fields>
@@ -763,6 +837,7 @@ $
 
 == Supersingular Curves
 
+#pagebreak()
 #heading(numbering: none, level: 2)[练习]
 
 = The Discrete Logarithm Problem <chap:the-discrete-logarithm-problem>
@@ -785,6 +860,7 @@ $
 
 == Other Attacks
 
+#pagebreak()
 #heading(numbering: none, level: 2)[练习]
 
 = Elliptic Curves Cryptography <chap:elliptic-curves-cryptography>
@@ -807,6 +883,7 @@ $
 
 == A Cryptosystem Based on the Weil Pairing
 
+#pagebreak()
 #heading(numbering: none, level: 2)[练习]
 
 = Other Applications <chap:other-applications>
@@ -815,6 +892,7 @@ $
 
 == Primality Testing
 
+#pagebreak()
 #heading(numbering: none, level: 2)[练习]
 
 = Elliptic Curves over $QQ$ <chap:elliptic-curves-over-Q>
@@ -837,6 +915,7 @@ $
 
 == Galois Cohomology
 
+#pagebreak()
 #heading(numbering: none, level: 2)[练习]
 
 = Elliptic Curves over $CC$ <chap:elliptic-curves-over-C>
@@ -845,7 +924,7 @@ $
 
 == Tori are Elliptic Curves
 
-== Elliptic Curves over $CC$
+== Elliptic Curves over $CC$ <sec:elliptic-curves-over-C-elliptic-curves-over-C>
 
 == Computing Periods
 
@@ -855,6 +934,7 @@ $
 
 == The Torsion Subgroup: Doud's Method
 
+#pagebreak()
 #heading(numbering: none, level: 2)[练习]
 
 = Complex Multiplication <chap:complex-multiplication>
@@ -869,6 +949,7 @@ $
 
 == Kronecker's Jugendtraum
 
+#pagebreak()
 #heading(numbering: none, level: 2)[练习]
 
 = Divisors <chap:divisors>
@@ -891,6 +972,7 @@ $
 
 == Nondegeneracy of the Tate-Lichtenbaum Pairing
 
+#pagebreak()
 #heading(numbering: none, level: 2)[练习]
 
 = Isogenies <chap:isogenies>
@@ -905,6 +987,7 @@ $
 
 == Complements
 
+#pagebreak()
 #heading(numbering: none, level: 2)[练习]
 
 = Hyperelliptic Curves <chap:hyperelliptic-curves>
@@ -917,6 +1000,7 @@ $
 
 == The Discrete Logarithm Problem
 
+#pagebreak()
 #heading(numbering: none, level: 2)[练习]
 
 = Zeta Functions <chap:zeta-functions>
@@ -925,6 +1009,7 @@ $
 
 == Elliptic Curves over $QQ$
 
+#pagebreak()
 #heading(numbering: none, level: 2)[练习]
 
 = 费马大定理 <chap:fermat-last-theorem>
