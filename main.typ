@@ -821,9 +821,16 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
   由于射影平面 $PP_K^2$ 中两点确定一条直线，而 $L_1$ 至少包含三点（$PP_K^1$ 总包含点 $(1 : 0), (0 : 1), (1 : 1)$），因此可以推出 $L_1$ 与 $L_2$ 是同一条直线。因此，$L_1(x, y, z)$ 与 $L_2(x, y, z)$ 是成比例的。
 ]
 
-通常来说，一条与曲线相交重数至少为 2 的直线是该曲线的切线。但是，考虑由方程 $ F(x, y, z) = y^2 z - x^3 = 0 $ 定义的曲线 $C$，令 $ x= a u quad quad y = b u quad quad z = v $ 为经过点 $P = (0 : 0 : 1)$ 的直线。注意点 $P$ 对于参数比 $(u : v) = (0 : 1)$，代入得 $tilde(F) (u, v) = u^2 (b^2 v - a^3 u)$，因此所有通过 $P$ 的直线与曲线 $C$ 的相交重数都至少为 2。当 $b = 0$ 时，也就是取切线的最佳选择，有相交重数为 3。曲线 $C$ 的
+通常来说，一条与曲线相交重数至少为 2 的直线是该曲线的切线。但是，考虑由方程 $ F(x, y, z) = y^2 z - x^3 = 0 $ 定义的曲线 $C$，令 $ x= a u quad quad y = b u quad quad z = v $ 为经过点 $P = (0 : 0 : 1)$ 的直线。注意点 $P$ 对于参数比 $(u : v) = (0 : 1)$，代入得 $tilde(F) (u, v) = u^2 (b^2 v - a^3 u)$，因此所有通过 $P$ 的直线与曲线 $C$ 的相交重数都至少为 2。当 $b = 0$ 时，也就是取切线的最佳选择，有相交重数为 3。曲线 $C$ 的仿射部分是曲线 $y^2 = x^3$，如 @fig:y2-x3 所示。点 $(0, 0)$ 是该曲线的一个奇点，这就是为什么 $P$ 处的交阶高于一般预期的原因。这种情况通常是我们希望避免的。
 
-#definition[]
+#definition[
+  设射影平面 $PP_K^2$ 上的曲线 $C$ 由 $F(x, y, z) = 0$ 定义，若在某点 $P$ 处三个偏导数 $F_x, F_y, F_z$ 中至少有一个不为零，则称曲线 $C$ 在点 $P$ 处是 *非奇异的*。
+
+]
+
+比如考虑由 $F(x, y, z) = y^2 z - x^3 - A x z^2 - B z^3 = 0$ 定义的椭圆曲线，并假设我们的域 $K$ 的特征不为 2 或 3。我们有 $ F_x = -3 x^2 - A z^2 quad quad F_y = 2 y z quad quad F_z = y^2 - 2 A x z - 3 B z^2 $
+
+设点 $P = (x : y : z)$ 为奇点。如果 $z = 0$，那么 $F_x = 0$ 推导出 $x = 0$，$F_z = 0$ 推导出 $y = 0$，因此 $P = (0 : 0 : 0)$，这是不允许的。如果 $z != 0$，那么我们可以取 $z = 1$（或者）
 
 #lemma[
   设 $F(x, y, z) = 0$ 定义了一条曲线 $C$。如果 $P$ 是 $C$ 上的一个非奇异点，那么在射影平面 $PP_K^2$ 中，恰好存在唯一一条直线在点 $P$ 与曲线的相交重数至少为 2，这条直线就是曲线 $C$ 在 $P$ 处的切线。
@@ -898,6 +905,31 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
 == Endomorphisms
 
 == Singular Curves <sec:singular-curves>
+
+#figure(caption: $y^2 = x^3$)[
+  #cetz.canvas(length: 8em, {
+    import cetz.draw: *
+    set-style(stroke: 0.5pt)
+
+    let y(x) = {
+      let y2 = x * x * x
+      if y2 < 0 { return () }
+      let y = calc.sqrt(y2)
+      return ((x, y), (x, -y))
+    }
+
+    for i in range(0, 100) {
+      let p = y(i / 100)
+      let p2 = y((i + 1) / 100)
+      if p.len() == 0 or p2.len() == 0 { continue }
+      line(p.at(0), p2.at(0))
+      line(p.at(1), p2.at(1))
+    }
+
+    line((-0.05, 0), (1.05, 0))
+    line((0, -1), (0, 1))
+  })
+] <fig:y2-x3>
 
 == Elliptic Curves mod n
 
