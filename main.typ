@@ -1,5 +1,5 @@
 #import "@preview/cetz:0.4.0": *
-#import "@preview/thmbox:0.2.0": *
+#import "@preview/thmbox:0.2.0": colors, sectioned-counter, thmbox, thmbox-init
 #import "@preview/hydra:0.6.1": hydra
 #import "@preview/subpar:0.2.2"
 
@@ -48,6 +48,23 @@
   counter: exercise-counter,
   variant: "练习",
   color: colors.light-aqua,
+  title-fonts: sans-fonts,
+  sans-fonts: sans-fonts,
+)
+
+#let note = thmbox.with(
+  color: colors.turquoise,
+  variant: "笔记",
+  numbering: none,
+  title-fonts: sans-fonts,
+  sans-fonts: sans-fonts,
+)
+
+#let theorem-counter = counter("theorem")
+#show: sectioned-counter(theorem-counter)
+#let theorem = thmbox.with(
+  color: colors.dark-red,
+  variant: "定理",
   title-fonts: sans-fonts,
   sans-fonts: sans-fonts,
 )
@@ -107,6 +124,7 @@
   variant: "符号说明",
   numbering: none,
   title-fonts: sans-fonts,
+  sans-fonts: sans-fonts,
 )[
   符号 $ZZ, FF_q, QQ, RR, CC$ 分别表示整数集、有 $q$ 个元素的有限域、有理数域、实数域和复数域。我们使用 $ZZ_n$（而不是 $ZZ \/ n ZZ$）来表示模 $n$ 的整数集。然而，当 $p$ 是素数，并且我们将 $ZZ_p$ 视为域而不是作为群或环来使用时，我们使用 $FF_p$ 这个记号，以与 $FF_q$ 的记法保持一致。注意，$ZZ_p$ 并不表示 $p$ 进整数。我们之所以这样选用，主要出于排版的考虑，因为模 $p$ 的整数频繁出现，而 $p$ 进整数的符号仅在第 13 章的少数几个例子中出现（其中我们用 $cal(O)_p$ 表示）。$p$ 进有理数表示为 $QQ_p$。
 
@@ -117,6 +135,7 @@
   variant: "致谢",
   numbering: none,
   title-fonts: sans-fonts,
+  sans-fonts: sans-fonts,
 )[
   作者感谢 CRC Press 的 Bob Stern 提议撰写本书并给予鼓励，也感谢 CRC Press 编辑团队在本书准备过程中提供的帮助。
 
