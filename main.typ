@@ -377,7 +377,7 @@ $
 
 那么可以得到：$ y^2 = x^3 - 432 $
 
-（这个变量代换从哪里来的？见第 2.5.2 节）
+（这个变量代换从哪里来的？见 @subsec:cubic-equations）
 
 可以证明（但这并不容易）这个方程的唯一有理数解为 $(x, y) = (12, plus.minus 36)$。
 
@@ -624,7 +624,7 @@ $
 
 === Legendre Equation
 
-=== Cubic Equations
+=== Cubic Equations <subsec:cubic-equations>
 
 === Quartic Equations
 
