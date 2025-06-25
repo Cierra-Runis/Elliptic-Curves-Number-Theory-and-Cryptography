@@ -1,4 +1,4 @@
-#import "@preview/cetz:0.4.0"
+(#import "@preview/cetz:0.4.0"
 #import "@preview/thmbox:0.2.0": colors, sectioned-counter, thmbox, thmbox-init
 #import "@preview/hydra:0.6.1": hydra
 #import "@preview/subpar:0.2.2"
@@ -815,7 +815,7 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
 
 设多项式 $f(x, y) = 0$ 描述了仿射平面中的一条曲线 $C$，又设 $ x = a_1 t + b_1 quad quad y = a_2 t + b_2 $ 是以参数 $t$ 表示的一条直线 $L$。定义 $ tilde(f)(t) = f(a_1 t + b_1, a_2 t + b_2) $
 
-那么，当 $tilde(f)(t_0) = 0$ 时，直线 $L$ 在 $t = t_0$ 处与曲线 $C$ 相交。若 $(t - t_0)^2$ 整除 $tilde(f)(t)$，则称 $L$ 与 $C$ 在该点相切（如果与 $t_0$ 对应的点是非奇异点，参见引理 @lemma:the-unique-tangent-line-at-a-nonsingular-point）。更一般地说，如果 $(t - t_0)^n$ 是整除 $tilde(f)(t)$ 的最大次数的因式，则称 $L$ 在与 $t = t_0$ 对应的点 $(x, y)$ 与 $C$ 的相交重数为 $n$。
+那么，当 $tilde(f)(t_0) = 0$ 时，直线 $L$ 在 $t = t_0$ 处与曲线 $C$ 相交。若 $(t - t_0)^2$ 整除 $tilde(f)(t)$，则称 $L$ 与 $C$ 在该点相切（如果与 $t_0$ 对应的点是非奇异点，见 @lemma:the-unique-tangent-line-at-a-nonsingular-point）。更一般地说，如果 $(t - t_0)^n$ 是整除 $tilde(f)(t)$ 的最大次数的因式，则称 $L$ 在与 $t = t_0$ 对应的点 $(x, y)$ 与 $C$ 的相交重数为 $n$。
 
 上述内容在齐次情形下的版本如下：设 $F(x, y, z)$ 是一个齐次多项式，因此 $F = 0$ 描述了射影平面 $PP_K^2$ 中的一条曲线 $C$。设 $L$ 是由参数式 @eq:parametric-description-of-line 给出的直线，定义 $ tilde(F)(u, v) = F(a_1u + b_1v, a_2u + b_2v, a_3u + b_3v) $
 
