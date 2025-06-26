@@ -754,7 +754,7 @@ $
 ]
 
 #figure(caption: [定义在 $CC$ 上的椭圆曲线])[
-  #image("assets/Simple_Torus.svg")
+  #image(svg-colorize("/assets/Simple_Torus.svg", colors.text))
 ]
 
 椭圆曲线上的点构成阿贝尔群这一事实，是大多数有趣性质与应用背后的基础。于是就产生了一个问题：我们所得到的这些点群，具有什么样的结构？下面是一些示例：
@@ -1011,7 +1011,7 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
 #figure(caption: [帕斯卡定理])[
   #cetz.canvas(length: 1.75em, {
     import cetz.draw: *
-    set-style(stroke: 1.5pt)
+    set-style(stroke: (paint: colors.text, thickness: 1.5pt))
     circle((0, 0), radius: (2, 1))
 
     set-style(stroke: 0.5pt)
@@ -1079,7 +1079,7 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
 #figure(caption: [帕普斯定理])[
   #cetz.canvas({
     import cetz.draw: *
-    set-style(stroke: 1.5pt)
+    set-style(stroke: (paint: colors.text, thickness: 1.5pt))
     /// y = x/8 + 1
     line((-1, 7 / 8), (9, 17 / 8))
     /// y = -x/8 - 1
@@ -1144,7 +1144,7 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
 #figure(caption: $y^2 = x^3$)[
   #cetz.canvas(length: 8em, {
     import cetz.draw: *
-    set-style(stroke: 0.5pt)
+    set-style(stroke: (paint: colors.text, thickness: 0.5pt))
 
     let y(x) = {
       let y2 = x * x * x
