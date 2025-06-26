@@ -1,16 +1,15 @@
-name: build
+name: release
 
 on:
   push:
-    branches:
-      - main
-  workflow_dispatch:
+    tags:
+      - '*'
 
 permissions:
   contents: write
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -23,18 +22,14 @@ jobs:
       - name: Setup Typst
         uses: typst-community/setup-typst@v4
 
-      - name: Get current date
-        id: date
-        run: echo "DATE=$(date +%y%m%d%H%M)" >> $GITHUB_ENV
-
       - name: Compile PDF
         run: |
           typst compile main.typ --font-path ./fonts \
             --input theme=${{ matrix.theme }} \
-            --format pdf "main-${{ matrix.theme }}-${{ env.DATE }}.pdf"
+            --format pdf "椭圆曲线-数论与密码学-第二版-${{ matrix.theme }}.pdf"
 
-      - name: Upload PDF file
-        uses: actions/upload-artifact@v4
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
         with:
-          name: PDF-${{ matrix.theme }}-${{ env.DATE }}
-          path: '**/*.pdf'
+          generate_release_notes: true
+          files: '**/*.pdf'
