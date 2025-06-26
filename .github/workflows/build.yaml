@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        theme: [frappe, latte, mocha, macchiato]
+        theme: [tailwind, one-dark-pro]
 
     steps:
       - name: Checkout

@@ -1,67 +1,44 @@
 #import "@preview/cetz:0.4.0"
-#import "@preview/thmbox:0.2.0": colors, sectioned-counter, thmbox, thmbox-init
+#import "@preview/thmbox:0.2.0": sectioned-counter, thmbox, thmbox-init
 #import "@preview/hydra:0.6.1": hydra
 #import "@preview/subpar:0.2.2"
-#import "@preview/catppuccin:1.0.0": catppuccin, flavors
-
-#let colorize(svg, color) = {
-  let svg = read(svg)
-  let path = svg.replace(
-    regex("stroke=\"[^\"]*\""),
-    "stroke=\"" + color.to-hex() + "\"",
-  )
-  bytes(path)
-}
-
-#let theme = sys.inputs.keys().find(it => it == "theme")
-#let default-flavor = flavors.latte
-#let flavor = if theme != none {
-  let theme = sys.inputs.at(theme)
-  let result = flavors.values().find(it => it.identifier == theme)
-  if result == none { default-flavor } else { result }
-} else { default-flavor }
-
-#show: catppuccin.with(flavor)
-#let colors = (
-  rosewater: flavor.colors.rosewater.rgb,
-  flamingo: flavor.colors.flamingo.rgb,
-  pink: flavor.colors.pink.rgb,
-  mauve: flavor.colors.mauve.rgb,
-  red: flavor.colors.red.rgb,
-  maroon: flavor.colors.maroon.rgb,
-  peach: flavor.colors.peach.rgb,
-  yellow: flavor.colors.yellow.rgb,
-  green: flavor.colors.green.rgb,
-  teal: flavor.colors.teal.rgb,
-  sky: flavor.colors.sky.rgb,
-  sapphire: flavor.colors.sapphire.rgb,
-  blue: flavor.colors.blue.rgb,
-  lavender: flavor.colors.lavender.rgb,
-  text: flavor.colors.text.rgb,
-  subtext1: flavor.colors.subtext1.rgb,
-  subtext0: flavor.colors.subtext0.rgb,
-  overlay2: flavor.colors.overlay2.rgb,
-  overlay1: flavor.colors.overlay1.rgb,
-  overlay0: flavor.colors.overlay0.rgb,
-  surface2: flavor.colors.surface2.rgb,
-  surface1: flavor.colors.surface1.rgb,
-  surface0: flavor.colors.surface0.rgb,
-  base: flavor.colors.base.rgb,
-  mantle: flavor.colors.mantle.rgb,
-  crust: flavor.colors.crust.rgb,
-)
+#import "theme.typ": theme-flavors, theme-init, theme-setup
 
 #set document(
   title: "椭圆曲线 - 数论与密码学（第二版）",
   author: "Lawrence C. Washington",
 )
 #set par(first-line-indent: (amount: 2em, all: true))
+
+/// TODO: Fonts
 #let serif-fonts = (
   (name: "New Computer Modern", covers: regex("[a-zA-Z0-9’—]")),
   "Source Han Serif SC",
 )
 #set text(font: serif-fonts, size: 13pt)
 #show emph: text.with(font: "LXGW WenKai GB")
+/// FIXME: Fonts
+
+/// TODO: Colors
+#let flavor = theme-init()
+#show: theme-setup.with(flavor)
+#let colors = flavor.colors
+
+#let link-color = colors.red
+#show outline.entry: set text(fill: link-color)
+#show link: set text(fill: link-color)
+#show ref: set text(fill: link-color)
+#show footnote: set text(fill: link-color)
+
+/// - file (str): The path to the SVG file.
+/// - color (color): The color to replace the stroke color with.
+#let svg-colorize(file, color) = {
+  bytes(read(file).replace(
+    regex("stroke=\"[^\"]*\""),
+    "stroke=\"" + color.to-hex() + "\"",
+  ))
+}
+/// FIXME: Colors
 
 #set heading(outlined: false, supplement: none)
 #show heading.where(level: 1): it => [
@@ -84,16 +61,12 @@
 #show figure.where(kind: table): set figure.caption(position: top)
 #show figure.where(kind: "thmbox"): set block(breakable: true)
 
-#let link-color = colors.sky
-#show outline.entry: set text(fill: link-color)
-#show link: set text(fill: link-color)
-#show ref: set text(fill: link-color)
-#show footnote: set text(fill: link-color)
+
 
 #let conjecture-counter = counter("conjecture")
 #show: sectioned-counter(conjecture-counter)
 #let conjecture = thmbox.with(
-  color: colors.flamingo,
+  color: colors.blue,
   counter: conjecture-counter,
   variant: "猜想",
   title-fonts: serif-fonts,
@@ -110,10 +83,12 @@
   sans-fonts: serif-fonts,
 )
 
-#let note = thmbox.with(
-  color: colors.teal,
-  variant: "笔记",
-  numbering: none,
+#let example-counter = counter("example")
+#show: sectioned-counter(example-counter)
+#let example = thmbox.with(
+  color: colors.green,
+  counter: example-counter,
+  variant: "示例",
   title-fonts: serif-fonts,
   sans-fonts: serif-fonts,
 )
@@ -126,45 +101,43 @@
 )
 
 #let lemma = thmbox.with(
-  color: colors.green,
+  color: colors.lime,
   variant: "引理",
   title-fonts: serif-fonts,
   sans-fonts: serif-fonts,
 )
 
 #let definition = thmbox.with(
-  color: colors.peach,
+  color: colors.yellow,
   variant: "定义",
   title-fonts: serif-fonts,
   sans-fonts: serif-fonts,
 )
 
 #let remark = thmbox.with(
-  color: colors.overlay0,
+  color: colors.text,
   variant: "注记",
   title-fonts: serif-fonts,
   sans-fonts: serif-fonts,
 )
 
 #let corollary = thmbox.with(
-  color: colors.pink,
+  color: colors.red,
   variant: "推论",
   title-fonts: serif-fonts,
   sans-fonts: serif-fonts,
 )
 
-#let example-counter = counter("example")
-#show: sectioned-counter(example-counter)
-#let example = thmbox.with(
-  color: colors.sapphire,
-  counter: example-counter,
-  variant: "示例",
+#let note = thmbox.with(
+  color: colors.text,
+  variant: "笔记",
+  numbering: none,
   title-fonts: serif-fonts,
   sans-fonts: serif-fonts,
 )
 
 #let proof = thmbox.with(
-  color: colors.maroon,
+  color: colors.emerald,
   variant: "证明",
   numbering: none,
   title-fonts: serif-fonts,
@@ -172,7 +145,7 @@
 )
 
 #let warning = thmbox.with(
-  color: colors.yellow,
+  color: colors.orange,
   variant: "警告",
   numbering: none,
   title-fonts: serif-fonts,
@@ -180,7 +153,7 @@
 )
 
 #let algorithm = thmbox.with(
-  color: colors.pink,
+  color: colors.purple,
   variant: "算法",
   numbering: none,
   title-fonts: serif-fonts,
@@ -214,9 +187,9 @@
   #set text(size: 16pt)
   Second Edition
 
-  _椭圆曲线 数论与密码学 第二版_
+  _椭圆曲线#h(1em)数论与密码学#h(1em)第二版_
 
-  #image(colorize("/assets/Simple_Torus.svg", colors.text))
+  #image(svg-colorize("/assets/Simple_Torus.svg", colors.text))
 
   #set text(size: 20pt)
   LAWRENCE C. WASHINGTON
@@ -230,6 +203,19 @@
 #counter(page).update(0)
 #set page(numbering: "I")
 
+#conjecture[]
+#exercise[]
+#note[]
+#theorem[]
+#lemma[]
+#definition[]
+#remark[]
+#corollary[]
+#example[]
+#proof[]
+#warning[]
+#algorithm[]
+
 = 前言
 
 在过去的 20 或 30 年里，椭圆曲线在数论和其相关领域如密码学中都扮演着越来越重要的角色。比如在 1980 年代，椭圆曲线开始应用于密码学中，椭圆曲线技术被用于因式分解和素性检验。在 1980 和 1990 年代，椭圆曲线在费马大定理的证明中起到了重要作用。本书的目标是在仅具备初等数论以及群与域方面基础知识的前提下，建立起椭圆曲线的理论。这些基础知识大致相当于优秀本科生或初级研究生的抽象代数课程所涵盖的内容。特别地，我们并不假设读者具备代数几何的背景。除了少数可以选择性跳过的独立章节外，我们也不要求读者了解伽罗瓦理论。尽管我们在有限域的情形下隐含地使用了伽罗瓦理论，但在这种情况下，一切都可以通过弗罗贝尼乌斯映射显式地完成，因此不需要用到一般性的理论。相关的知识已在附录中进行了说明。
@@ -238,25 +224,13 @@
 
 关于椭圆曲线的优秀著作在文献中已有多种。本书并无意取代 Silverman 所著的两卷经典作品 @silverman1986arithmetic、@silverman1994advancedtopics，后者已成为椭圆曲线数论方面的标准参考资料。相反，本书从更基础的视角出发，涵盖了部分相同内容，并加入了对密码学应用的讨论。我们希望读者在阅读本书之后，能更容易理解 Silverman 的著作，并欣赏其略显进阶的处理方式。对于更偏解析方法的椭圆曲线算术研究，建议参考 Knapp @knapp1992elliptic 和 Koblitz @koblitz1993ellipticmodular 的著作，它们在这方面的处理比本书或 Silverman 的 @silverman1986arithmetic 更为深入。在椭圆曲线密码学方面，Blake 等人近期的著作 @blake2000elliptic 提供了多个算法的更详尽细节，尽管其中几乎没有证明，仍是学习椭圆曲线密码学的重要资料。本书旨在为理解该书中所用的数学提供良好的入门与解释。此外，Enge @enge1999elliptic、Koblitz @koblitz1998algebraiccrypto、@koblitz1994course 以及 Menezes @menezes1993eccpubkey 等人的著作也从密码学角度探讨了椭圆曲线，值得深入阅读。
 
-#thmbox(
-  variant: "符号说明",
-  numbering: none,
-  title-fonts: serif-fonts,
-  sans-fonts: serif-fonts,
-  color: colors.text,
-)[
+#note(variant: "符号说明")[
   符号 $ZZ, FF_q, QQ, RR, CC$ 分别表示整数集、有 $q$ 个元素的有限域、有理数域、实数域和复数域。我们使用 $ZZ_n$（而不是 $ZZ \/ n ZZ$）来表示模 $n$ 的整数集。然而，当 $p$ 是素数，并且我们将 $ZZ_p$ 视为域而不是作为群或环来使用时，我们使用 $FF_p$ 这个记号，以与 $FF_q$ 的记法保持一致。注意，$ZZ_p$ 并不表示 $p$ 进整数。我们之所以这样选用，主要出于排版的考虑，因为模 $p$ 的整数频繁出现，而 $p$ 进整数的符号仅在第 13 章的少数几个例子中出现（其中我们用 $cal(O)_p$ 表示）。$p$ 进有理数表示为 $QQ_p$。
 
   如果 $K$ 是一个域，那么 $overline(K)$ 表示其代数闭包。如果 $R$ 是一个环，则 $R^times$ 表示 $R$ 中的可逆元素。当 $K$ 是域时，$K^times$ 因此表示 $K$ 的非零元素所构成的乘法群。在全书中，字母 $K$ 和 $E$ 通常分别用来表示一个域和一条椭圆曲线（但在第 9 章中，$K$ 有几处用来表示椭圆积分）。
 ]
 
-#thmbox(
-  variant: "致谢",
-  numbering: none,
-  title-fonts: serif-fonts,
-  sans-fonts: serif-fonts,
-  color: colors.text,
-)[
+#note(variant: "致谢")[
   作者感谢 CRC Press 的 Bob Stern 提议撰写本书并给予鼓励，也感谢 CRC Press 编辑团队在本书准备过程中提供的帮助。
 
   Ed Eikenberg、Jim Owings、Susan Schmoyer、Brian Conrad 和 Sam Wagstaff 提出了许多建议，使得手稿得到了极大的改进。当然，仍有提升的空间。欢迎将建议和勘误发送至 #link("mailto:lcw@math.umd.edu")[作者邮箱]。勘误列表将发布在 #link("www.math.umd.edu/~lcw/ellipticcurves.html")[本书的网站] 上。
