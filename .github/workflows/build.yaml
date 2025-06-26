@@ -27,7 +27,7 @@ jobs:
       - name: Upload PDF file
         uses: actions/upload-artifact@v4
         with:
-          name: main-${{ matrix.theme }}.pdf
+          name: main-${{ matrix.theme }}
           path: main-${{ matrix.theme }}.pdf
 
   release:
