@@ -26,7 +26,7 @@ jobs:
         run: |
           typst compile main.typ --font-path ./fonts \
             --input theme=${{ matrix.theme }} \
-            --format pdf "main-${{ matrix.theme } - ${{ env.DATE }}.pdf"
+            --format pdf "main-${{ matrix.theme }} - ${{ env.DATE }}.pdf"
 
       - name: Upload PDF file
         uses: actions/upload-artifact@v4
