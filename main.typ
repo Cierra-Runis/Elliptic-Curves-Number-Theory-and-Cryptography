@@ -1014,7 +1014,7 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
     set-style(stroke: (paint: colors.text, thickness: 1.5pt))
     circle((0, 0), radius: (2, 1))
 
-    set-style(stroke: 0.5pt)
+    set-style(stroke: (paint: colors.text, thickness: 0.5pt))
 
     let A = (-2, 0)
     circle(A, name: "A", radius: 0)
@@ -1084,7 +1084,7 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
     line((-1, 7 / 8), (9, 17 / 8))
     /// y = -x/8 - 1
     line((-1, -7 / 8), (9, -17 / 8))
-    set-style(stroke: 0.5pt)
+    set-style(stroke: (paint: colors.text, thickness: 0.5pt))
 
     circle((0, 1), name: "A", radius: 0)
     content("A", $ A $, anchor: "south", padding: 0.1)
