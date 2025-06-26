@@ -1,17 +1,67 @@
-(#import "@preview/cetz:0.4.0"
+#import "@preview/cetz:0.4.0"
 #import "@preview/thmbox:0.2.0": colors, sectioned-counter, thmbox, thmbox-init
 #import "@preview/hydra:0.6.1": hydra
 #import "@preview/subpar:0.2.2"
+#import "@preview/catppuccin:1.0.0": catppuccin, flavors
+
+#let colorize(svg, color) = {
+  let svg = read(svg)
+  let path = svg.replace(
+    regex("stroke=\"[^\"]*\""),
+    "stroke=\"" + color.to-hex() + "\"",
+  )
+  bytes(path)
+}
+
+#let theme = sys.inputs.keys().find(it => it == "theme")
+#let default-flavor = flavors.latte
+#let flavor = if theme != none {
+  let theme = sys.inputs.at(theme)
+  let result = flavors.values().find(it => it.identifier == theme)
+  if result == none { default-flavor } else { result }
+} else { default-flavor }
+
+#show: catppuccin.with(flavor)
+#let colors = (
+  rosewater: flavor.colors.rosewater.rgb,
+  flamingo: flavor.colors.flamingo.rgb,
+  pink: flavor.colors.pink.rgb,
+  mauve: flavor.colors.mauve.rgb,
+  red: flavor.colors.red.rgb,
+  maroon: flavor.colors.maroon.rgb,
+  peach: flavor.colors.peach.rgb,
+  yellow: flavor.colors.yellow.rgb,
+  green: flavor.colors.green.rgb,
+  teal: flavor.colors.teal.rgb,
+  sky: flavor.colors.sky.rgb,
+  sapphire: flavor.colors.sapphire.rgb,
+  blue: flavor.colors.blue.rgb,
+  lavender: flavor.colors.lavender.rgb,
+  text: flavor.colors.text.rgb,
+  subtext1: flavor.colors.subtext1.rgb,
+  subtext0: flavor.colors.subtext0.rgb,
+  overlay2: flavor.colors.overlay2.rgb,
+  overlay1: flavor.colors.overlay1.rgb,
+  overlay0: flavor.colors.overlay0.rgb,
+  surface2: flavor.colors.surface2.rgb,
+  surface1: flavor.colors.surface1.rgb,
+  surface0: flavor.colors.surface0.rgb,
+  base: flavor.colors.base.rgb,
+  mantle: flavor.colors.mantle.rgb,
+  crust: flavor.colors.crust.rgb,
+)
 
 #set document(
   title: "椭圆曲线 - 数论与密码学（第二版）",
+  author: "Lawrence C. Washington",
 )
 #set par(first-line-indent: (amount: 2em, all: true))
-#let sans-fonts = (
+#let serif-fonts = (
   (name: "New Computer Modern", covers: regex("[a-zA-Z0-9’—]")),
   "Source Han Serif SC",
 )
-#set text(font: sans-fonts, size: 13pt)
+#set text(font: serif-fonts, size: 13pt)
+#show emph: text.with(font: "LXGW WenKai GB")
 
 #set heading(outlined: false, supplement: none)
 #show heading.where(level: 1): it => [
@@ -34,106 +84,107 @@
 #show figure.where(kind: table): set figure.caption(position: top)
 #show figure.where(kind: "thmbox"): set block(breakable: true)
 
-#show outline.entry: set text(fill: red)
-#show link: set text(fill: red)
-#show ref: set text(fill: red)
-#show footnote: set text(fill: red)
+#let link-color = colors.sky
+#show outline.entry: set text(fill: link-color)
+#show link: set text(fill: link-color)
+#show ref: set text(fill: link-color)
+#show footnote: set text(fill: link-color)
 
 #let conjecture-counter = counter("conjecture")
 #show: sectioned-counter(conjecture-counter)
 #let conjecture = thmbox.with(
-  color: colors.dark-blue,
+  color: colors.flamingo,
   counter: conjecture-counter,
   variant: "猜想",
-  title-fonts: sans-fonts,
-  sans-fonts: sans-fonts,
+  title-fonts: serif-fonts,
+  sans-fonts: serif-fonts,
 )
 
 #let exercise-counter = counter("exercise")
 #show: sectioned-counter(exercise-counter)
 #let exercise = thmbox.with(
-  color: colors.light-aqua,
+  color: colors.sky,
   counter: exercise-counter,
   variant: "练习",
-  title-fonts: sans-fonts,
-  sans-fonts: sans-fonts,
+  title-fonts: serif-fonts,
+  sans-fonts: serif-fonts,
 )
 
 #let note = thmbox.with(
-  color: colors.turquoise,
+  color: colors.teal,
   variant: "笔记",
   numbering: none,
-  title-fonts: sans-fonts,
-  sans-fonts: sans-fonts,
+  title-fonts: serif-fonts,
+  sans-fonts: serif-fonts,
 )
 
 #let theorem = thmbox.with(
-  color: colors.dark-red,
+  color: colors.red,
   variant: "定理",
-  title-fonts: sans-fonts,
-  sans-fonts: sans-fonts,
+  title-fonts: serif-fonts,
+  sans-fonts: serif-fonts,
 )
 
 #let lemma = thmbox.with(
-  color: colors.light-turquoise,
+  color: colors.green,
   variant: "引理",
-  title-fonts: sans-fonts,
-  sans-fonts: sans-fonts,
+  title-fonts: serif-fonts,
+  sans-fonts: serif-fonts,
 )
 
 #let definition = thmbox.with(
-  color: colors.orange,
+  color: colors.peach,
   variant: "定义",
-  title-fonts: sans-fonts,
-  sans-fonts: sans-fonts,
+  title-fonts: serif-fonts,
+  sans-fonts: serif-fonts,
 )
 
 #let remark = thmbox.with(
-  color: colors.gray,
+  color: colors.overlay0,
   variant: "注记",
-  title-fonts: sans-fonts,
-  sans-fonts: sans-fonts,
+  title-fonts: serif-fonts,
+  sans-fonts: serif-fonts,
 )
 
 #let corollary = thmbox.with(
   color: colors.pink,
   variant: "推论",
-  title-fonts: sans-fonts,
-  sans-fonts: sans-fonts,
+  title-fonts: serif-fonts,
+  sans-fonts: serif-fonts,
 )
 
 #let example-counter = counter("example")
 #show: sectioned-counter(example-counter)
 #let example = thmbox.with(
-  color: colors.lime,
+  color: colors.sapphire,
   counter: example-counter,
   variant: "示例",
-  title-fonts: sans-fonts,
-  sans-fonts: sans-fonts,
+  title-fonts: serif-fonts,
+  sans-fonts: serif-fonts,
 )
 
 #let proof = thmbox.with(
-  color: colors.green,
+  color: colors.maroon,
   variant: "证明",
   numbering: none,
-  title-fonts: sans-fonts,
-  sans-fonts: sans-fonts,
+  title-fonts: serif-fonts,
+  sans-fonts: serif-fonts,
 )
 
 #let warning = thmbox.with(
-  color: red,
+  color: colors.yellow,
   variant: "警告",
   numbering: none,
-  title-fonts: sans-fonts,
-  sans-fonts: sans-fonts,
+  title-fonts: serif-fonts,
+  sans-fonts: serif-fonts,
 )
 
 #let algorithm = thmbox.with(
-  color: colors.purple,
+  color: colors.pink,
   variant: "算法",
   numbering: none,
-  title-fonts: sans-fonts,
-  sans-fonts: sans-fonts,
+  title-fonts: serif-fonts,
+  sans-fonts: serif-fonts,
 )
 
 /// https://typst-doc-cn.github.io/guide/FAQ/math-equation.html
@@ -163,9 +214,9 @@
   #set text(size: 16pt)
   Second Edition
 
-  椭圆曲线 数论与密码学 第二版
+  _椭圆曲线 数论与密码学 第二版_
 
-  #image("/assets/Simple_Torus.svg")
+  #image(colorize("/assets/Simple_Torus.svg", colors.text))
 
   #set text(size: 20pt)
   LAWRENCE C. WASHINGTON
@@ -190,8 +241,9 @@
 #thmbox(
   variant: "符号说明",
   numbering: none,
-  title-fonts: sans-fonts,
-  sans-fonts: sans-fonts,
+  title-fonts: serif-fonts,
+  sans-fonts: serif-fonts,
+  color: colors.text,
 )[
   符号 $ZZ, FF_q, QQ, RR, CC$ 分别表示整数集、有 $q$ 个元素的有限域、有理数域、实数域和复数域。我们使用 $ZZ_n$（而不是 $ZZ \/ n ZZ$）来表示模 $n$ 的整数集。然而，当 $p$ 是素数，并且我们将 $ZZ_p$ 视为域而不是作为群或环来使用时，我们使用 $FF_p$ 这个记号，以与 $FF_q$ 的记法保持一致。注意，$ZZ_p$ 并不表示 $p$ 进整数。我们之所以这样选用，主要出于排版的考虑，因为模 $p$ 的整数频繁出现，而 $p$ 进整数的符号仅在第 13 章的少数几个例子中出现（其中我们用 $cal(O)_p$ 表示）。$p$ 进有理数表示为 $QQ_p$。
 
@@ -201,8 +253,9 @@
 #thmbox(
   variant: "致谢",
   numbering: none,
-  title-fonts: sans-fonts,
-  sans-fonts: sans-fonts,
+  title-fonts: serif-fonts,
+  sans-fonts: serif-fonts,
+  color: colors.text,
 )[
   作者感谢 CRC Press 的 Bob Stern 提议撰写本书并给予鼓励，也感谢 CRC Press 编辑团队在本书准备过程中提供的帮助。
 
@@ -239,9 +292,12 @@
 
 #enum(
   numbering: "I.",
+
   enum.item[密码学路径：继续阅读 @chap:the-discrete-logarithm-problem、@chap:elliptic-curves-cryptography、@chap:other-applications，然后跳转到 @chap:divisors 和 @chap:hyperelliptic-curves。],
-  enum.item[数论路径：阅读第 @chap:elliptic-curves-over-Q、@chap:elliptic-curves-over-C、@chap:complex-multiplication、@chap:divisors、@chap:isogenies、@chap:zeta-functions、@chap:fermat-last-theorem，之后建议回头阅读先前跳过的章节，以了解该领域在实际应用中的用法。],
-  enum.item[复分析路径：阅读第 @chap:elliptic-curves-over-C、@chap:complex-multiplication 以及 @sec:complex-theory。],
+
+  enum.item[数论路径：阅读 @chap:elliptic-curves-over-Q、@chap:elliptic-curves-over-C、@chap:complex-multiplication、@chap:divisors、@chap:isogenies、@chap:zeta-functions、@chap:fermat-last-theorem，之后建议回头阅读先前跳过的章节，以了解该领域在实际应用中的用法。],
+
+  enum.item[复分析路径：阅读 @chap:elliptic-curves-over-C、@chap:complex-multiplication 以及 @sec:complex-theory。],
 )
 
 #pagebreak()
@@ -285,21 +341,21 @@
 #figure(caption: "炮弹金字塔")[
   #cetz.canvas(length: 2em, {
     import cetz.draw: *
-    set-style(stroke: 0.5pt)
+    set-style(stroke: (paint: colors.text, thickness: 0.5pt))
 
-    circle((2, 0), fill: white)
-    circle((2, 2), fill: white)
-    circle((0, 2), fill: white)
-    circle((-2, 2), fill: white)
-    circle((-2, 0), fill: white)
-    circle((-2, -2), fill: white)
-    circle((0, -2), fill: white)
-    circle((2, -2), fill: white)
-    circle((1, 1), fill: white)
-    circle((-1, 1), fill: white)
-    circle((-1, -1), fill: white)
-    circle((1, -1), fill: white)
-    circle((0, 0), fill: white)
+    circle((2, 0), fill: colors.base)
+    circle((2, 2), fill: colors.base)
+    circle((0, 2), fill: colors.base)
+    circle((-2, 2), fill: colors.base)
+    circle((-2, 0), fill: colors.base)
+    circle((-2, -2), fill: colors.base)
+    circle((0, -2), fill: colors.base)
+    circle((2, -2), fill: colors.base)
+    circle((1, 1), fill: colors.base)
+    circle((-1, 1), fill: colors.base)
+    circle((-1, -1), fill: colors.base)
+    circle((1, -1), fill: colors.base)
+    circle((0, 0), fill: colors.base)
   })
 ]
 
@@ -310,7 +366,7 @@
 #figure(caption: $y^2 = x(x + 1)(2x + 1) \/ 6$)[
   #cetz.canvas(length: 6em, {
     import cetz.draw: *
-    set-style(stroke: 0.5pt)
+    set-style(stroke: (paint: colors.text, thickness: 0.5pt))
 
     let y(x) = {
       let y2 = x * (x + 1) * (2 * x + 1) / 6
@@ -347,7 +403,7 @@
 #figure(caption: "面积为 5 的有理边三角形")[
   #cetz.canvas(length: 2.5em, {
     import cetz.draw: *
-    set-style(stroke: 0.5pt)
+    set-style(stroke: (paint: colors.text, thickness: 0.5pt))
 
     line((0, 0), (20 / 3, 0), name: "a")
     content("a", $ a $, anchor: "north", padding: .1)
@@ -391,7 +447,7 @@
 #figure(caption: "面积为 5 的有理边三角形")[
   #cetz.canvas(length: 2.5em, {
     import cetz.draw: *
-    set-style(stroke: 0.5pt)
+    set-style(stroke: (paint: colors.text, thickness: 0.5pt))
 
     line((0, 0), (20 / 3, 0), name: "a")
     content("a", $ 20 / 3 $, anchor: "north", padding: .1)
@@ -509,7 +565,7 @@ $ E(L) = {infinity} union {(x, y) in L times L divides y^2 = x^3 + A x + B} $
   figure(
     cetz.canvas(length: 3em, {
       import cetz.draw: *
-      set-style(stroke: 0.5pt)
+      set-style(stroke: (paint: colors.text, thickness: 0.5pt))
 
       let y(x) = {
         let y2 = x * x * x - x
@@ -536,7 +592,7 @@ $ E(L) = {infinity} union {(x, y) in L times L divides y^2 = x^3 + A x + B} $
   figure(
     cetz.canvas(length: 3em, {
       import cetz.draw: *
-      set-style(stroke: 0.5pt)
+      set-style(stroke: (paint: colors.text, thickness: 0.5pt))
 
       let y(x) = {
         let y2 = x * x * x + x
@@ -605,7 +661,7 @@ $
 #figure(caption: "椭圆曲线上的点加法")[
   #cetz.canvas(length: 1.25em, {
     import cetz.draw: *
-    set-style(stroke: 0.5pt)
+    set-style(stroke: (paint: colors.text, thickness: 0.5pt))
 
     let y(x) = {
       let y2 = x * x * x - x + 6
