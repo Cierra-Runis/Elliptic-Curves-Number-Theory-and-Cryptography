@@ -5,5 +5,5 @@
     "--input",
     "theme=one-dark-pro"
   ],
-  "cSpell.words": ["cetz", "emph", "LXGW", "smcp", "thmbox"]
+  "cSpell.enabled": false
 }
