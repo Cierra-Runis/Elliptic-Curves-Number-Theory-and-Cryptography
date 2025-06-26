@@ -18,15 +18,15 @@ jobs:
       - name: Setup Typst
         uses: typst-community/setup-typst@v4
 
+      - name: Get current date
+        id: date
+        run: echo "DATE=$(date +%Y-%m-%d-%H:%M)" >> $GITHUB_ENV
+
       - name: Compile PDF
         run: |
           typst compile main.typ --font-path ./fonts \
             --input theme=${{ matrix.theme }} \
             --format pdf main-${{ matrix.theme }-${{ env.DATE }}.pdf
-
-      - name: Get current date
-        id: date
-        run: echo "DATE=$(date +%Y-%m-%d-%H:%M)" >> $GITHUB_ENV
 
       - name: Upload PDF file
         uses: actions/upload-artifact@v4
