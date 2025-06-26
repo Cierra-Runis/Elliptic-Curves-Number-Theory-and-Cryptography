@@ -261,8 +261,12 @@
   enum.item[复分析路径：阅读 @chap:elliptic-curves-over-C、@chap:complex-multiplication 以及 @sec:complex-theory。],
 )
 
+/// TODO: TOC
 #pagebreak()
+#set text(size: 11pt)
 #outline(title: "目录", indent: 2em)
+#set text(size: 12pt)
+/// TODO: TOC
 
 #set page(numbering: "1", header: context {
   if calc.odd(here().page()) {
