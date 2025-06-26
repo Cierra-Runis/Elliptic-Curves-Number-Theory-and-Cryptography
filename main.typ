@@ -17,6 +17,7 @@
 #show heading.where(level: 1): it => [
   #set text(size: 20pt)
   #counter(math.equation).update(0)
+  #counter(figure.where(kind: image)).update(0)
   #align(center)[
     #block(it, above: 2em, below: 2em)
   ]
@@ -26,13 +27,17 @@
   #block(it, above: 1.5em, below: 1.5em)
 ]
 
-#set figure(supplement: "图")
+#set figure(supplement: "图", numbering: num => (
+  numbering("1-1", counter(heading).get().first(), num)
+))
+#set figure.caption(separator: h(1em))
+#show figure.where(kind: table): set figure.caption(position: top)
+#show figure.where(kind: "thmbox"): set block(breakable: true)
+
 #show outline.entry: set text(fill: red)
 #show link: set text(fill: red)
 #show ref: set text(fill: red)
 #show footnote: set text(fill: red)
-
-#show figure.where(kind: "thmbox"): set block(breakable: true)
 
 #let conjecture-counter = counter("conjecture")
 #show: sectioned-counter(conjecture-counter)
@@ -260,6 +265,7 @@
   #pagebreak()
   #set text(size: 20pt)
   #counter(math.equation).update(0)
+  #counter(figure.where(kind: image)).update(0)
   #align(center)[
     #block(it, above: 2em, below: 2em)
   ]
@@ -493,7 +499,13 @@ $ E(L) = {infinity} union {(x, y) in L times L divides y^2 = x^3 + A x + B} $
   columns: (1fr, 1fr),
   label: <fig:elliptic-curves-shapes>,
   supplement: "图",
-  numbering-sub: "(1)",
+  numbering: num => (
+    numbering("1-1", counter(heading).get().first(), num)
+  ),
+  numbering-sub: "(1)  ",
+  numbering-sub-ref: (a, b) => (
+    numbering("1-1-1", counter(heading).get().first(), a, b)
+  ),
   figure(
     cetz.canvas(length: 3em, {
       import cetz.draw: *
