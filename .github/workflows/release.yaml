@@ -26,7 +26,7 @@ jobs:
         run: |
           typst compile main.typ --font-path ./fonts \
             --input theme=${{ matrix.theme }} \
-            --format pdf "Elliptic Curves Number Theory and Cryptography - ${{ matrix.theme }}.pdf"
+            --format pdf "Elliptic-Curves-Number-Theory-and-Cryptography-${{ matrix.theme }}.pdf"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
