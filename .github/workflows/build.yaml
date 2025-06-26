@@ -7,24 +7,39 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        theme: [frappe, latte, mocha, macchiato]
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Typst
-        uses: lvignoli/typst-action@main
-        with:
-          source_file: |
-            main.typ
-          options: |
-            --font-path
-            fonts
+      - name: Setup Typst
+        uses: typst-community/setup-typst@v4
+
+      - name: Compile PDF
+        run: |
+          typst compile main.typ --font-path ./fonts \
+            --input theme=${{ matrix.theme }} \
+            --format pdf main-${{ matrix.theme }}.pdf
 
       - name: Upload PDF file
         uses: actions/upload-artifact@v4
         with:
-          name: PDF
-          path: main.pdf
+          name: main-${{ matrix.theme }}.pdf
+          path: main-${{ matrix.theme }}.pdf
+
+  release:
+    needs: build
+    if: github.ref_type == 'tag'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download all PDFs
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
 
       - name: Get current date
         id: date
@@ -32,7 +47,6 @@ jobs:
 
       - name: Release
         uses: softprops/action-gh-release@v2
-        if: github.ref_type == 'tag'
         with:
           name: '${{ github.ref_name }} — ${{ env.DATE }}'
-          files: main.pdf
+          files: artifacts/**/*.pdf
