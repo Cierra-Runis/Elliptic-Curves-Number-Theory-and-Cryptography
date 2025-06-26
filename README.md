@@ -15,13 +15,13 @@
 
 **下载地址**：[GitHub Actions][build]
 
-**使用方法**：选择最新构建，在 `Artifacts` 一栏下载 `PDF-*.zip` 文件并解压
+**使用方法**：选择最新构建，在 `Artifacts` 一栏下载 `PDF-*.zip`
 
 ### 📦 正式版
 
 **下载地址**：[GitHub Releases][releases]
 
-**使用方法**：在 `Assets` 一栏下载 `*.pdf` 文件
+**使用方法**：在 `Assets` 一栏下载 `*.pdf`
 
 ### 🎨 主题支持
 
