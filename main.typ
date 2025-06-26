@@ -279,7 +279,7 @@
 /// START: Main matter setup
 #set page(numbering: "1", header: context {
   if calc.odd(here().page()) {
-    return align(right, emph(hydra()))
+    return align(right, emph(hydra(1)))
   }
   let section = hydra(2)
   if section != none {
