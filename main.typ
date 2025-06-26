@@ -1497,7 +1497,7 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
 == Sketch of Wiles' Proof
 
 #let appendix(body) = {
-  set heading(numbering: "A.1", supplement: [Appendix])
+  set heading(numbering: "附录 A.1", supplement: "附录")
   counter(heading).update(0)
   body
 }
@@ -1513,9 +1513,35 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
 = Fields <appendix:fields>
 
 /// START: Chapter
-= Computer Packages <appendix:computer-packages>
+= 计算机软件包 <appendix:computer-packages>
+
+目前有若干计算机代数软件可以用于椭圆曲线上的计算。在本附录中，我们将对其中三种主流软件做一个简要介绍。我们不打算详细解释这些软件的结构，而是通过一些计算示例展示它们的功能。读者若想了解更多操作方式，可参考在线或软件自带的文档，其中包含了丰富的计算可能性。
 
 == Pari <subappendix:pari>
+
+PARI/GP 是一个用于数论计算的自由计算机代数系统。它可以从 #link("http://pari.math.u-bordeaux.fr")[此网站] 下载。
+
+下面是一次使用会话的记录，并附有注释说明。
+
+#set raw(align: center)
+
+```txt
+GP/PARI CALCULATOR Version 2.3.0 (released)
+i686 running linux (ix86 kernel) 32-bit version
+compiled: Aug 16 2007, gcc-3.4.4 20050721 (Red Hat 3.4.4-2)
+(readline v4.3 enabled [was v5.0 in Configure], extended help available)
+Copyright (C) 2000-2006 The PARI Group
+```
+
+#set raw(align: left)
+
+```txt
+PARI/GP is free software, covered by the GNU General Public License, and comes WITHOUT ANY WARRANTY WHATSOEVER.
+Type ? for help, \q to quit. Type ?12 for how to get moral (and possibly technical) support.
+parisize = 4000000, primelimit = 500000
+```
+
+/// TODO: Keep translate here...
 
 == Magma <subappendix:magma>
 
