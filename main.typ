@@ -10,16 +10,16 @@
 )
 #set par(first-line-indent: (amount: 2em, all: true))
 
-/// TODO: Fonts
+/// START: Fonts
 #let serif-fonts = (
   (name: "New Computer Modern", covers: regex("[a-zA-Z0-9’—]")),
   "Source Han Serif SC",
 )
 #set text(font: serif-fonts, size: 12pt)
 #show emph: text.with(font: "LXGW WenKai GB")
-/// FIXME: Fonts
+/// END: Fonts
 
-/// TODO: Colors
+/// START: Colors
 #let flavor = theme-init()
 #show: theme-setup.with(flavor)
 #let colors = flavor.colors
@@ -29,6 +29,7 @@
 #show link: set text(fill: link-color)
 #show ref: set text(fill: link-color)
 #show footnote: set text(fill: link-color)
+#set footnote.entry(separator: line(length: 30%, stroke: (paint: colors.text, thickness: 0.5pt)))
 
 /// - file (str): The path to the SVG file.
 /// - color (color): The color to replace the stroke color with.
@@ -38,8 +39,9 @@
     "stroke=\"" + color.to-hex() + "\"",
   ))
 }
-/// FIXME: Colors
+/// END: Colors
 
+/// START: Counting and Headings
 #set heading(outlined: false, supplement: none)
 #show heading.where(level: 1): it => [
   #set text(size: 20pt)
@@ -60,9 +62,9 @@
 #set figure.caption(separator: h(1em))
 #show figure.where(kind: table): set figure.caption(position: top)
 #show figure.where(kind: "thmbox"): set block(breakable: true)
+/// END: Counting and Headings
 
-#set footnote.entry(separator: line(length: 30%, stroke: (paint: colors.text, thickness: 0.5pt)))
-
+/// START: Thmbox
 #let conjecture-counter = counter("conjecture")
 #show: sectioned-counter(conjecture-counter)
 #let conjecture = thmbox.with(
@@ -159,6 +161,7 @@
   title-fonts: serif-fonts,
   sans-fonts: serif-fonts,
 )
+/// END: Thmbox
 
 /// https://typst-doc-cn.github.io/guide/FAQ/math-equation.html
 #set math.equation(supplement: "式", numbering: num => (
@@ -748,7 +751,7 @@ $
 
 + 一个定义在有限域上的椭圆曲线，其在该有限域中的点的个数是有限的。因此，在这种情形下我们得到的是一个有限的阿贝尔群。这类群的性质，以及它们在密码学中的应用，将在后续章节中讨论。
 
-+ 若 $E$ 是定义在有理数域 $QQ$ 上的椭圆曲线，那么 $E(QQ)$ 是一个有限生成的阿贝尔群。这就是Mordell–Weil 定理，我们将在 @chap:elliptic-curves-over-Q 中给出证明。这样的群与某个形如 $ZZ^r plus.circle F$ 的群同构，其中 $r >= 0$，$F$ 是一个有限群。整数 $r$ 被称为 $E(QQ)$ 的 *秩*。一般来说，确定 $r$ 是一件相当困难的事情，目前尚不清楚 $r$ 是否可以任意大。目前已知存在秩至少为 28 的椭圆曲线。有限群 $F$ 可以通过 @chap:elliptic-curves-over-Q 中的 Lutz–Nagell 定理来容易地计算。此外，Mazur 的一个深刻定理表明：当 $E$ 在所有定义在 $QQ$ 上的椭圆曲线中变化时，$F$ 的可能类型只有有限多种。 /// TODO: Ref to theorems
++ 若 $E$ 是定义在有理数域 $QQ$ 上的椭圆曲线，那么 $E(QQ)$ 是一个有限生成的阿贝尔群。这就是 Mordell–Weil 定理，我们将在 @chap:elliptic-curves-over-Q 中给出证明。这样的群与某个形如 $ZZ^r plus.circle F$ 的群同构，其中 $r >= 0$，$F$ 是一个有限群。整数 $r$ 被称为 $E(QQ)$ 的 *秩*。一般来说，确定 $r$ 是一件相当困难的事情，目前尚不清楚 $r$ 是否可以任意大。目前已知存在秩至少为 28 的椭圆曲线。有限群 $F$ 可以通过 @chap:elliptic-curves-over-Q 中的 Lutz–Nagell 定理来容易地计算。此外，Mazur 的一个深刻定理表明：当 $E$ 在所有定义在 $QQ$ 上的椭圆曲线中变化时，$F$ 的可能类型只有有限多种。 /// TODO: Ref to theorems
 
 + 定义在复数域 $CC$ 上的椭圆曲线同构于一个环面。这一点将在 @chap:elliptic-curves-over-C 中予以证明。环面的常见构造方式是 $ℂ \/ cal(L)$，其中 $cal(L)$ 是复数域中的一个格点。复数的常用加法在商空间 $CC \/ cal(L)$ 上诱导出一个群律，该运算通过环面与椭圆曲线之间的同构对应于椭圆曲线上的群律。
 

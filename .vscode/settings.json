@@ -4,5 +4,6 @@
     "./fonts",
     "--input",
     "theme=one-dark-pro"
-  ]
+  ],
+  "cSpell.words": ["smcp", "thmbox"]
 }
