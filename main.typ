@@ -273,7 +273,7 @@
 #pagebreak()
 #set text(size: 11pt)
 #outline(title: "目录", indent: 2em)
-#set text(size: 12pt)
+#set text(size: 13pt)
 /// END: TOC
 
 /// START: Main matter setup
