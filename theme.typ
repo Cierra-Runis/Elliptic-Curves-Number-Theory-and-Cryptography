@@ -53,44 +53,6 @@
   ),
 )
 
-#let get-flavor(
-  flavor,
-) = {
-  assert.eq(
-    type(flavor),
-    str,
-    message: "Invalid type. Argument should be a string. Got a " + repr(type(flavor)) + ". ",
-  )
-  assert(
-    flavor in theme-flavors.keys(),
-    message: "Invalid flavor name: "
-      + repr(flavor)
-      + ". Expected "
-      + theme-flavors.keys().join(", ", last: ", or ")
-      + ".",
-  )
-
-  theme-flavors.at(flavor)
-}
-
-#let validate-flavor(flavor) = {
-  assert.eq(
-    type(flavor),
-    dictionary,
-    message: "Invalid type. Argument should be a dictionary. Got a " + repr(type(flavor)) + ". ",
-  )
-
-  z.parse(flavor, flavor-schema)
-}
-
-#let get-or-validate-flavor(flavor) = {
-  if type(flavor) == str {
-    get-flavor(flavor)
-  } else {
-    validate-flavor(flavor)
-  }
-}
-
 #let theme-init(default-flavor: theme-flavors.tailwind) = {
   let theme-key = sys.inputs.keys().find(it => it == "theme")
 
