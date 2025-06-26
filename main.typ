@@ -1496,23 +1496,34 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
 
 == Sketch of Wiles' Proof
 
+/// START: Appendix setup
 #let appendix(body) = {
-  set heading(numbering: "附录 A.1", supplement: "附录")
+  set heading(supplement: "附录", numbering: (..num) => {
+    if num.pos().len() == 1 {
+      numbering("附录 A", num.pos().at(0))
+    } else {
+      numbering("A.1", ..num)
+    }
+  })
   counter(heading).update(0)
   body
 }
 #show: appendix
+/// END: Appendix setup
 
-/// START: Chapter
+/// START: Appendix
 = Number Theory <appendix:number-theory>
+/// END: Appendix
 
-/// START: Chapter
+/// START: Appendix
 = Groups <appendix:groups>
+/// END: Appendix
 
-/// START: Chapter
+/// START: Appendix
 = Fields <appendix:fields>
+/// END: Appendix
 
-/// START: Chapter
+/// START: Appendix
 = 计算机软件包 <appendix:computer-packages>
 
 目前有若干计算机代数软件可以用于椭圆曲线上的计算。在本附录中，我们将对其中三种主流软件做一个简要介绍。我们不打算详细解释这些软件的结构，而是通过一些计算示例展示它们的功能。读者若想了解更多操作方式，可参考在线或软件自带的文档，其中包含了丰富的计算可能性。
@@ -1546,5 +1557,8 @@ parisize = 4000000, primelimit = 500000
 == Magma <subappendix:magma>
 
 == SAGE <subappendix:sage>
+/// END: Appendix
 
+/// START: References
 #bibliography("/references.bib", title: "参考文献")
+// END: References
