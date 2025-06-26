@@ -22,13 +22,17 @@ jobs:
         run: |
           typst compile main.typ --font-path ./fonts \
             --input theme=${{ matrix.theme }} \
-            --format pdf main-${{ matrix.theme }}.pdf
+            --format pdf main-${{ matrix.theme }-${{ env.DATE }}.pdf
+
+      - name: Get current date
+        id: date
+        run: echo "DATE=$(date +%Y-%m-%d-%H:%M)" >> $GITHUB_ENV
 
       - name: Upload PDF file
         uses: actions/upload-artifact@v4
         with:
-          name: main-${{ matrix.theme }}
-          path: main-${{ matrix.theme }}.pdf
+          name: main-${{ matrix.theme }}-${{ env.DATE }}
+          path: main-${{ matrix.theme }}-${{ env.DATE }}.pdf
 
   release:
     needs: build
@@ -48,5 +52,5 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          name: '${{ github.ref_name }} — ${{ env.DATE }}'
+          name: '${{ github.ref_name }}-${{ env.DATE }}'
           files: artifacts/**/*.pdf
