@@ -61,7 +61,7 @@
 #show figure.where(kind: table): set figure.caption(position: top)
 #show figure.where(kind: "thmbox"): set block(breakable: true)
 
-#set footnote.entry(separator: line())
+#set footnote.entry(separator: line(length: 30%, stroke: (paint: colors.text, thickness: 0.5pt)))
 
 #let conjecture-counter = counter("conjecture")
 #show: sectioned-counter(conjecture-counter)
