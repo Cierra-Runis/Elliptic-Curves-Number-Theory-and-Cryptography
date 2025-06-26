@@ -62,6 +62,21 @@
 #set figure.caption(separator: h(1em))
 #show figure.where(kind: table): set figure.caption(position: top)
 #show figure.where(kind: "thmbox"): set block(breakable: true)
+
+/// https://typst-doc-cn.github.io/guide/FAQ/math-equation.html
+#set math.equation(supplement: "式", numbering: num => (
+  "(" + str(counter(heading).get().first()) + "." + str(num) + ")"
+))
+#show math.equation.where(block: true): it => {
+  if not it.has("label") {
+    let fields = it.fields()
+    let _ = fields.remove("body")
+    fields.numbering = none
+    [#counter(math.equation).update(v => v - 1)#math.equation(..fields, it.body)<math-equation-without-label>]
+  } else {
+    it
+  }
+}
 /// END: Counting and Headings
 
 /// START: Thmbox
@@ -163,21 +178,8 @@
 )
 /// END: Thmbox
 
-/// https://typst-doc-cn.github.io/guide/FAQ/math-equation.html
-#set math.equation(supplement: "式", numbering: num => (
-  "(" + str(counter(heading).get().first()) + "." + str(num) + ")"
-))
-#show math.equation.where(block: true): it => {
-  if not it.has("label") {
-    let fields = it.fields()
-    let _ = fields.remove("body")
-    fields.numbering = none
-    [#counter(math.equation).update(v => v - 1)#math.equation(..fields, it.body)<math-equation-without-label>]
-  } else {
-    it
-  }
-}
 
+/// START: Title Page
 #align(center)[
   #v(10%)
 
@@ -202,10 +204,12 @@
 
   College Park, Maryland, U.S.A.
 ]
+/// END: Title Page
 
 #counter(page).update(0)
 #set page(numbering: "I")
 
+/// START: Front matter
 = 前言
 
 在过去的 20 或 30 年里，椭圆曲线在数论和其相关领域如密码学中都扮演着越来越重要的角色。比如在 1980 年代，椭圆曲线开始应用于密码学中，椭圆曲线技术被用于因式分解和素性检验。在 1980 和 1990 年代，椭圆曲线在费马大定理的证明中起到了重要作用。本书的目标是在仅具备初等数论以及群与域方面基础知识的前提下，建立起椭圆曲线的理论。这些基础知识大致相当于优秀本科生或初级研究生的抽象代数课程所涵盖的内容。特别地，我们并不假设读者具备代数几何的背景。除了少数可以选择性跳过的独立章节外，我们也不要求读者了解伽罗瓦理论。尽管我们在有限域的情形下隐含地使用了伽罗瓦理论，但在这种情况下，一切都可以通过弗罗贝尼乌斯映射显式地完成，因此不需要用到一般性的理论。相关的知识已在附录中进行了说明。
@@ -263,14 +267,16 @@
 
   enum.item[复分析路径：阅读 @chap:elliptic-curves-over-C、@chap:complex-multiplication 以及 @sec:complex-theory。],
 )
+/// END: Front matter
 
-/// TODO: TOC
+/// START: TOC
 #pagebreak()
 #set text(size: 11pt)
 #outline(title: "目录", indent: 2em)
 #set text(size: 12pt)
-/// TODO: TOC
+/// END: TOC
 
+/// START: Main matter setup
 #set page(numbering: "1", header: context {
   if calc.odd(here().page()) {
     return align(right, emph(hydra()))
@@ -301,7 +307,9 @@
     numbering("1.1", ..num)
   }
 })
+/// END: Main matter setup
 
+/// START: Chapter
 = 引入 <chap:introduction>
 
 假定有一堆球形炮弹以金字塔的形状堆放，并顶层有一颗，第二层有四颗，第三层有九颗，依此类推。如果这堆炮弹倒塌，是否有可能将这些炮弹重新排列成为一个正方形？
@@ -507,7 +515,9 @@ $
   使用过点 $(x, y) = (1681 \/ 114, 62279 \/ 1728)$ 的切线找到另一个面积为 5 的直角三角形。
 
 ] <exercise:1-4>
+/// END: Chapter
 
+/// START: Chapter
 = 理论基础 <chap:the-basic-theory>
 
 == Weierstrass 方程
@@ -1237,7 +1247,9 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
 
 #exercise[
 ] <exercise:2-24>
+/// END: Chapter
 
+/// START: Chapter
 = 挠点 <chap:torsion-points>
 
 挠点，即阶数是有限的点，在椭圆曲线的研究中扮演着重要角色。我们将在 @chap:elliptic-curves-over-finite-fields 中看到它们在有限域上的椭圆曲线中所起的作用，在那里所有的点都是挠点；而在 @chap:elliptic-curves-over-Q 中，我们将在一个称为降维的过程中使用到 2-挠点。在本章中，我们首先考虑 2-阶与 3-阶的基本情形，然后再确定一般情况。最后，我们将讨论重要的 Weil 配对与 Tate-Lichtenbaum 配对。
@@ -1252,7 +1264,9 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
 
 #pagebreak()
 #heading(numbering: none, level: 2)[练习]
+/// END: Chapter
 
+/// START: Chapter
 = Elliptic Curves over Finite Fields <chap:elliptic-curves-over-finite-fields>
 
 == Examples
@@ -1277,7 +1291,9 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
 
 #pagebreak()
 #heading(numbering: none, level: 2)[练习]
+/// END: Chapter
 
+/// START: Chapter
 = The Discrete Logarithm Problem <chap:the-discrete-logarithm-problem>
 
 == The Index Calculus
@@ -1300,7 +1316,9 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
 
 #pagebreak()
 #heading(numbering: none, level: 2)[练习]
+/// END: Chapter
 
+/// START: Chapter
 = Elliptic Curves Cryptography <chap:elliptic-curves-cryptography>
 
 == The Basic Setup
@@ -1323,7 +1341,9 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
 
 #pagebreak()
 #heading(numbering: none, level: 2)[练习]
+/// END: Chapter
 
+/// START: Chapter
 = Other Applications <chap:other-applications>
 
 == Factoring Using Elliptic Curves
@@ -1332,7 +1352,9 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
 
 #pagebreak()
 #heading(numbering: none, level: 2)[练习]
+/// END: Chapter
 
+/// START: Chapter
 = Elliptic Curves over $QQ$ <chap:elliptic-curves-over-Q>
 
 == The Torsion Subgroup. The Lutz-Nagell Theorem
@@ -1355,7 +1377,9 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
 
 #pagebreak()
 #heading(numbering: none, level: 2)[练习]
+/// END: Chapter
 
+/// START: Chapter
 = Elliptic Curves over $CC$ <chap:elliptic-curves-over-C>
 
 == Doubly Periodic Functions
@@ -1374,7 +1398,9 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
 
 #pagebreak()
 #heading(numbering: none, level: 2)[练习]
+/// END: Chapter
 
+/// START: Chapter
 = Complex Multiplication <chap:complex-multiplication>
 
 == Elliptic Curves over $CC$
@@ -1389,7 +1415,9 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
 
 #pagebreak()
 #heading(numbering: none, level: 2)[练习]
+/// END: Chapter
 
+/// START: Chapter
 = Divisors <chap:divisors>
 
 == 定义与示例
@@ -1412,7 +1440,9 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
 
 #pagebreak()
 #heading(numbering: none, level: 2)[练习]
+/// END: Chapter
 
+/// START: Chapter
 = Isogenies <chap:isogenies>
 
 == The Complex Theory <sec:complex-theory>
@@ -1427,7 +1457,9 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
 
 #pagebreak()
 #heading(numbering: none, level: 2)[练习]
+/// END: Chapter
 
+/// START: Chapter
 = Hyperelliptic Curves <chap:hyperelliptic-curves>
 
 == Basic Definitions
@@ -1440,7 +1472,9 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
 
 #pagebreak()
 #heading(numbering: none, level: 2)[练习]
+/// END: Chapter
 
+/// START: Chapter
 = Zeta Functions <chap:zeta-functions>
 
 == Elliptic Curves over Finite Fields
@@ -1449,7 +1483,9 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
 
 #pagebreak()
 #heading(numbering: none, level: 2)[练习]
+/// END: Chapter
 
+/// START: Chapter
 = 费马大定理 <chap:fermat-last-theorem>
 
 == Overview
@@ -1467,12 +1503,16 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
 }
 #show: appendix
 
+/// START: Chapter
 = Number Theory <appendix:number-theory>
 
+/// START: Chapter
 = Groups <appendix:groups>
 
+/// START: Chapter
 = Fields <appendix:fields>
 
+/// START: Chapter
 = Computer Packages <appendix:computer-packages>
 
 == Pari <subappendix:pari>
