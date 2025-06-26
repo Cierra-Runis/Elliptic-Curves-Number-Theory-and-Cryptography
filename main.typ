@@ -15,7 +15,7 @@
   (name: "New Computer Modern", covers: regex("[a-zA-Z0-9’—]")),
   "Source Han Serif SC",
 )
-#set text(font: serif-fonts, size: 12pt)
+#set text(font: serif-fonts, size: 13pt)
 #show emph: text.with(font: "LXGW WenKai GB")
 /// END: Fonts
 
