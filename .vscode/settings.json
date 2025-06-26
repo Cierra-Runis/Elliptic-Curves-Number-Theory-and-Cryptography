@@ -3,6 +3,6 @@
     "--font-path",
     "./fonts",
     "--input",
-    "theme=tailwind"
+    "theme=one-dark-pro"
   ]
 }

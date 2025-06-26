@@ -91,10 +91,7 @@
   }
 }
 
-#let theme-init(
-  default-flavor: theme-flavors.one-dark-pro,
-  // default-flavor: theme-flavors.tailwind,
-) = {
+#let theme-init(default-flavor: theme-flavors.tailwind) = {
   let theme-key = sys.inputs.keys().find(it => it == "theme")
 
   if theme-key != none {

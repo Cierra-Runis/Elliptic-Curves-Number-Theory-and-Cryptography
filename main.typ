@@ -2,7 +2,7 @@
 #import "@preview/thmbox:0.2.0": sectioned-counter, thmbox, thmbox-init
 #import "@preview/hydra:0.6.1": hydra
 #import "@preview/subpar:0.2.2"
-#import "theme.typ": theme-flavors, theme-init, theme-setup
+#import "theme.typ": theme-init, theme-setup
 
 #set document(
   title: "椭圆曲线 - 数论与密码学（第二版）",
@@ -61,7 +61,7 @@
 #show figure.where(kind: table): set figure.caption(position: top)
 #show figure.where(kind: "thmbox"): set block(breakable: true)
 
-
+#set footnote.entry(separator: line())
 
 #let conjecture-counter = counter("conjecture")
 #show: sectioned-counter(conjecture-counter)
