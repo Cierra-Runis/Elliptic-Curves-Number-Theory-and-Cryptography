@@ -20,19 +20,19 @@ jobs:
 
       - name: Get current date
         id: date
-        run: echo "DATE=$(date +%Y-%m-%d-%H:%M)" >> $GITHUB_ENV
+        run: echo "DATE=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
 
       - name: Compile PDF
         run: |
           typst compile main.typ --font-path ./fonts \
             --input theme=${{ matrix.theme }} \
-            --format pdf "main-${{ matrix.theme }} - ${{ env.DATE }}.pdf"
+            --format pdf "椭圆曲线 数论与密码学 第二版-${{ matrix.theme }}-${{ env.DATE }}.pdf"
 
       - name: Upload PDF file
         uses: actions/upload-artifact@v4
         with:
-          name: main-${{ matrix.theme }} - ${{ env.DATE }}
-          path: main-${{ matrix.theme }} - ${{ env.DATE }}.pdf
+          name: 椭圆曲线 数论与密码学 第二版-${{ matrix.theme }}-${{ env.DATE }}
+          path: 椭圆曲线 数论与密码学 第二版-${{ matrix.theme }}-${{ env.DATE }}.pdf
 
   release:
     needs: build
@@ -47,7 +47,7 @@ jobs:
 
       - name: Get current date
         id: date
-        run: echo "DATE=$(date +%Y-%m-%d-%H:%M)" >> $GITHUB_ENV
+        run: echo "DATE=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
 
       - name: Release
         uses: softprops/action-gh-release@v2
