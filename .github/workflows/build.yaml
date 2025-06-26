@@ -1,11 +1,19 @@
-name: build
-on: [push, workflow_dispatch]
+name: build_and_release
+
+on:
+  push:
+    branches:
+      - main # 只对主分支推送触发构建
+    tags:
+      - '*' # 任何标签推送触发发布
+  workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
   build:
+    if: github.event_name == 'push' && github.ref_type == 'branch' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -34,8 +42,27 @@ jobs:
           name: PDF-${{ matrix.theme }}-${{ env.DATE }}
           path: 椭圆曲线-数论与密码学-第二版-${{ env.DATE }}.pdf
 
-      - name: Release (if tag)
-        if: github.ref_type == 'tag'
+  release:
+    if: github.event_name == 'push' && github.ref_type == 'tag'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Typst
+        uses: typst-community/setup-typst@v4
+
+      - name: Get current date
+        id: date
+        run: echo "DATE=$(date +%y%m%d%H%M)" >> $GITHUB_ENV
+
+      - name: Compile PDF
+        run: |
+          typst compile main.typ --font-path ./fonts \
+            --input theme=tailwind \
+            --format pdf "椭圆曲线-数论与密码学-第二版-${{ env.DATE }}.pdf"
+
+      - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           name: '${{ github.ref_name }}'
