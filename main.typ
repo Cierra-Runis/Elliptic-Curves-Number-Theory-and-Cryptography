@@ -10,7 +10,6 @@
 #let sans-fonts = (
   (name: "New Computer Modern", covers: regex("[a-zA-Z0-9’—]")),
   "Source Han Serif SC",
-  "JiangChengXieSong 400W",
 )
 #set text(font: sans-fonts, size: 13pt)
 
