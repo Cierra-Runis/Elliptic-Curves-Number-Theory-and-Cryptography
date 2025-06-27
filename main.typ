@@ -17,6 +17,7 @@
 )
 #set text(font: serif-fonts, size: 13pt)
 #show emph: text.with(font: "LXGW WenKai GB")
+#show raw: text.with(font: "Cascadia Code")
 /// END: Fonts
 
 /// START: Colors
@@ -1563,19 +1564,98 @@ $
 /// END: Chapter
 
 /// START: Chapter
-= Elliptic Curves Cryptography <chap:elliptic-curves-cryptography>
+= 椭圆曲线密码学 <chap:elliptic-curves-cryptography>
 
-== The Basic Setup
+本章我们将讨论几种基于椭圆曲线的密码系统，特别是椭圆曲线离散对数问题相关的系统。我们还会涉及一些相关的内容，比如数字签名。
 
-== Diffe-Hellman Key Exchange
+有人可能会疑问，为什么在密码学中使用椭圆曲线。原因是椭圆曲线在提供与传统系统等效的安全性的同时，所需的密钥位数更少。比如，据文献 @blake2000elliptic 估计，RSA 需要 4096 位密钥才能达到的安全级别，椭圆曲线系统只需 313 位密钥即可实现。这意味着椭圆曲线密码系统的实现对芯片面积、功耗等的要求更低。Daswani 和 Boneh @boneh1999palm 在使用 3Com 的 PalmPilot（一个比智能卡大但比笔记本电脑小的小型手持设备）进行实验时发现，生成一个 512 位的 RSA 密钥需要 3.4 分钟，而生成一个 163 位的 ECC-DSA 密钥仅需 0.597 秒。虽然某些操作，如签名验证，RSA 稍快一些，但椭圆曲线方法如 ECC-DSA 在许多情况下明显提升了速度。
 
-== Massey-Omura Encryption
+== 基本配置
 
-== ElGamal Public Key Encryption
+Alice 想要给 Bob 发送一条消息，通常称为 *明文*。为了防止窃听者 Eve 读取消息，Alice 会对消息进行加密，得到 *密文*。当 Bob 收到密文后，他解密密文并读取消息。为了加密消息，Alice 使用一个 *加密密钥*；Bob 使用一个 *解密密钥* 来解密密文。显然，解密密钥必须对 Eve 保密。
 
-== ElGamal Digital Signatures
+加密主要有两种基本类型。*对称加密* 中，加密密钥和解密密钥相同，或者一个可以很容易地从另一个推导出来。常见的对称加密方法包括数据加密标准（DES）和高级加密标准（AES，常称其原始名称 `Rijndael`）。在这种情况下，Alice 和 Bob 需要某种方式来建立密钥。比如，Bob 可以提前几天派信使把密钥送给 Alice。这样当需要发送消息时，他们双方都有密钥。显然，这在很多情况下是不切实际的。
 
-== The Digital Signature Algorithm
+另一种加密方式是 *公钥加密*，也叫非对称加密。在这种方式下，Alice 和 Bob 不需要事先联系。Bob 会公布一个公钥，供 Alice 使用，同时他拥有一个私钥，可以用来解密密文。因为公钥是公开的，理应无法从公钥推导出私钥。最著名的公钥系统是基于质因数分解困难问题的 RSA 系统；另一个著名系统是 ElGamal，基于离散对数难题。
+
+通常公钥系统比好的对称加密系统要慢。因此，常见做法是用公钥系统先建立一个密钥，然后用该密钥进行对称加密。当传输大量数据时，这样的速度提升非常重要。
+
+== 迪菲-赫尔曼密钥交换 <sec:diffe-hellman-key-exchange>
+
+Alice 和 Bob 希望协商出一个共同的密钥，用于通过对称加密方案如 DES 或 AES 交换数据。例如，Alice 和 Bob 可以是希望传输金融数据的银行。使用信使递送密钥既不现实又耗时。且假设 Alice 和 Bob 之前没有任何联系，他们之间唯一的通信渠道是公开的。一种建立密钥的方法是迪菲和赫尔曼提出的（实际上，他们使用的是有限域的乘法群）。
+
++ Alice 和 Bob 商定一条定义在有限域 $FF_q$ 上的椭圆曲线 $E$，使得在 $E(FF_q)$ 上离散对数问题是困难的。他们还同意选定曲线上的一点 $P in E(FF_q)$，使得 $P$ 生成的子群阶数很大（通常选择阶为大素数的曲线和点）。
+
++ Alice 选择一个秘密整数 $a$，计算 $P_a = a P$，并将 $P_a$ 发送给 Bob。
+
++ Bob 选择一个秘密整数 $b$，计算 $P_b = b P$，并将 $P_b$ 发送给 Alice。
+
++ Alice 计算 $a P_b = a b P$。
+
++ Bob 计算 $b P_a = b a P$。
+
++ Alice 和 Bob 使用某种公开约定的方法从 $a b P$ 中提取密钥。例如，他们可以取 $a b P$ 的 x 坐标的后 256 位作为密钥，或者对 x 坐标计算哈希函数值。
+
+窃听者 Eve 所能看到的只有曲线 $E$、有限域 $FF_q$ 以及点 $P$、$a P$ 和 $b P$。因此，她需要解决以下问题：
+
+#note(variant: [迪菲-赫尔曼问题])[
+  已知 $P$、$a P$ 和 $b P in E(FF_q)$，求 $a b P$。
+
+]
+
+如果 Eve 能在 $E(FF_q)$ 中解决离散对数问题，就能用 $P$ 和 $a P$ 求出 $a$，然后计算 $a(b P)$ 得到 $a b P$。但目前尚不清楚是否存在不先解决离散对数问题而直接计算 $a b P$ 的方法。
+
+一个相关问题是：
+
+#note(variant: [判定迪菲-赫尔曼问题])[
+  已知 $P$、$a P$ 和 $b P in E(FF_q)$ 和 $Q in E(FF_q)$，判断 $Q$ 是否等于 $a b P$。
+
+]
+
+换言之，如果 Eve 收到匿名提示给出 $a b P$，她能否验证该信息的正确性？
+
+这两个问题可以在任意群中提出，最初是在有限域乘法群 $FF_q^times$ 中提出的。
+
+对于椭圆曲线，Weil 配对在某些情况下可以用来解决判定迪菲-赫尔曼问题。下面给出一个例子。
+
+设 $E$ 是定义在 $FF_q$ 上的曲线 $y^2 = x^3 + 1$，其中 $q equiv 2 (mod 3)$。根据命题 4.33，$E$ 是超奇异曲线。设 $omega in FF_(q^2)$ 是一个原始三次单位根。注意 $omega in.not FF_q$，因为 $FF_q^times$ 的阶为 $q - 1$，且不含 3 的因子。 /// TODO: Reference to Proposition 4.33
+
+定义映射 $ beta: E(overline(FF)_q) -> E(overline(FF)_q) quad quad (x, y) |-> (omega x, y) quad quad beta(infinity) = infinity $
+
+利用加法法则的公式，可以直接证明 $beta$ 是一个同构（@exercise:6-1）。
+
+假设点 $P in E(F_q)$ 的阶为 $n$，则 $beta(P)$ 也具有阶 $n$。定义改良的魏尔配对 $ tilde(e)_n (P_1, P_2) = e_n (P_1, beta(P_2)) $ 其中 $e_n$ 是通常的 Weil 配对，且 $P_1, P_2 in E[n]$。
+
+#lemma[]
+
+== Massey-Omura 加密 <sec:massey-omura-encryption>
+
+Alice 想通过公开信道向 Bob 发送一条消息。他们尚未建立一个私钥。一种实现方法如下：Alice 把消息放进一个盒子里并上上她自己的锁，然后将盒子寄给 Bob；Bob 在盒子上再加一把锁后寄回 Alice；Alice 拆掉她的锁后再次将盒子寄给 Bob；最后，Bob 拆掉他自己的锁，打开盒子，读取消息。
+
+这个过程可以用数学方式如下实现：
+
+1. Alice 和 Bob 约定一条定义在有限域 $FF_q$ 上的椭圆曲线 $E$，使得在 $E(FF_q)$ 上的离散对数问题是困难的。设 $N = \#E(FF_q)$。
+
+2. Alice 将她的消息表示为曲线上的一点 $M in E(FF_q)$（我们将在后面讨论如何实现这一点）。
+
+3. Alice 选择一个与 $N$ 互素的秘密整数 $m_A$，计算 $M_1 = m_A M$，并将 $M_1$ 发送给 Bob。
+
+4. Bob 选择一个与 $N$ 互素的秘密整数 $m_B$，计算 $M_2 = m_B M_1$，并将 $M_2$ 发送给 Alice。
+
+5. Alice 计算 $m_A^(-1) in ZZ_N$，再计算 $M_3 = m_A^(-1) M_2$，并将 $M_3$ 发送给 Bob。
+
+6. Bob 计算 $m_B^(-1) in ZZ_N$，再计算 $M_4 = m_B^(-1) M_3$，此时 $M_4 = M$ 即原始消息。
+
+我们来验证 $M_4$ 确实等于原始消息 $M$。形式上我们有 $ M_4 = m_B^(-1) m_A^(-1) m_B m_A M = M $
+
+但我们还需要说明 $m_A^(-1)$ 是 $m_A$ 模 $N$ 的逆元，它们确实会相互抵消。
+
+
+== ElGamal 公钥加密 <sec:elgamal-public-key-encryption>
+
+== ElGamal 数字签名 <sec:elgamal-digital-signatures>
+
+== 数字签名算法 <sec:the-digital-signature-algorithm>
 
 == ECIES
 
@@ -1585,6 +1665,9 @@ $
 
 #pagebreak()
 #heading(numbering: none, level: 2)[练习]
+
+#exercise[] <exercise:6-1>
+
 /// END: Chapter
 
 /// START: Chapter
