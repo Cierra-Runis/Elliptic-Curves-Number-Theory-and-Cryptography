@@ -66,6 +66,10 @@
 #show figure.where(kind: table): set figure.caption(position: top)
 #show figure.where(kind: "thmbox"): set block(breakable: true)
 
+#set table(stroke: none)
+#set table.hline(stroke: (paint: colors.text, thickness: 0.5pt))
+#set table.vline(stroke: (paint: colors.text, thickness: 0.5pt))
+
 /// https://typst-doc-cn.github.io/guide/FAQ/math-equation.html
 #set math.equation(supplement: "式", numbering: num => (
   "(" + str(counter(heading).get().first()) + "." + str(num) + ")"
@@ -144,6 +148,13 @@
 #let corollary = thmbox.with(
   color: colors.red,
   variant: "推论",
+  title-fonts: serif-fonts,
+  sans-fonts: serif-fonts,
+)
+
+#let proposition = thmbox.with(
+  color: colors.fuchsia,
+  variant: "命题",
   title-fonts: serif-fonts,
   sans-fonts: serif-fonts,
 )
@@ -824,7 +835,7 @@ $
 
 现在我们来看给定的椭圆曲线 $E: y^2 = x^3 + A x + B$，其齐次形式为 $y^2 z = x^3 + A x z^2 + B z^3$。原始曲线上的点 $(x, y)$ 在射影形式中对应于点 $(x : y : 1)$。为了找出椭圆曲线 $E$ 上位于无穷远处的点，我们设 $z = 0$，得 $0 = x^3$，即 $x = 0$，而 $y$ 可以是任意非零数（请注意 $(0 : 0 : 0)$ 是不允许的）。我们以 $y$ 进行归一化，得到 $(0 : y : 0) = (0 : 1 : 0)$，这是 $E$ 上唯一的无穷远点。此外，由于 $(0 : 1 : 0) = (0 : -1 : 0)$，这意味着 $y$ 轴的“顶部”和“底部”其实是相同的点。
 
-在某些情形下，使用射影坐标可以加快椭圆曲线上的运算（见 @sec:other-coordinate-systems）。然而，在本书中我们几乎总是在仿射（非射影）坐标下工作，并在需要时将无穷远点作为一个特殊情况处理。一个例外是 @sec:proof-of-associativity 中关于群运算结合律的证明，在那里我们会将无穷远点视为与其他点 $(x : y : z)$ 一样来处理，这样更为方便。
+在某些情形下，使用射影坐标可以加快椭圆曲线上的运算（见 @sec:other-coordinate-systems）。然而，在本书中我们几乎总是在仿射（非射影）坐标下工作，并在需要时将无穷远点作为一个特殊情况处理。一个例外是 @sec:proof-of-associativity 中关于群律结合律的证明，在那里我们会将无穷远点视为与其他点 $(x : y : z)$ 一样来处理，这样更为方便。
 
 == 结合律的证明 <sec:proof-of-associativity>
 
@@ -1045,20 +1056,60 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
 
   最后，假设 $P_(2 3) = P_(3 2)$。那么 $P_(2 3)$ 位于 $ell_2, ell_3, m_2, m_3$ 上。这将迫使 $P_(2 2) = P_(3 2)$，而我们刚才已经证明这是不可能的。
 
-  因此，所有可能的情况都导致矛盾。由此可得，$ell(x, y, z)$ 必须恒等为零。所以 $D = 0$，于是 $ C = alpha ell_1 ell_2 ell_3 + beta m_1 m_2 m_3 $
+  因此，所有可能的情况都导致矛盾。由此可得，$ell(x, y, z)$ 必须恒等为零。所以 $D = 0$，于是
+
+  $ C = alpha ell_1 ell_2 ell_3 + beta m_1 m_2 m_3 $
 
   由于 $ell_3$ 和 $m_3$ 在点 $P_(3 3)$ 处为零，我们有 $C(P_(3 3)) = 0$，正是我们想要的。这就完成了 @theo:the-nine-point-confluence 的证明。
 ]
 
-/// TODO: Keep translate here...
+#remark[
+  注意，我们实际上证明了一个更强的结论，即
 
-#remark[]
+  $ C = alpha ell_1 ell_2 ell_3 + beta m_1 m_2 m_3 $
+
+  其中 $alpha, beta$ 是常数。由于一个齐次三元三次多项式有 10 个系数，而我们要求 $C$ 在 8 个点（当所有 $P_(i j)$ ​互不相同时）处为零。因此可得一组多项式构成一个两参数族，这并不意外。当某些 $P_(i j)$ ​不互异时，切线条件会增加额外的约束，使我们仍然得到一个两参数族的解集。
+]
+
+现在我们可以证明椭圆曲线上点的加法满足结合律。令 $P, Q, R$ 是 $E$ 上的点。定义直线
+
+$
+  ell_1 = overline(P Q) quad quad ell_2 = overline(infinity\, Q + R) quad quad ell_3 = overline(R\, P + Q) \ m_1 = overline(Q R) quad quad m_2 = overline(infinity\, P + Q) quad quad m_3 = overline(P\, Q + R)
+$
+
+我们可以得到如下交点：
+
+#figure[
+  #table(
+    columns: (auto, auto, auto, auto),
+    align: center,
+    stroke: none,
+    table.hline(),
+    table.header([], table.vline(), $ell_1$, $ell_2$, $ell_3$),
+    table.hline(),
+    $m_1$, $Q$, $-(Q + R)$, $R$,
+    $m_2$, $-(P + Q)$, $infinity$, $P + Q$,
+    $m_3$, $P$, $Q + R$, $X$,
+    table.hline(),
+  )
+]
+
+暂且假设这满足定理的所有前提条件。那么，上表中的所有点，包括点 $X$ 都落在 $E$ 上。直线 $ell_3$ 与 $E$ 相交与 $R, P + Q, X$ 三点，根据点加法的定义，$X = - ((P + Q) + R)$，同理直线 $m_3$ 与 $C$ 相交于三点，得到 $X = - (P + (Q + R))$。因此，经过绕 $x$ 的翻转，得到 $(P + Q) + R = P + (Q + R)$，正是我们想要的。
+
+接下来要验证定理的假设条件，也就是即交点的相交重数正确的，且各 $ell_i$ 与 $m_j$ 是互不相同的直线。
+
+我们首先处理包含无穷远点 $infinity$ 的情形。问题在于我们在定义群律时，将 $infinity$ 视为一个特殊情况处理。
+
+/// TODO: Keep translate here...
 
 #lemma[]
 
 #proof[]
 
-#remark[]
+#remark[
+  注意，在本证明的大部分过程中，我们并未使用椭圆曲线的 Weierstrass 方程。实际上，任何非奇异的三次曲线都足够用。群律中的单位元 $O$ 需要是一个切线与曲线三重相交的点（即切线交点的阶数为 3）。三个点若共线，则它们的和为零。点 $P$ 的逆元通过连接 $O$ 和 $P$ 的直线实现，这条直线与曲线的第三个交点就是 $-P$。这个群律的结合律的证明与 Weierstrass 曲线的情况类似。
+
+]
 
 === 帕普斯定理和帕斯卡定理 <subsec:the-theorems-of-pappus-and-pascal>
 
@@ -1129,7 +1180,10 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
 
 #proof[]
 
-#corollary[帕普斯定理][]
+#corollary[帕普斯定理][
+  设 $ell$ 和 $m$ 是平面上的两条不同的直线。设 $A, B, C$ 是 $ell$ 上的三个不同点，$A', B', C'$ 是 $m$ 上的三个不同点。假设这些点中没有任何一点是 $ell$ 和 $m$ 的交点。令 $X$ 为直线 $overline(A B')$ 与直线 $overline(A' B)$ 的交点，$Y$ 为直线 $overline(B' C)$ 与直线 $overline(B C')$ 的交点，$Z$ 为直线 $overline(C A')$ 与直线 $overline(C' A)$ 的交点。则点 $X, Y, Z$ 共线（见 @fig:pascals-theorem）。
+
+]
 
 #proof[
   这是 @theo:pascals-theorem 中退化二次曲线的一个情形。此时的“六边形”是 $A B' C A' B C'$
@@ -1177,29 +1231,128 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
 
 在本书中，我们主要使用 Weierstrass 形式来表示椭圆曲线。然而，椭圆曲线还可以以其他多种形式出现，简要地讨论这些不同的表示方式也是有意义的。
 
-=== Legendre Equation
+=== Legendre 方程 <subsec:legendre-equation>
 
-=== Cubic Equations <subsec:cubic-equations>
+这是一种 Weierstrass 方程的变体。它的优点是允许我们用一个参数来表示定义在代数闭域（特征不为 2）上的所有椭圆曲线。
 
-=== Quartic Equations
+#proposition[
+  令 $K$ 为特征不为 2 的域，且令 $ y^2 = x^3 + a x^2 + b x + c = (x - e_1) (x - e_2) (e_3) $ 是定义在 $K$ 上的椭圆曲线 $E$，其中 $e_1, e_2, e_3 in K$，令 $ x_1 = (e_2 - e_1)^(-1) (x - e_1) quad quad y_1 = (e_2 - e_1)^(-3/2) y quad quad lambda = frac(e_3 - e_1, e_2 - e_1) $
 
-=== Intersection of Two Quadratic Surfaces
+  则 $lambda != 0, 1$，且 $ y_1^2 = x_1 (x_1 - 1) (x_1 - lambda) $
+]
+
+#proof[
+  直接计算即可。
+
+]
+
+参数 $lambda$ 并不是椭圆曲线 $E$ 的唯一表示。事实上，以下每个数值 $ { lambda, 1/lambda, 1 - lambda, 1/(1 - lambda), lambda/(1 - lambda), (lambda - 1)/lambda } $ 都给出了 $E$ 的一个 Legendre 形式。这些数值对应于根 $e_1, e_2, e_3$ 的六种排列方式。可以证明，这些是唯一对应于 $E$ 的 $lambda$ 值，因此 $lambda |-> E$ 的映射是六对一的，除了某些特殊值 $lambda = -1, 1 \/ 2, 2$ 或满足 $lambda^2 - lambda + 1 = 0$ 的值。在这些情形中，上述集合会塌缩成更少的值（见 @exercise:2-13）。
+
+
+=== 三次方程 <subsec:cubic-equations>
+
+=== 四次方程 <subsec:quartic-equations>
+
+#theorem[]
+
+#proof[]
+
+#example[]
+
+=== 两个二次曲面的相交 <subsec:intersection-of-two-quadratic-surfaces>
+
+#figure(caption: [两个二次曲面的相交])[
+  #cetz.canvas(length: 4em, {
+    import cetz.draw: *
+    set-style(stroke: (paint: colors.text, thickness: 0.5pt))
+
+    circle((0, 0), radius: (2, 1.2), name: "C")
+    content("C.north-east", $ C $, anchor: "south", padding: 0.1)
+
+    line((2.2, -0.085714), (-1.5, 1.5), name: "L")
+    content("L", $ L $, anchor: "south-west", padding: 0.05)
+
+    circle((-648 / 999, 42 / 37), radius: 0, name: "uv")
+    content("uv", $ (u, v) $, anchor: "south", padding: 0.1)
+
+    circle((2, 0), radius: 2pt, name: "u0v0", fill: colors.text)
+    content("u0v0", $ (u_0, v_0) $, anchor: "north-east", padding: 0.1)
+  })
+] <fig:intersection-of-two-quadratic-surfaces>
+
+#example[]
 
 == 其他坐标系 <sec:other-coordinate-systems>
 
-=== Projective Coordinates
+在 Weierstrass 形式下，椭圆曲线上两点相加需要 2 次乘法，1 次平方以及 1 次求逆。尽管求逆运算本身是快速的，但它比乘法要慢得多。根据 @cohen2005handbook[第 282 页] 的估计，一次求逆的时间大约是一次乘法的 9 到 40 倍。此外，平方运算的耗时大约是乘法的 0.8 倍。在许多情况下，这样的差异并不重要。然而，如果一个中心服务器需要每秒验证大量签名，这种差异就可能变得显著。因此，在某些情形下，在点加法公式中避免使用求逆运算是有利的。在本节中，我们将讨论几种可以避免求逆的替代表达式。
 
-=== Jacobian Coordinates
+=== 射影坐标 <subsec:projective-coordinates>
 
-=== Edwards Coordinates
+=== Jacobian 坐标 <subsec:jacobian-coordinates>
+
+=== Edwards 坐标 <subsec:edwards-coordinates>
+
+#proposition[]
+
+#proof[]
 
 == The j-invariant
+
+#theorem[]
+
+#proof[]
 
 == Elliptic Curves in Characteristic 2 <sec:elliptic-curves-in-characteristic-2>
 
 == Endomorphisms
 
-== Singular Curves <sec:singular-curves>
+#example[]
+
+#example[]
+
+#example[]
+
+#lemma[]
+
+#proof[]
+
+#proposition[]
+
+#proof[]
+
+#theorem[]
+
+#remark[]
+
+#proof[]
+
+#lemma[]
+
+#proof[]
+
+#remark[]
+
+#lemma[]
+
+#proof[]
+
+#remark[]
+
+#proposition[]
+
+#proof[]
+
+#proposition[]
+
+#proof[]
+
+== 奇异曲线 <sec:singular-curves>
+
+我们一直在研究 $y^2 = x^3 + A x + B$ 并假设 $x^3 + A x + B$ 有不同的根。然而，当有重根时会发生什么是有趣的。椭圆曲线的加法将变为域 $K$ 中元素的加法，或者域 $K^times$ 中元素的乘法，又或者域 $K$ 的二次扩张中的乘法。这意味着椭圆曲线群 $E(K)$ 的算法，如解决离散对数问题的算法（见 @chap:the-discrete-logarithm-problem），也可能适用于这些更熟悉的情况，见 @chap:other-applications。此外，如本节末尾将简要讨论的，奇异曲线在椭圆曲线定义于整数并模各种素数时自然出现。
+
+我们先考虑 $x^3 + A x + B$ 在 $x=0$ 处有三重根的情况，曲线方程为 $ y^2 = x^3 $
+
+点 $(0, 0)$ 是该曲线上唯一的一个奇点（见 @fig:y2-x3）。
 
 #figure(caption: $y^2 = x^3$)[
   #cetz.canvas(length: 8em, {
@@ -1225,6 +1378,37 @@ $ x = a_1 u + b_1 v \ y = a_2 u + b_2 v \ z = a_3 u + b_3 v $ <eq:parametric-des
     line((0, -1), (0, 1))
   })
 ] <fig:y2-x3>
+
+由于包含点 $(0, 0)$ 会导致问题，所以我们将其排除在外。剩下的点，我们记作 $E_(n s) (K)$，构成一个群，群律与三次多项式有不同根时相同。唯一需要验证的是，两点之和不可能是 $(0, 0)$。但由于通过 $(0, 0)$ 的直线最多与曲线相交另一点，通过两个非奇异点的直线不可能经过 $(0, 0)$（这一点也将在下面定理的证明中得到体现）。
+
+#theorem[]
+
+#proof[]
+
+#figure(caption: $y^2 = x^3 + x^2$)[
+  #cetz.canvas(length: 6em, {
+    import cetz.draw: *
+    set-style(stroke: (paint: colors.text, thickness: 0.5pt))
+
+    let y(x) = {
+      let y2 = x * x * x + x * x
+      if y2 < 0 { return () }
+      let y = calc.sqrt(y2)
+      return ((x, y), (x, -y))
+    }
+
+    for i in range(-100, 100) {
+      let p = y(i / 100)
+      let p2 = y((i + 1) / 100)
+      if p.len() == 0 or p2.len() == 0 { continue }
+      line(p.at(0), p2.at(0))
+      line(p.at(1), p2.at(1))
+    }
+
+    line((-1.05, 0), (1.05, 0))
+    line((0, -1.5), (0, 1.5))
+  })
+] <fig:y2-x3-x2>
 
 == Elliptic Curves mod n
 

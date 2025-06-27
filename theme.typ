@@ -24,8 +24,8 @@
       // indigo: oklch(67.3%, 0.182, 276.935deg),
       // violet: oklch(70.2%, 0.183, 293.541deg),
       purple: oklch(71.4%, 0.203, 305.504deg),
-      // fuchsia: oklch(74%, 0.238, 322.16deg),
-      pink: oklch(71.8%, 0.202, 349.761deg),
+      fuchsia: oklch(74%, 0.238, 322.16deg),
+      // pink: oklch(71.8%, 0.202, 349.761deg),
       // rose: oklch(71.2%, 0.194, 13.428deg),
     ),
   ),
@@ -49,6 +49,7 @@
       sky: rgb("#61afef"),
       blue: rgb("#56b6c2"),
       purple: rgb("#c678dd"),
+      fuchsia: rgb("#de73ff"),
     ),
   ),
 )
