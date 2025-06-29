@@ -1101,11 +1101,37 @@ $
 
 我们首先处理包含无穷远点 $infinity$ 的情形。问题在于我们在定义群律时，将 $infinity$ 视为一个特殊情况处理。
 
-/// TODO: Keep translate here...
+#lemma[
+  令 $P_1, P_2$ 是椭圆曲线上的点，那么 $(P_1 + P_2) - P_2 = P_1$，且 $- (P_1 + P_2) + P_2 = -P_1$。
 
-#lemma[]
+] <lemma:p1-plus-p2-minus-p2-equals-p1>
 
-#proof[]
+#proof[
+  这两条关系互为对称，因此只需证明第二个等式。设直线 $L$ 通过点 $P_1$ 和 $P_2$，则它与椭圆曲线相交于第三点 $- (P_1 + P_2)$。现在，把 $L$ 看作是连接 $- (P_1 + P_2)$ 和 $P_2$ 的直线，根据加法规则，我们有 $- (P_1 + P_2) + P_2 = -P_1$，即得证。
+
+]
+
+假设某两条直线 $ell_i = m_j$，我们来考虑各种情形。根据前面的讨论，可以假设交点表中的所有点都是有限点，除了 $infinity$ 和可能的点 $X$。注意，每条 $ell_i$ 和每条 $m_j$ 与椭圆曲线 $E$ 相交三个点（按重数计），其中一个是 $P_(i j)$。如果两条直线重合，那么它们与曲线相交的另外两个点也必须（在某种顺序上）重合。 /// TODO: Check "order" here.
+
++ $ell_1 = m_1$：那么 $P, Q, R$ 共线，结合律得证。
+
++ $ell_1 = m_2$：此时 $P, Q, infinity$ 共线，所以 $P + Q = infinity$；结合律由上面的直接计算得出。
+
++ $ell_2 = m_1$：与上一个情况类似。
+
++ $ell_1 = m_3$：那么 $P, Q, Q + R$ 共线；结合律已在上面证明。
+
++ $ell_3 = m_1$：与上一个情况类似。
+
++ $ell_2 = m_2$：那么 $P + Q$ 必为 $plus.minus (Q + R)$。若 $P + Q = Q + R$，则利用交换律与上面的引理得出 $ P = (P + Q) - Q = (Q + R) - Q = R $ 因此 $ (P + Q) + R = R + (P + Q) = P + (P + Q) = P + (R + Q) = P + (Q + R) $ 若 $P + Q = - (Q + R)$，则 $ (P + Q) + R = - (Q + R) + R = -Q $ 且 $ P + (Q + R) = P - (P + Q) = -Q $ 因此结合律成立。
+
++ $ell_2 = m_3$：此时，过 P 和 $Q + R$ 的直线 $m_3$ 与 $E$ 相交于 $infinity$，所以 $P = - (Q + R)$。因为 $- (Q + R), Q, R$ 共线，有 $P, Q, R$ 共线，从而结合律成立。
+
++ $ell_3 = m_2$：与上一个情况类似。
+
++ $ell_3 = m_3$：由于 $ell_3$ 不可能与 E 有 4 个交点（按重数计），可容易看出 $P = R$ 或 $P = P + Q$ 或 $Q + R = P + Q$ 或 $Q + R = R$。$P = R$ 在 $ell_2 = m_2$ 时已经处理。假设 $P = P + Q$，加上 $-P$ 并使用 @lemma:p1-plus-p2-minus-p2-equals-p1 得到 $infinity = Q$，此时结合律立即成立。情况 $Q + R = R$ 类似。若 $Q + R = P + Q$，加上 $-Q$ 并使用 @lemma:p1-plus-p2-minus-p2-equals-p1 得到 $P = R$，这我们已经处理过。
+
+若对所有 $i, j$ 都有 $ell_i != m_j$，则定理的假设成立，因此如上所证，加法是结合的。这就完成了椭圆曲线加法结合律的证明。
 
 #remark[
   注意，在本证明的大部分过程中，我们并未使用椭圆曲线的 Weierstrass 方程。实际上，任何非奇异的三次曲线都足够用。群律中的单位元 $O$ 需要是一个切线与曲线三重相交的点（即切线交点的阶数为 3）。三个点若共线，则它们的和为零。点 $P$ 的逆元通过连接 $O$ 和 $P$ 的直线实现，这条直线与曲线的第三个交点就是 $-P$。这个群律的结合律的证明与 Weierstrass 曲线的情况类似。
@@ -1117,7 +1143,7 @@ $
 @theo:the-nine-point-confluence 在椭圆曲线之外的领域还有两个很好的应用。
 
 #theorem[帕斯卡定理][
-  令 $A B C D E F$ 是是一个内接于某个二次曲线（椭圆、抛物线或双曲线）上的六边形 #footnote[译者注：严格来说，此处的“六边形”应该称作六点形（或六线形），见视频 #link("https://www.bilibili.com/video/BV1QHBMY5ESk?t=449.2")[【射影几何】线动也能成点！对偶原理简介（五）]。此处 @fig:pascals-theorem 与原书中的内接凸六边形不一致，但不影响结论]，其中点 $A,B,C,D,E,F$ 是仿射平面中的互不相同的点。设 $X$ 是 $overline(A B)$ 和 $overline(D E)$ 的交点，$Y$ 是 $overline(B C)$ 和 $overline(E F)$ 的交点，$Z$ 是 $overline(C D)$ 和 $overline(F A)$ 的交点。那么，点 $X, Y, Z$ 共线（见 @fig:pascals-theorem）。
+  令 $A B C D E F$ 是是一个内接于某个圆锥曲线（椭圆、抛物线或双曲线）上的六边形 #footnote[译者注：严格来说，此处的“六边形”应该称作六点形（或六线形），见视频 #link("https://www.bilibili.com/video/BV1QHBMY5ESk?t=449.2")[【射影几何】线动也能成点！对偶原理简介（五）]。此处 @fig:pascals-theorem 与原书中的内接凸六边形不一致，但不影响结论]，其中点 $A,B,C,D,E,F$ 是仿射平面中的互不相同的点。设 $X$ 是 $overline(A B)$ 和 $overline(D E)$ 的交点，$Y$ 是 $overline(B C)$ 和 $overline(E F)$ 的交点，$Z$ 是 $overline(C D)$ 和 $overline(F A)$ 的交点。那么，点 $X, Y, Z$ 共线（见 @fig:pascals-theorem）。
 ] <theo:pascals-theorem>
 
 #figure(caption: [帕斯卡定理])[
@@ -1177,9 +1203,36 @@ $
   })
 ] <fig:pascals-theorem>
 
-#remark[]
+#remark[
+  + 一个圆锥曲线由形如 $q(x, y) = a x^2 + b x y + c y^2 + d x + e y + f = 0$ 的方程定义，其中 $a, b, c$ 至少有一个不为零。通常地，假定 $b^2 - 4 a c != 0$，否则圆锥曲线可以因式分解为两个线性因子，图像是两条直线的并集。上文呈现的定理甚至包含这种情况，只要点 $A, C, E$ 在一条直线，$B, D, F$ 在另外一条上即可。
 
-#proof[]
+  + 举例来说 $overline(A B)$ 和 $overline(D E)$ 可能是平行的，那么 $X$ 是个在 $PP^2_K$ 里的无穷远点。
+
+  + 注意到 $X, Y, Z$ 总是互不相等的。这是显然易见的：首先注意到，点 $X, Y, Z$ 不可能落在该圆锥曲线上，因为一条直线最多与圆锥曲线相交两点；而点 $A, B, C, D, E, F$ 被假定为互不相同，因此它们已经穷尽了所有可能的交点。若 $X = Y$，那么直线 $overline(A B)$ 与 $overline(B C)$ 在点 $B$ 和 $Y$ 相交，因此这两条直线必须相同。但这意味着 $A = C$，矛盾。同理，$X != Z$ 且 $Y != Z$。
+]
+
+#proof[
+  定义如下曲线：$ ell_1 = overline(E F) quad quad ell_2 = overline(A B) quad quad ell_3 = overline(C D) \ m_1 = overline(B C) quad quad m_2 = overline(D E) quad quad m_3 = overline(F A) $
+
+  我们得到如下交点表：
+
+  #figure[
+    #table(
+      columns: (auto, auto, auto, auto),
+      align: center,
+      stroke: none,
+      table.hline(),
+      table.header([], table.vline(), $ell_1$, $ell_2$, $ell_3$),
+      table.hline(),
+      $m_1$, $Y$, $B$, $C$,
+      $m_2$, $E$, $X$, $D$,
+      $m_3$, $F$, $A$, $Z$,
+      table.hline(),
+    )
+  ]
+
+  设 $q(x, y) = 0$ 是该圆锥曲线的仿射方程。为了应用 @theo:the-nine-point-confluence，我们将 $q(x, y)$ 改写为它的齐次形式 $Q(x, y, z)$。设 $ell(x, y, z)$ 是给出通过点 $X$ 和 $Y$ 的直线的线性形式。那么 $ C(x, y, z) = Q(x, y, z) ell(x, y, z) $ 是一个三次齐次多项式。曲线 $C = 0$ 包含表格中除了可能的 $Z$ 以外的所有点。可以容易地验证，$C$ 的唯一奇异点是 $Q = 0$ 和 $ell = 0$ 的交点，以及在退化圆锥曲线情况下 $Q = 0$ 所组成的两条直线的交点。由于我们考虑的这些点中没有一个是这些奇异点，@theo:the-nine-point-confluence 的假设就得到了满足。因此，$C(Z) = 0$。又由于 $Q(Z) != 0$，我们必须有 $ell(Z) = 0$，即 $Z$ 落在通过 $X$ 和 $Y$ 的直线上。因此，$X, Y, Z$ 共线。这就完成了帕斯卡定理的证明。
+]
 
 #corollary[帕普斯定理][
   设 $ell$ 和 $m$ 是平面上的两条不同的直线。设 $A, B, C$ 是 $ell$ 上的三个不同点，$A', B', C'$ 是 $m$ 上的三个不同点。假设这些点中没有任何一点是 $ell$ 和 $m$ 的交点。令 $X$ 为直线 $overline(A B')$ 与直线 $overline(A' B)$ 的交点，$Y$ 为直线 $overline(B' C)$ 与直线 $overline(B C')$ 的交点，$Z$ 为直线 $overline(C A')$ 与直线 $overline(C' A)$ 的交点。则点 $X, Y, Z$ 共线（见 @fig:pascals-theorem）。
@@ -1187,7 +1240,7 @@ $
 ]
 
 #proof[
-  这是 @theo:pascals-theorem 中退化二次曲线的一个情形。此时的“六边形”是 $A B' C A' B C'$
+  这是 @theo:pascals-theorem 中退化圆锥曲线的一个情形。此时的“六边形”是 $A B' C A' B C'$
 
 ]
 
@@ -1249,8 +1302,9 @@ $
 
 参数 $lambda$ 并不是椭圆曲线 $E$ 的唯一表示。事实上，以下每个数值 $ { lambda, 1/lambda, 1 - lambda, 1/(1 - lambda), lambda/(1 - lambda), (lambda - 1)/lambda } $ 都给出了 $E$ 的一个 Legendre 形式。这些数值对应于根 $e_1, e_2, e_3$ 的六种排列方式。可以证明，这些是唯一对应于 $E$ 的 $lambda$ 值，因此 $lambda |-> E$ 的映射是六对一的，除了某些特殊值 $lambda = -1, 1 \/ 2, 2$ 或满足 $lambda^2 - lambda + 1 = 0$ 的值。在这些情形中，上述集合会塌缩成更少的值（见 @exercise:2-13）。
 
-
 === 三次方程 <subsec:cubic-equations>
+
+/// TODO: Keep translate here...
 
 === 四次方程 <subsec:quartic-equations>
 
