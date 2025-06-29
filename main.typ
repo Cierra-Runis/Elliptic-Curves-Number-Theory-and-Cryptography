@@ -331,31 +331,12 @@
 假定有一堆球形炮弹以金字塔的形状堆放，并顶层有一颗，第二层有四颗，第三层有九颗，依此类推。如果这堆炮弹倒塌，是否有可能将这些炮弹重新排列成为一个正方形？
 
 #figure(caption: "炮弹金字塔")[
-  #cetz.canvas(length: 2em, {
-    import cetz.draw: *
-    set-style(stroke: (paint: colors.text, thickness: 0.5pt))
-
-    circle((2, 0), fill: colors.base)
-    circle((2, 2), fill: colors.base)
-    circle((0, 2), fill: colors.base)
-    circle((-2, 2), fill: colors.base)
-    circle((-2, 0), fill: colors.base)
-    circle((-2, -2), fill: colors.base)
-    circle((0, -2), fill: colors.base)
-    circle((2, -2), fill: colors.base)
-    circle((1, 1), fill: colors.base)
-    circle((-1, 1), fill: colors.base)
-    circle((-1, -1), fill: colors.base)
-    circle((1, -1), fill: colors.base)
-    circle((0, 0), fill: colors.base)
-  })
+  #image(svg-colorize("/assets/A Pyramid of Cannonballs.svg", colors.text), width: 24em)
 ]
 
 如果金字塔有三层的话，那么这是做不到的，因为这一共有 $1 + 4 + 9 = 14$ 颗炮弹，而这不是一个完全平方数。当然，如果只有一颗球，它能构筑起一个一层高的金字塔，同时也是一个 $1 times 1$ 的正方形。如果没有球，那我们就有一个零层高的金字塔和一个 $0 times 0$ 的正方形。除了这些显然的情况外，还有其他的吗？我们提议使用一个可以追溯到丢番图时期（约公元前 250 年）的数学方法来找到另一个解。
 
 设金字塔高 $x$，那么一共有 $ 1^2 + 2^2 + 3^3 + dots.c + x^2 = frac(x(x + 1)(2x + 1), 6) $ 颗球（见 @exercise:1-1）。我们期望这是一个完全平方数，也就是我们想要找到关于正整数 $x, y$ 的方程 $ y^2 = frac(x(x + 1)(2x + 1), 6) $ 的解。这样的方程给出了一个 *椭圆曲线*。图像如 @fig:pyramid-elliptic-curve 所示。
-
-丢番图的方法使用我们已经知道的点来构造新的点。让我们从点 $(0, 0)$ 和 $(1, 1)$ 开始。过该两点的直线方程是 $y = x$，联立曲线方程可以得到 $ x^2 = frac(x(x + 1)(2x + 1), 6) = frac(1, 3) x^3 + frac(1, 2) x^2 + frac(1, 6) x $
 
 #figure(caption: $y^2 = x(x + 1)(2x + 1) \/ 6$)[
   #cetz.canvas(length: 6em, {
@@ -385,6 +366,8 @@
     line((0, -1), (0, 1))
   })
 ] <fig:pyramid-elliptic-curve>
+
+丢番图的方法使用我们已经知道的点来构造新的点。让我们从点 $(0, 0)$ 和 $(1, 1)$ 开始。过该两点的直线方程是 $y = x$，联立曲线方程可以得到 $ x^2 = frac(x(x + 1)(2x + 1), 6) = frac(1, 3) x^3 + frac(1, 2) x^2 + frac(1, 6) x $
 
 整理得到 $ x^3 - frac(3, 2) x^2 + frac(1, 2) x = 0 $
 
