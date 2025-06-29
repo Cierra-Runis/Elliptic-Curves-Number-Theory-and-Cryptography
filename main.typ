@@ -45,7 +45,7 @@
 /// START: Counting and Headings
 #set heading(outlined: false, supplement: none)
 #show heading.where(level: 1): it => [
-  #set text(size: 20pt)
+  #set text(size: 19pt)
   #counter(math.equation).update(0)
   #counter(figure.where(kind: image)).update(0)
   #align(center)[
@@ -53,11 +53,12 @@
   ]
 ]
 #show heading.where(level: 2): it => [
-  #set text(size: 16pt)
-  #block(it, above: 1.5em, below: 1.5em)
+  #set text(size: 17pt)
+  #block(it, above: 1.75em, below: 1.75em)
 ]
 #show heading.where(level: 3): it => [
-  #block(it, above: 1.25em, below: 1.25em)
+  #set text(size: 15pt)
+  #block(it, above: 1.5em, below: 1.5em)
 ]
 
 #set figure(supplement: "图", numbering: num => (
@@ -354,7 +355,7 @@
 
 设金字塔高 $x$，那么一共有 $ 1^2 + 2^2 + 3^3 + dots.c + x^2 = frac(x(x + 1)(2x + 1), 6) $ 颗球（见 @exercise:1-1）。我们期望这是一个完全平方数，也就是我们想要找到关于正整数 $x, y$ 的方程 $ y^2 = frac(x(x + 1)(2x + 1), 6) $ 的解。这样的方程给出了一个 *椭圆曲线*。图像如 @fig:pyramid-elliptic-curve 所示。
 
-丢番图的方法使用我们已经知道的点来构造新的点。让我们从点 $(0, 0)$ 和 $(1, 1)$ 开始。过该两点的直线方程是 $y = x$，联立曲线方程可以得到 $ x^2 = frac(x(x + 1)(2x + 1), 6) = frac(1, 3) x^3 + frac(1, 2) x^2 + frac(1, 6) x $ 整理得到 $ x^3 - frac(3, 2) x^2 + frac(1, 2) x = 0 $
+丢番图的方法使用我们已经知道的点来构造新的点。让我们从点 $(0, 0)$ 和 $(1, 1)$ 开始。过该两点的直线方程是 $y = x$，联立曲线方程可以得到 $ x^2 = frac(x(x + 1)(2x + 1), 6) = frac(1, 3) x^3 + frac(1, 2) x^2 + frac(1, 6) x $
 
 #figure(caption: $y^2 = x(x + 1)(2x + 1) \/ 6$)[
   #cetz.canvas(length: 6em, {
@@ -384,6 +385,8 @@
     line((0, -1), (0, 1))
   })
 ] <fig:pyramid-elliptic-curve>
+
+整理得到 $ x^3 - frac(3, 2) x^2 + frac(1, 2) x = 0 $
 
 幸运的是，我们已经知道了该方程的两个根 $x = 0$ 和 $x = 1$。这是因为这些根就是直线与曲线的交点的横坐标。我们可以通过因式分解这个多项式来找到第三个根，但有一个更好的方法。注意到对任意的数 $a, b, c$ 都有 $ (x - a)(x - b)(x - c) = x^3 - (a + b + c) x^2 + (a b + a c + b c) x - a b c $ 因此当 $x^3$ 的系数为 $1$ 时，$x^2$ 系数的负值就是所有根的和。
 
@@ -455,7 +458,7 @@
 
 哪些整数 $n$ 能作为具有有理数边的直角三角形的面积，这个问题被称为 *同余数问题*。如我们上面所看到的另一种表述方式就是：是否存在三个有理数平方数构成公差为 $n$ 的等差数列。这一问题最早出现在大约公元 900 年左右的阿拉伯手稿中。Tunnell 在 20 世纪 80 年代对该问题提出了一个猜想性答案，并加以证明 @tunnell1983diophantine。
 
-我们知道，如果一个整数 $n$ 不是除了 1 以外的任何完全平方数的倍数，那么就称 $n$ 是无平方因子数。例如，5 和 15 是无平方因子数，而 24 和 75 则不是。
+我们知道，如果一个整数 $n$ 不是除了 1 以外的任何完全平方数的倍数，那么就称 $n$ 是无平方因子数。例如，5 和 15 是无平方因子数，而 24 和 75 不是。
 
 #conjecture[
   设 $n$ 是一个正奇无平方因子数。则当且仅当满足以下条件时，$n$ 可以表示为有理边直角三角形的面积：
@@ -654,7 +657,7 @@ $
 正如我们在 @chap:introduction 看到的，我们可以从椭圆曲线上的两个点，甚至是一个点，构造出另一个点。现在我们来更深入地分析这个过程。
 
 #figure(caption: "椭圆曲线上的点加法")[
-  #cetz.canvas(length: 1.25em, {
+  #cetz.canvas(length: 1.19em, {
     import cetz.draw: *
     set-style(stroke: (paint: colors.text, thickness: 0.5pt))
 
@@ -780,7 +783,8 @@ $
 
 + 定义在复数域 $CC$ 上的椭圆曲线同构于一个环面。这一点将在 @chap:elliptic-curves-over-C 中予以证明。环面的常见构造方式是 $ℂ \/ cal(L)$，其中 $cal(L)$ 是复数域中的一个格点。复数的常用加法在商空间 $CC \/ cal(L)$ 上诱导出一个群律，该运算通过环面与椭圆曲线之间的同构对应于椭圆曲线上的群律。
 
-+ 若椭圆曲线 $E$ 定义在实数域 $RR$ 上，那么 $E(RR)$ 同构于单位圆 $S^1$，或同构于 $S^1 plus.circle ZZ_2$。第一种情况对应于三次多项式 $x^3 + A x + B$ 只有一个实根的情形（想象 @subfig:elliptic-curves-shapes-2 中图像的两端在 $infinity$ 处接合，形成一个环）。第二种情况对应于该三次式具有三个实根。@subfig:elliptic-curves-shapes-1 中的闭环曲线就是集合 $S^1 plus.circle {1}$，而那条开口的曲线可以通过加入 $infinity$ 使其闭合，从而得到集合 $S^1 plus.circle {0}$。如果我们有一个定义在 $RR$ 上的椭圆曲线 $E$，我们可以考虑它在复数域上的点集 $E(CC)$。这个集合构成一个环面（如前文 3. 所述）。而实点集 $E(RR)$ 是通过将该环面与某个平面相交而得到的。如果这个平面穿过环面中间的洞，我们会得到如 @subfig:elliptic-curves-shapes-1 的曲线；如果没有穿过洞，则得到如 @subfig:elliptic-curves-shapes-2 的曲线（见 @sec:elliptic-curves-over-C-elliptic-curves-over-C）。
++ 若椭圆曲线 $E$ 定义在实数域 $RR$ 上，那么 $E(RR)$ 同构于单位圆 $S^1$，或同构于 $S^1 plus.circle ZZ_2$。第一种情况对应于三次多项式 $x^3 + A x + B$ 只有一个实根的情形（想象 @subfig:elliptic-curves-shapes-2 中图像的两端在 $infinity$ 处接合，形成一个环）。第二种情况对应于该三次式具有三个实根。@subfig:elliptic-curves-shapes-1 中的闭环曲线就是集合 $S^1 plus.circle {1}$，而那条开口的曲线可以通过加入 $infinity$ 使其闭合，从而得到集合 $S^1 plus.circle {0}$。如果我们有一个定义在 $RR$ 上的椭圆曲线 $E$，我们可以考虑它在复数域上的点集 $E(CC)$。这个集合构成一个环面（如前文 3. 所述）。实点集 $E(RR)$ 是通过将该环面与某个平面相交而得到的。如果这个平面穿过环面中间的洞，我们会得到如 @subfig:elliptic-curves-shapes-1 的曲线；如果没有穿过洞，则得到如 @subfig:elliptic-curves-shapes-2 的曲线（见 @sec:elliptic-curves-over-C-elliptic-curves-over-C）。#footnote[勘误：“实点集 $E(RR)$ 是通过将该环面与某个平面相交而得到的”这句话不准确。如果我们将环面视为在 $CC^2$ 中（即视为 $RR^4$ 中的对象），那么平面 $"Im"(x) = "Im"(y) = 0$ 与环面的交集就是实点集。然而，若将环面放在 $RR^3$ 中，情况就不是这样。在这种情况下，实点集可能对应于环面上的一条或两条不可收缩的圆。在第一种情况下，这并不是环面与 $RR^3$ 中某个平面的交集。例子中的最后一句话“如果没有穿过洞……”也是不正确的。
+  ]
 
 如果 $P$ 在椭圆曲线上，且 $k$ 为正整数，那么 $k P$ 表示 $P + P + dots.c + P$（共 $k$ 次加法）。如果 $k < 0$，则 $k P = (-P) + (-P) + dots.c + (-P)$，共 $abs(k)$ 次加法。计算 $k$ 较大时的 $k P$ 反复将 $P$ 与自身相加是低效的，我们可以使用 *连续倍加法*。比如求 $19P$ 时，我们计算 $ 2P quad 4P = 2P + 2P quad 8P = 4P + 4P quad 16P = 8P + 8P quad 19P = 16P + 2P + P $
 
@@ -1304,11 +1308,45 @@ $
 
 === 三次方程 <subsec:cubic-equations>
 
-/// TODO: Keep translate here...
+我们有可能可以从一个三次方程 $C(x, y)$ 出发，其定义在特征不为 2 或 3 的域 $K$ 上，并且有一个满足 $x, y in K$ 的点，以及找到一个可逆的变量变换，来将它化为 Weierstrass 形式（尽管可能有 $4 A^3 + 27 B^2 = 0$）。这个变换过程相当复杂（见 @cohen1993algebraic、@connell1992addendum 或 @nagell1929arithmetique），因此我们仅考虑一个具体的例子。
+
+考虑三次费马方程 $ x^3 + y^3 + z^3 = 0 $
+
+这一方程在 $x y z != 0$ 的条件下没有有理数解的事实早在公元 900 年代便被阿拉伯数学家所猜想。这是费马大定理的一个特例，其断言两个非零整数的 $n$ 次幂之和不可能等于另一个非零整数的 $n$ 次幂，其中 $n >= 3$。对于 $n = 3$ 的情形，最早的证明可能是由费马本人给出的。我们将在 @chap:fermat-last-theorem 讨论更一般情形下的部分证明思想。
+
+现在假设 $x^3 + y^3 + z^3 = 0$，且 $x y z != 0$。由于 $x^3 + y^3 = (x + y)(x^2 - x y + y^2)$，必然有 $x + y != 0$。记 $ x/z = u + v quad quad y/z = u - v $ 则有 $(u + v)^3 + (u - v)^3 + 1 = 0$，整理得 $2 u^3 + 6 u v^2 + 1 = 0$。由于 $x + y != 0 ==> u != 0$，可除以 $u^3$ 并整理得 $ 6(v/u)^2 = -(1/u)^3 - 2 $
+
+令 $ x_1 = (-6)/u = -12 z/(x + y) quad quad y_1 = (36v)/u = 36 (x - y)/(x + y) $
+
+则 $ y_1^2 = x_1^3 - 432 $
+
+可以证明（但不容易）该方程的所有有理数解只有 $(x_1, y_1) = (12, plus.minus 36)$ 以及 $infinity$。$y_1 = 36$ 时可以得到 $x - y = x + y$，因此 $y = 0$。相似地，$y_1 = -36$ 时得到 $x = 0$。点 $(x_1, y_1) = infinity$ 对应于 $x = -y$，这意味着 $z = 0$。因此，当 $x y z != 0$ 时，方程 $x^3 + y^3 + z^3 = 0$ 没有解。
 
 === 四次方程 <subsec:quartic-equations>
 
-#theorem[]
+有时我们会遇到由如下形式的方程定义的曲线
+
+$ v^2 = a u^4 + b u^3 + c u^2 + d u + e $ <eq:v2-equal-au4-plus-bu3-plus-cu2-plus-du-plus-e>
+
+其中 $a != 0$。如果我们有一个点 $(p, q)$ 在这条曲线上，且 $p, q in K$，那么该方程（在非奇异的情况下）可以通过一个可逆的变量代换转换为 Weierstrass 形式；该变量代换使用系数在域 $K$ 中的有理函数。注意，定义在域 $K$ 上的椭圆曲线 $E$ 总有一个 $E(K)$ 中的点，即无穷远点 $infinity$（它的射影坐标为 $(0 : 1 : 0)$，显然在 $K$ 中）。因此，如果我们要将一条曲线 $C$ 转换为 Weierstrass 形式，并且要求描述这个代换的所有有理函数的系数都在 $K$ 中，那么我们必须从一个坐标在 $K$ 中的点开始。
+
+确实存在一些形如 @eq:v2-equal-au4-plus-bu3-plus-cu2-plus-du-plus-e 的曲线，其上没有坐标在 $K$ 中的点。这种现象将在 @chap:elliptic-curves-over-Q 中更详细地讨论。
+
+假设我们有一条由方程 @eq:v2-equal-au4-plus-bu3-plus-cu2-plus-du-plus-e 定义的曲线，并且有一个点 $(p, q)$ 在这条曲线上。通过将 $u$ 替换为 $u + p$，我们可以假设 $p = 0$，于是该点的形式为 $(0, q)$。
+
+首先，假设 $q = 0$。如果 $d = 0$，那么曲线在点 $(u, v) = (0, 0)$ 处是奇异的。因此，假设 $d != 0$。于是我们有 $ (v/(u^2))^2 = d (1/u)^3 + c (1/u)^2 + b (1/u) + a $
+
+这个方程可以很容易地被转换为以 $d \/ u$ 和 $d v \/ u^2$ 为变量的 Weierstrass 方程。
+
+更困难的情况是当 $q != 0$ 时。我们有如下结果。
+
+#theorem[
+  令域 $K$ 的特征不为 2，考虑方程 $ v^2 = a u^4 + b u^3 + c u^2 + d u + e $ 其中 $a, b, c, d, q in K$。令 $ x = frac(2 q (v + q) + d u, u^2) quad quad y = frac(4 q^2 (v + q) + 2 q (d u + c u^2) - (d^2 u^2 \/ 2q), u^3) $
+
+  定义 $ a_1 = d/q quad quad a_2 = c - (d^2)/(4 q^2) quad quad a_3 = 2 q b quad quad a_4 = -4 q^2 a quad quad a_6 = a_2 a_4 $
+]
+
+/// TODO: Keep translate here...
 
 #proof[]
 
