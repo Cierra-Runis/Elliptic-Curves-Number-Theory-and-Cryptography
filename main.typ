@@ -783,7 +783,7 @@ $
 
 + 定义在复数域 $CC$ 上的椭圆曲线同构于一个环面。这一点将在 @chap:elliptic-curves-over-C 中予以证明。环面的常见构造方式是 $ℂ \/ cal(L)$，其中 $cal(L)$ 是复数域中的一个格点。复数的常用加法在商空间 $CC \/ cal(L)$ 上诱导出一个群律，该运算通过环面与椭圆曲线之间的同构对应于椭圆曲线上的群律。
 
-+ 若椭圆曲线 $E$ 定义在实数域 $RR$ 上，那么 $E(RR)$ 同构于单位圆 $S^1$，或同构于 $S^1 plus.circle ZZ_2$。第一种情况对应于三次多项式 $x^3 + A x + B$ 只有一个实根的情形（想象 @subfig:elliptic-curves-shapes-2 中图像的两端在 $infinity$ 处接合，形成一个环）。第二种情况对应于该三次式具有三个实根。@subfig:elliptic-curves-shapes-1 中的闭环曲线就是集合 $S^1 plus.circle {1}$，而那条开口的曲线可以通过加入 $infinity$ 使其闭合，从而得到集合 $S^1 plus.circle {0}$。如果我们有一个定义在 $RR$ 上的椭圆曲线 $E$，我们可以考虑它在复数域上的点集 $E(CC)$。这个集合构成一个环面（如前文 3. 所述）。实点集 $E(RR)$ 是通过将该环面与某个平面相交而得到的。如果这个平面穿过环面中间的洞，我们会得到如 @subfig:elliptic-curves-shapes-1 的曲线；如果没有穿过洞，则得到如 @subfig:elliptic-curves-shapes-2 的曲线（见 @sec:elliptic-curves-over-C-elliptic-curves-over-C）。#footnote[勘误：“实点集 $E(RR)$ 是通过将该环面与某个平面相交而得到的”这句话不准确。如果我们将环面视为在 $CC^2$ 中（即视为 $RR^4$ 中的对象），那么平面 $"Im"(x) = "Im"(y) = 0$ 与环面的交集就是实点集。然而，若将环面放在 $RR^3$ 中，情况就不是这样。在这种情况下，实点集可能对应于环面上的一条或两条不可收缩的圆。在第一种情况下，这并不是环面与 $RR^3$ 中某个平面的交集。例子中的最后一句话“如果没有穿过洞……”也是不正确的。
++ 若椭圆曲线 $E$ 定义在实数域 $RR$ 上，那么 $E(RR)$ 同构于单位圆 $S^1$，或同构于 $S^1 plus.circle ZZ_2$。第一种情况对应于三次多项式 $x^3 + A x + B$ 只有一个实根的情形（想象 @subfig:elliptic-curves-shapes-2 中图像的两端在 $infinity$ 处接合，形成一个环）。第二种情况对应于该三次式具有三个实根。@subfig:elliptic-curves-shapes-1 中的闭环曲线就是集合 $S^1 plus.circle {1}$，而那条开口的曲线可以通过加入 $infinity$ 使其闭合，从而得到集合 $S^1 plus.circle {0}$。如果我们有一个定义在 $RR$ 上的椭圆曲线 $E$，我们可以考虑它在复数域上的点集 $E(CC)$。这个集合构成一个环面（如前文 3. 所述）。实点集 $E(RR)$ 是通过将该环面与某个平面相交而得到的。如果这个平面穿过环面中间的洞，我们会得到如 @subfig:elliptic-curves-shapes-1 的曲线；如果没有穿过洞，则得到如 @subfig:elliptic-curves-shapes-2 的曲线（见 @sec:elliptic-curves-over-C-elliptic-curves-over-C）。#footnote[勘误：“实点集 $E(RR)$ 是通过将该环面与某个平面相交而得到的”这句话不准确。如果我们将环面视为在 $CC^2$ 中（即视为 $RR^4$ 中的对象），那么平面 $"Im"(x) = "Im"(y) = 0$ 与环面的交集就是实点集。然而，若将环面放在 $RR^3$ 中情况就不是这样，此时实点集可能对应于环面上的一条或两条不可收缩的圆。第一种情况下这并不是环面与 $RR^3$ 中某个平面的交集。最后一句话“如果没有穿过洞……”也是不正确的。
   ]
 
 如果 $P$ 在椭圆曲线上，且 $k$ 为正整数，那么 $k P$ 表示 $P + P + dots.c + P$（共 $k$ 次加法）。如果 $k < 0$，则 $k P = (-P) + (-P) + dots.c + (-P)$，共 $abs(k)$ 次加法。计算 $k$ 较大时的 $k P$ 反复将 $P$ 与自身相加是低效的，我们可以使用 *连续倍加法*。比如求 $19P$ 时，我们计算 $ 2P quad 4P = 2P + 2P quad 8P = 4P + 4P quad 16P = 8P + 8P quad 19P = 16P + 2P + P $
@@ -1343,16 +1343,41 @@ $ v^2 = a u^4 + b u^3 + c u^2 + d u + e $ <eq:v2-equal-au4-plus-bu3-plus-cu2-plu
 #theorem[
   令域 $K$ 的特征不为 2，考虑方程 $ v^2 = a u^4 + b u^3 + c u^2 + d u + e $ 其中 $a, b, c, d, q in K$。令 $ x = frac(2 q (v + q) + d u, u^2) quad quad y = frac(4 q^2 (v + q) + 2 q (d u + c u^2) - (d^2 u^2 \/ 2q), u^3) $
 
-  定义 $ a_1 = d/q quad quad a_2 = c - (d^2)/(4 q^2) quad quad a_3 = 2 q b quad quad a_4 = -4 q^2 a quad quad a_6 = a_2 a_4 $
+  定义 $ a_1 = d/q quad quad a_2 = c - (d^2)/(4 q^2) quad quad a_3 = 2 q b quad quad a_4 = -4 q^2 a quad quad a_6 = a_2 a_4 $ 则 $ y^2 + a_1 x y + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6 $
+
+  逆变换为 $ u = frac(2 q (x + c) - (d^2 \/ 2q), y) quad quad v = -q + frac(u (u x - d), 2q) $
+
+  点 $(u, v) = (0, q)$ 对应于点 $(x, y) = infinity$，且点 $(u, v) = (0, -q)$ 对应于点 $(x, y) = (-a_2, a_1 a_2 - a_3)$。
 ]
 
-/// TODO: Keep translate here...
+#proof[
+  证明大部分都是直接计算，因此省略。关于点 $(0, −q)$ 的像，见 @connell1992addendum。
 
-#proof[]
+]
 
-#example[]
+#example[
+  考虑等式 $ v^2 = u^4 + 1 $ <eq:v2-equal-u4-plus-1>
+
+  那么 $a = 1, b = c = d = 0$ 及 $q = 1$。如果 $ x = frac(2(v + 1), u^2) quad quad y = frac(4(v + 1), u^3) $ 那么我们可以推出一个椭圆曲线 $E$ 由 $ y^2 = x^3 - 4x $ 给出。
+
+  逆变换为 $ u = (2x)/y quad quad v = -1 + (2x^3)/(y^2) $
+
+  点 $(u, v) = (0, 1)$ 对应于 $E$ 上的点 $infinity$，而点 $(u, v) = (0, -1)$ 对应点 $(0, 0)$。我们将在 @chap:elliptic-curves-over-Q 证明 $ E(QQ) = {infinity, (0, 0), (2, 0), (-2, 0)} $
+
+  它们对应于点 $(u, v) = (0, 1), (0, -1)$ 和在无穷远处的点。因此，该四次曲线上唯一有限的有理点是 $(u, v) = (0, plus.minus 1)$。由此可以轻易推得，方程 $ a^4 + b^4 = c^2 $ 的唯一整数解满足 $a b = 0$。这就得出了费马定理在指数为 4 时成立。我们将在 @chap:elliptic-curves-over-Q 中更详细地讨论这一点。
+
+  值得简要考虑 $u, v$ 在无穷远处的情形。将 @eq:v2-equal-u4-plus-1 齐次化后，得到 $ F(u, v, w) = v^2 w^2 - u^4 - w^4 = 0 $
+
+  无穷远点满足 $w = 0$。为了找出它们，我们令 $w = 0$，得到 $0 = u^4$，这意味着 $u = 0$。因此我们只得到一点 $(u : v : w) = (0 : 1 : 0)$。但在相应的 Weierstrass 形式中，我们有两个点，即 $(2, 0)$ 和 $(-2, 0)$。问题在于 $(u : v : w) = (0 : 1 : 0)$ 是四次模型中的一个奇点。在这一点有 $ F_u = F_v = F_w = 0 $
+
+  此时发生的是曲线在点 $(u : v : w) = (0 : 1 : 0)$ 处自相交。曲线的一支是 $v = +u^2 sqrt(1 + (1 \/ u)^4)$，另一支是 $v = -u^2 sqrt(1 + (1 \/ u)^4)$。为简便起见，我们在实数或复数域上进行讨论。如果将第二个表达式代入 $x = 2(v + 1) \/ u^2$ 并令 $u -> infinity$，我们可以得到 $ x = frac(2(v + 1), u^2) = frac(2(1 - u^2 sqrt(1 + (1 \/ u)^4)), u^2) -> -2 $
+
+  如果使用另一支，则会得到 $x -> +2$。所以将四次方程转换为 Weierstrass 方程的变换将两条分支在这个奇点处拉开了（术语为“奇点解消”）。
+]
 
 === 两个二次曲面的相交 <subsec:intersection-of-two-quadratic-surfaces>
+
+/// TODO: Keep translate here...
 
 #figure(caption: [两个二次曲面的相交])[
   #cetz.canvas(length: 4em, {
