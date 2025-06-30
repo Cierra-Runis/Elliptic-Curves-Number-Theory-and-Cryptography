@@ -2,7 +2,7 @@
   <h1>
     <p>Elliptic Curves Number Theory and Cryptography</p>
     <p>椭圆曲线 数论与密码学</p>
-    <img src="assets/Torus.svg" alt="Simple Torus" width="200">
+    <img src="assets/Torus.svg" alt="Simple Torus" width="400">
   </h1>
 
 [![build](https://github.com/Cierra-Runis/Elliptic-Curves-Number-Theory-and-Cryptography/actions/workflows/build.yaml/badge.svg)][build] [![GitHub Release](https://img.shields.io/github/v/release/Cierra-Runis/Elliptic-Curves-Number-Theory-and-Cryptography)][releases] [![License: CC0-1.0](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)](http://creativecommons.org/publicdomain/zero/1.0/)
