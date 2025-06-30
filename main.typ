@@ -755,7 +755,7 @@ $
 ]
 
 #figure(caption: [定义在 $CC$ 上的椭圆曲线])[
-  #image(svg-colorize("/assets/Torus.svg", colors.text))
+  #image(svg-colorize("/assets/Torus.svg", colors.text), width: 24em)
 ]
 
 椭圆曲线上的点构成阿贝尔群这一事实，是大多数有趣性质与应用背后的基础。于是就产生了一个问题：我们所得到的这些点群，具有什么样的结构？下面是一些示例：
