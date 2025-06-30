@@ -1486,21 +1486,27 @@ $
 
 === Edwards 坐标 <subsec:edwards-coordinates>
 
-/// TODO: Keep translate here...
+在文献 @ref:edwards2007normal 中，Harold Edwards 描述了一种具有某些计算优势的椭圆曲线形式。特别地，当 $c = 1, d = -1$ 时，这种形式出现在 Euler 和 Gauss 的工作中。而 Edwards 自身限制讨论了 $d = 1$ 的情况。之后，Bernstein 和 Lange 在 @ref:bernstein2007faster 中进一步研究了这种更一般形式的曲线。
 
-#proposition[]
+#proposition[
+  令 $K$ 是特征不为 2 的域，令 $c, d in K$ 且 $c, d != 0$，$d$ 在 $K$ 中不是平方数，则曲线 $ C: u^2 + v^2 = c^2 (1 + d u^2 v^2) $ 和曲线 $ E: y^2 = (x - c^4 d - 1) (x^2 - 4 c^4 d) $ 在代数上是同构的，其变量代换为 $ x = frac(-2 c (w - c), u^2) quad quad y = frac(4 c^2 (w - c) + 2 c (c^4 d + 1) u^2, u^3) $ 其中 $w = (c^2 d u^2 - 1) v$。
 
-#proof[]
+  曲线 $C$ 上的点 $(0, c)$ 是其加法群结构中的单位元，点加法公式为 $ (u_1, v_1) + (u_2. v_2) = (frac(u_1 v_2 + u_2 v_1, c (1 + d u_1 u_2 v_1 v_2 )), frac(v_1 v_2 - u_1 u_2, c (1 - d u_1 u_2 v_1 v_2))) $ 且适用于所有的点 $(u_i, v_i) in C(K)$。点的负值为 $- (u, v) = (-u, v)$。
+]
 
-== The j-invariant
+#proof[
+  /// TODO: Keep translate here...
+]
+
+== j-不变量 <sec:the-j-invariant>
 
 #theorem[]
 
 #proof[]
 
-== Elliptic Curves in Characteristic 2 <sec:elliptic-curves-in-characteristic-2>
+== 定义在特征为 2 的域上的椭圆曲线 <sec:elliptic-curves-in-characteristic-2>
 
-== Endomorphisms
+== 自同态 <sec:endomorphisms>
 
 #example[]
 
@@ -1606,7 +1612,7 @@ $
   })
 ] <fig:y2-x3-x2>
 
-== Elliptic Curves mod n
+== 模 $n$ 的椭圆曲线 <sec:elliptic-curves-mod-n>
 
 #pagebreak()
 #heading(numbering: none, level: 2)[练习]
@@ -1698,9 +1704,9 @@ $
 
 == Division Polynomials
 
-== The Weil Pairing <sec:torsion-points-weil-pairing>
+== Weil 配对 <sec:torsion-points-weil-pairing>
 
-== The Tate-Lichtenbaum Pairing <sec:torsion-points-tate-lichtenbaum-pairing>
+== Tate-Lichtenbaum 配对 <sec:torsion-points-tate-lichtenbaum-pairing>
 
 #pagebreak()
 #heading(numbering: none, level: 2)[练习]
