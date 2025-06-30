@@ -5,5 +5,6 @@
     "--input",
     "theme=one-dark-pro"
   ],
-  "cSpell.enabled": false
+  "cSpell.enabled": false,
+  "svg.preview.background": "editor"
 }
