@@ -223,7 +223,12 @@
 /// END: Title Page
 
 #counter(page).update(0)
-#set page(numbering: "I")
+#set page(numbering: "I") // or whatever you want
+#set page(footer: context {
+  set align(center)
+  [#link(<toc>)[#counter(page).display(page.numbering)]]
+})
+
 
 /// START: Front matter
 = 前言
@@ -288,7 +293,7 @@
 /// START: TOC
 #pagebreak()
 #set text(size: 11pt)
-#outline(title: "目录", indent: 2em)
+#outline(title: [目录 <toc>], indent: 2em)
 #set text(size: 13pt)
 /// END: TOC
 
