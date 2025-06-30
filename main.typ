@@ -233,7 +233,7 @@
 /// START: Front matter
 = 前言
 
-在过去的 20 或 30 年里，椭圆曲线在数论和其相关领域如密码学中都扮演着越来越重要的角色。比如在 1980 年代，椭圆曲线开始应用于密码学中，椭圆曲线技术被用于因式分解和素性检验。在 1980 和 1990 年代，椭圆曲线在费马大定理的证明中起到了重要作用。本书的目标是在仅具备初等数论以及群与域方面基础知识的前提下，建立起椭圆曲线的理论。这些基础知识大致相当于优秀本科生或初级研究生的抽象代数课程所涵盖的内容。特别地，我们并不假设读者具备代数几何的背景。除了少数可以选择性跳过的独立章节外，我们也不要求读者了解伽罗瓦理论。尽管我们在有限域的情形下隐含地使用了伽罗瓦理论，但在这种情况下，一切都可以通过弗罗贝尼乌斯映射显式地完成，因此不需要用到一般性的理论。相关的知识已在附录中进行了说明。
+在过去的 20 或 30 年里，椭圆曲线在数论和其相关领域如密码学中都扮演着越来越重要的角色。比如在 1980 年代，椭圆曲线开始应用于密码学中，椭圆曲线技术被用于因式分解和素性检验。在 1980 和 1990 年代，椭圆曲线在费马大定理的证明中起到了重要作用。本书的目标是在仅具备初等数论以及群与域方面基础知识的前提下，建立起椭圆曲线的理论。这些基础知识大致相当于优秀本科生或初级研究生的抽象代数课程所涵盖的内容。特别地，我们并不假设读者具备代数几何的背景。除了少数可以选择性跳过的独立章节外，我们也不要求读者了解伽罗瓦理论。尽管我们在有限域的情形下隐含地使用了伽罗瓦理论，但在这种情况下，一切都可以通过弗罗贝尼乌斯映射显式地完成，因此不需要用到一般性的理论。相关的知识已在附录中进行了说明。#footnote[译者注：建议先查看 @appendix:number-theory、@appendix:groups 和 @appendix:fields 的内容]
 
 本书介绍了椭圆曲线在密码学和数论两个方面的内容。正因如此，我们在本书较早的部分，也就是 @chap:elliptic-curves-over-finite-fields，就讨论了定义在有限域上的椭圆曲线。这一内容很自然地引出了 @chap:the-discrete-logarithm-problem、@chap:elliptic-curves-cryptography、@chap:other-applications 中的离散对数问题与密码学。只对密码学感兴趣的读者可以随后跳到 @chap:divisors 和 @chap:hyperelliptic-curves，了解魏尔配对、Tate-Lichtenbaum 配对以及超椭圆曲线的相关内容。但当然，任何真正专注于密码学应用的专家，多少也会对椭圆曲线在数论中的用途感到好奇。同样地，不关注实际应用的读者也可以跳过 @chap:the-discrete-logarithm-problem 至 @chap:other-applications，直接进入 @chap:elliptic-curves-over-Q。但事实上，密码学应用本身也颇具趣味，并且提供了理论如何实际运用的范例。
 
@@ -2025,7 +2025,7 @@ Alice 想通过公开信道向 Bob 发送一条消息。他们尚未建立一个
 
 /// START: Appendix setup
 #let appendix(body) = {
-  set heading(supplement: "附录", numbering: (..num) => {
+  set heading(numbering: (..num) => {
     if num.pos().len() == 1 {
       numbering("附录 A", num.pos().at(0))
     } else {
@@ -2063,6 +2063,15 @@ Alice 想通过公开信道向 Bob 发送一条消息。他们尚未建立一个
 
   这样的 $x$ 在模 $n_1 n_2 dots.c n_r$ 时是唯一的。
 ] <theorem:chinese-remainder-theorem>
+
+例如，令 $n_1 = 4, n_2 = 3, n_3 = 5$，且 $a_1 = 1, a_2 = 2, a_3 = 3$。那么 $x = 53$ 是以下同余方程组的一个解：
+
+$ x equiv 1 quad (mod 4) quad quad x equiv 2 quad (mod 3) quad quad x equiv 3 quad (mod 5) $
+
+且任意解 $x$ 都满足 $x equiv 53 space (mod 60)$。
+
+中国剩余定理的另一种表述方式是：如果对所有 $i != j$ 都有 $gcd(n_i, n_j) = 1$，则 $ ZZ_(n_1 n_2 dots.c n_r) tilde.eq ZZ_(n_1) plus.circle dots.c plus.circle ZZ_(n_r) $
+（见 @appendix:groups 关于 $plus.circle$ 的定义）。这是加法群的同构，同时也是环的同构。
 
 /// START: Appendix
 = Groups <appendix:groups>
