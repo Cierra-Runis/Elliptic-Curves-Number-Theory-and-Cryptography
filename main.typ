@@ -1435,11 +1435,58 @@ $ v^2 = a u^4 + b u^3 + c u^2 + d u + e $ <eq:v2-equal-au4-plus-bu3-plus-cu2-plu
 
 === 射影坐标 <subsec:projective-coordinates>
 
-/// TODO: Keep translate here...
+一个很自然的方法就是将所有的点都表示为射影空间中的点 $(x : y : z)$，通过在加法的标准公式中清除分母，我们得到如下形式：
+
+令 $P_i = (x_i, y_i, z_i), i = 1, 2$ 是椭圆曲线 $y^2 z = x^3 + A x z^2 + B z^3$，那么 $ (x_1 : y_1 : z_1) + (x_2 : y_2 : z_2) = (x_3 : y_3, z_3) $ 其中 $x_3, y_3, z_3$ 由如下步骤得到：
+
+当 $P_1 != plus.minus P_2$ 时
+
+$
+  u = y_2 z_1 - y_1 z_2 quad quad v = x_2 z_1 - x_1 z_2 quad quad w = u^2 z_1 z_2 - v^3 - 2 v^2 x_1 z_2 \
+  x_3 = v w quad quad y_3 = u (v^2 x_1 z_2 - w) quad quad z_3 = v^3 z_1 z_2
+$
+
+当 $P_1 = P_2$ 时
+
+$
+  t = A z_1^2 + 3 x_1^2 quad quad u = y_1 z_1 quad quad v = u x_1 y_1 quad quad w = t^2 - 8 v \
+  x_3 = 2 u w quad quad y_3 = t (4 v - w) - 8 y_1^2 u^2 quad quad z_3 = 8 u^3
+$
+
+当 $P_1 = - P_2$ 时，我们有 $P_1 + P_2 = infinity$。
+
+点加法需要 12 次乘法和 2 次平方，而点倍加需要 7 次乘法和 5 次平方。不需要求逆。由于加法和减法比乘法快得多，我们在分析中不予考虑。同样地，乘以一个常数也不包括在内。
 
 === Jacobian 坐标 <subsec:jacobian-coordinates>
 
+射影坐标的一种改进可以加快点倍加的运算。令 $(x : y : z)$ 表示仿射点 $(x \/ z^2, y \/ z^3)$。这是比较自然的选择，因为正如我们将在 @chap:divisors 看到的，函数 $x$ 在 $infinity$ 有一个二阶极点，函数 $y$ 有一个三阶极点。椭圆曲线 $y^2 = x^3 + A x + B$ 因此变为 $ y^2 = x^3 + A x z^4 + B z^6 $ 此时无穷远点的坐标为 $(1 : 1 : 0)$。
+
+令 $P_i = (x_i, y_i, z_i), i = 1, 2$ 是椭圆曲线 $y^2 z = x^3 + A x z^2 + B z^3$，那么 $ (x_1 : y_1 : z_1) + (x_2 : y_2 : z_2) = (x_3 : y_3, z_3) $ 其中 $x_3, y_3, z_3$ 由如下步骤得到：
+
+当 $P_1 != plus.minus P_2$ 时
+
+$
+  r = x_1 z_2^2 quad quad s = x_2 z_1^2 quad quad t = y_1 z_2^3 quad quad u = y_2 z_1^3 quad quad v = s - r quad quad w = u - t \
+  x_3 = - v^3 - 2 r v^2 + w^2 quad quad y_3 = - t v^3 + (r v^2 - x_3) w quad quad z_3 = v z_1 z_2
+$
+
+当 $P_1 = P_2$ 时
+
+$
+  v = 4 x_1 y_1^2 quad quad w = 3 x_1^2 + A z_1^4 \ x_3 = - 2 v + w^2 quad quad y_3 = - 8 y_1^4 + (v - x_3) w quad quad z_3 = 2 y_1 z_1
+$
+
+当 $P_1 = - P_2$ 时，我们有 $P_1 + P_2 = infinity$。
+
+点加法需要 12 次乘法和 2 次平方，而点倍加需要 7 次乘法和 5 次平方。不需要求逆。
+
+若 $A = -3$，倍加还可加速：有 $w = 3(x_1^2 - z_1^4) = 3(x_1 + z_1^2)(x_1 - z_1^2)$，只需 1 次平方和 1 次乘法，而不是 3 次平方。因此倍加仅需 4 次乘法和 4 次平方。NIST 曲线列表中那些定义在域 $FF_p$ 上的椭圆曲线（见 @ref:ieee13632000，@ref:hankerson2004guide[第 262 页]）之所以选择 $A = -3$，正是出于这一优化考虑。
+
+此外，在某些情况下，可以高效地将不同坐标系下的点相加。例如，将一个 Jacobian 坐标表示的点与一个仿射坐标的点相加，仅需 8 次乘法和 3 次平方。关于更多坐标系选择和高效点加法的内容，可参考 @ref:hankerson2004guide[第 3.2、3.3 节] 和 @ref:cohen2005handbook[第 13.2、13.3 节]。
+
 === Edwards 坐标 <subsec:edwards-coordinates>
+
+/// TODO: Keep translate here...
 
 #proposition[]
 
