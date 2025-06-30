@@ -1139,12 +1139,11 @@ $
 ] <theo:pascals-theorem>
 
 #figure(caption: [帕斯卡定理])[
-  #cetz.canvas(length: 1.75em, {
+  #cetz.canvas(length: 1.5em, {
     import cetz.draw: *
-    set-style(stroke: (paint: colors.text, thickness: 1.5pt))
-    circle((0, 0), radius: (2, 1))
-
     set-style(stroke: (paint: colors.text, thickness: 0.5pt))
+
+    circle((0, 0), radius: (2, 1))
 
     let A = (-2, 0)
     circle(A, name: "A", radius: 0)
