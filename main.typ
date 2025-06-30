@@ -2042,7 +2042,7 @@ Alice 想通过公开信道向 Bob 发送一条消息。他们尚未建立一个
 = 数论 <appendix:number-theory>
 /// END: Appendix
 
-#heading(numbering: none, level: 2)[基本结论]
+#heading(numbering: none, outlined: false, level: 2)[基本结论]
 
 令 $n$ 为正整数，$ZZ_n$ 为模 $n$ 的整数，它在加法下构成一个群。我们可以使用数字 $0, 1, 2, dots.c, n - 1$ 表示 $ZZ_n$ 的元素。令 $ ZZ_n^times = { a divides 1 <= a <= n, gcd(a, n) = 1 } $ 那么 $ZZ_n^times$ 在模 $n$ 乘法下构成一个群。
 
