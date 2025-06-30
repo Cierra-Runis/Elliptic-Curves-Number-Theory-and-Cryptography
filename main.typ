@@ -2039,8 +2039,30 @@ Alice 想通过公开信道向 Bob 发送一条消息。他们尚未建立一个
 /// END: Appendix setup
 
 /// START: Appendix
-= Number Theory <appendix:number-theory>
+= 数论 <appendix:number-theory>
 /// END: Appendix
+
+#heading(numbering: none, level: 2)[基本结论]
+
+令 $n$ 为正整数，$ZZ_n$ 为模 $n$ 的整数，它在加法下构成一个群。我们可以使用数字 $0, 1, 2, dots.c, n - 1$ 表示 $ZZ_n$ 的元素。令 $ ZZ_n^times = { a divides 1 <= a <= n, gcd(a, n) = 1 } $ 那么 $ZZ_n^times$ 在模 $n$ 乘法下构成一个群。
+
+令 $a in ZZ_n^times$，则使得 $a^k equiv 1 (mod n)$ 的最小正整数 $k$ 称为 *$a$ 模 $n$ 的阶*。$a$ 模 $n$ 的阶 $k$ 整除 $phi.alt(n)$，其中 $phi.alt$ 是欧拉函数。
+
+令 $p$ 为一个素数，$a in ZZ_p^times$。$a$ 模 $p$ 的阶整除 $p - 1$。模 $p$ 的一个 *原根* #footnote[译者注：在抽象代数中，原根就是循环群的生成元。这个概念只在模 $n$ 缩剩余系关于乘法形成的群中有「原根」这个名字，在一般的循环群中都称作「生成元」—— 见 #link("https://oi-wiki.org/math/number-theory/primitive-root/#%E5%8E%9F%E6%A0%B9")[此链接]] 是一个整数 $g$，使得 $g$ 在模 $p$ 下的阶等于 $p - 1$。如果 $g$ 是模 $p$ 的一个原根，则每个整数模 $p$ 同余于 0 或某个 $g$ 的幂。例如，3 是模 7 的一个原根，且 $ { 1, 3, 9, 27, 81, 243 } equiv { 1, 3, 2, 6, 4, 5 } quad (mod 7) $
+
+模 $p$ 的原根一共有 $phi.alt(p - 1)$ 个。特别地，模 $p$ 的原根总是存在，因此 $ZZ_p^times$ 是一个循环群。
+
+如果已知 $p − 1$ 的素因子分解，可以用如下判据判断某个整数 $g$ 是否是模 $p$ 的原根：若对所有素因子 $q divides p - 1$，都有 $g^((p - 1) \/ q) equiv.not a$，则 $g$ 是模 $p$ 的原根。这可以通过注意到以下事实来证明：如果 $g$ 不是模 $p$ 的原根，那么它的阶是 $p - 1$ 的一个真因子，即存在某个素数 $q$ 使得它整除 $(p - 1) \/ q$。 /// TODO: Check translation
+
+在知道 $p - 1$ 的分解的前提下，寻找原根的一个简单方法是从 $2, 3, 5, 6, dots.c$ 这些小整数开始依次试验，直到找到满足上述条件的一个原根为止。由于原根数量较多，通常很快就能找到。
+
+数论中的一个非常有用的结论如下。
+
+#theorem[中国剩余定理][
+  令 $n_1, n_2, dots.c, n_r$ 为两两互素的正整数，且令 $a_1, a_2, dots.c, a_r$ 为整数，则存在整数 $x$，使得 $ x equiv a_i (mod n_i) $ 对所有的 $i$ 成立。
+
+  这样的 $x$ 在模 $n_1 n_2 dots.c n_r$ 时是唯一的。
+] <theorem:chinese-remainder-theorem>
 
 /// START: Appendix
 = Groups <appendix:groups>
