@@ -18,6 +18,10 @@
 #set text(font: serif-fonts, size: 13pt)
 #show emph: text.with(font: "LXGW WenKai GB")
 #show raw: text.with(font: "Cascadia Code")
+#show math.equation: set text(font: (
+  "New Computer Modern Math",
+  "LXGW WenKai GB",
+))
 /// END: Fonts
 
 /// START: Colors
@@ -2135,7 +2139,113 @@ Hensel 引理表明存在一个 $p$ 进整数 $x$，使得 $f(x) = 0$。这意�
 /// END: Appendix
 
 /// START: Appendix
-= Groups <appendix:groups>
+= 群 <appendix:groups>
+
+#heading(numbering: none, outlined: false, level: 2)[基本定义]
+
+由于本书中的大多数群是加法阿贝尔群，我们将在本附录中使用加法记号表示群运算。因此，一个群 $G$ 有一个满足结合律的二元运算 $+$。存在一个加法单位元，记作 $0$，满足 $ 0 + g = g + 0 = g $ 对所有 $g in G$ 成立。每个 $g in G$ 被假定具有一个加法逆元 $-g$，满足 $ (-g) + g = g + (-g) = 0 $
+
+若 $n$ 是正整数，我们记 $ n g = g + g + dots.c + g quad "（共 "n" 项）" $
+
+若 $n < 0$，我们定义 $n g = -(abs(n) g) = -(g + dots.c + g)$。
+
+本书中的几乎所有群都是阿贝尔群，这意味着对所有 $g, h in G$，有 $g + h = h + g$。
+
+如果 $G$ 是有限群，则 $G$ 的 *阶* 是其元素的个数。*元素 $g in G$ 的阶* 是满足 $k g = 0$ 的最小正整数 $k$。如果 $k$ 是 $g$ 的阶，则有 $ i g = j g <==> i equiv j quad (mod k) $
+
+关于阶的基本结论如下。
+
+#theorem[拉格朗日定理][
+  设 $G$ 是一个有限群。
+
+  + 令 $H$ 是 $G$ 的子群，则 $H$ 的阶整除 $G$ 的阶。
+
+  + 令 $g in G$，则 $g$ 的阶整除 $G$ 的阶。
+] <theo:lagrange-theorem>
+
+群 $G$ 与其子群 $H$ 的阶的比值 $\#G \/ \#H$ 被称为 $H$ 在 $G$ 中的 *指数*。更一般地说，在任意群（可能是无限群）$G$ 中，子群 $H$ 的指数是一个最小的正整数 $n$，使得我们将 $G$ 写为 $ G = union.big_{i=1}^n (g_i + H) $ 其中 $g_i in G$。
+
+例如，$ZZ = (0 + 3ZZ) union (1 + 3ZZ) union (2 + 3ZZ)$，所以 $3ZZ$ 在 $ZZ$ 中的指数是 3。
+
+一个 *循环群* 是与 $ZZ$ 或某个 $ZZ_n$ 同构的群。这类群的特点是可以由一个元素生成。例如，$ZZ_4$ 可以由 1 生成，也可以由 3 生成，因为 ${ 0, 3, 3 + 3, 3 + 3 + 3 }$ 就是整个 $ZZ_4$。以下结果表明：拉格朗日定理在有限循环群中的逆命题成立。
+
+#theorem[
+  令 $G$ 是一个阶为 $n$ 的有限循环群。令 $d > 0$ 整除 $n$。
+
+  + 则 $G$ 中存在唯一的阶为 $d$ 的子群。
+
+  + $G$ 中有 $d$ 个元素的阶整除 $d$，并且有 $phi.alt(d)$ 个元素的阶恰为 $d$，其中 $phi.alt$ 是欧拉函数。
+]
+
+例如 $ZZ_6$ 包含一个阶为 3 的子群 ${ 0, 2, 4 }$。元素 $2, 4 in ZZ_6$ 的阶为 3。
+
+两个群 $G_1$ 和 $G_2$ 的 *直和* 定义为由两者元素组成的有序对集合 $ G_1 plus.circle G_2 = { (g_1, g_2) | g_1 in G_1, g_2 in G_2 } $
+
+有序对之间按分量相加：$ (g_1, g_2) + (h_1, h_2) = (g_1 + h_1, g_2 + h_2) $
+
+这使得 $G_1 plus.circle G_2$ 构成一个群，其单位元为 $(0, 0)$。多个群的直和也可类似定义。我们记 $G^r$ 为 $G$ 的 $r$ 个拷贝的直和。特别地，$ZZ^r$ 表示所有可能的整数 $r$ 元组的集合，它在加法下构成一个群。
+
+#heading(numbering: none, outlined: false, level: 2)[结构定理]
+
+对群 $G_1, G_2$ 如果存在一个双射函数 $psi: G_1 -> G_2$，使得对所有 $g, h in G_1$，都有 $psi(g h) = psi(g) psi(h)$，则称两者 *同构*。注意：左边的乘积 $g h$ 是在群 $G_1$ 中进行的，而右边的乘积 $psi(g) psi(h)$ 是在群 $G_2$ 中进行的。
+
+#theorem[
+  任意有限阿贝尔群同构于如下形式的群
+
+  $
+    ZZ_(n_1) plus.circle ZZ_(n_2) plus.circle dots.c plus.circle ZZ_(n_s)
+  $
+
+  其中 $n_i divides n_(i + 1)$ 对所有 $i = 1, 2, dots.c, s - 1$ 成立。这些整数 $n_i$ 由群 $G$ 唯一确定。
+]
+
+若阿贝尔群 $G$ 存在一个有限集合 ${ g_1, g_2, dots.c, g_k } subset.eq G$，使得 $G$ 中的任意元素都可以表示为 $ m_1 g_1 + m_2 g_2 + dots.c + m_k g_k $
+
+则 $G$ 称为是 *有限生成的*，其中 $m_i in ZZ$，且该表示不要求唯一。
+
+
+#theorem[
+  有限生成的阿贝尔群同构于如下形式的群
+
+  $
+    ZZ^r plus.circle ZZ_(n_1) plus.circle ZZ_(n_2) plus.circle dots.c plus.circle ZZ_(n_s)
+  $
+
+  其中 $r >= 0$，且 $n_i divides n_(i + 1)$ 对所有 $i = 1, 2, dots.c, s - 1$ 成立。整数 $r$ 和各 $n_i$ 被群 $G$ 唯一确定。
+]
+
+若 $G$ 的某个子群与
+
+$
+  ZZ_(n_1) plus.circle ZZ_(n_2) plus.circle dots.c plus.circle ZZ_(n_s)
+$
+
+同构，则其称为 $G$ 的 *挠子群*，整数 $r$ 称为群 $G$ 的 *秩*。
+
+该定理可以由如下定理证明。
+
+#theorem[
+  设群 $G_1 subset.eq G_2 subset.eq G_3$，且存在某个整数 $r$，使得 $G_1$ 与 $G_2$ #footnote[勘误：应为 $G_3$] 都同构于 $ZZ^r$，则 $G_2$ 也同构于 $ZZ^r$。
+
+]
+
+例如，令 $G_1 = 12 ZZ$，$G_2 = 6 ZZ$，$G_3 = ZZ$，这三个群都同构于 $ZZ$，满足定理的条件。在文中，该定理应用于 $G_1$ 和 $G_3$ 是复平面 $CC$ 中的晶格的情形。此时 $G_1$ 和 $G_3$ 都同构于 $ZZ^2$。如果 $G_1 subset.eq G_2 subset.eq G_3$，那么 $G_2 tilde.eq ZZ^2$，因此存在复数 $omega_1, omega_2$ 使得 $G_2 = ZZ omega_1 + ZZ omega_2$。由于 $G_1$ 是晶格，它包含两个在实数域上线性无关的向量。又因为 $G_1 subset.eq G_2$，这说明 $omega_1$ 和 $omega_2$ 也在实数域上线性无关，因此 $G_2$ 也是一个晶格。
+
+#heading(numbering: none, outlined: false, level: 2)[同态]
+
+设 $G_1, G_2$ 是群。一个从 $G_1$ 到 $G_2$ 的 *同态* 是指一个映射 $psi : G_1 -> G_2$，满足对所有 $g, h in G_1$，有 $psi(g + h) = psi(g) + psi(h)$。换句话说，该映射把 $G_1$ 中的加法对应到 $G_2$ 中的加法。
+
+$psi$ 的 *核* 定义为 $ "Ker" psi = { g in G_1 divides psi(g) = 0 } $
+
+$psi$ 的像记作 $psi(G_1)$，其是 $G_2$ 的一个子群。
+
+我们所需的主要结论如下。
+
+#theorem[
+  设 $G_1$ 是有限群，且 $psi : G_1 -> G_2$ 是群同态。则有 $ \#G_1 = (\#"Ker" psi) dot.c (\#psi(G_1)) $
+]
+
+实际上，从商群的角度来看，有 $G_1 \/ "Ker" psi tilde.eq psi(G_1)$。
 /// END: Appendix
 
 /// START: Appendix
