@@ -2242,14 +2242,39 @@ $psi$ 的像记作 $psi(G_1)$，其是 $G_2$ 的一个子群。
 我们所需的主要结论如下。
 
 #theorem[
-  设 $G_1$ 是有限群，且 $psi : G_1 -> G_2$ 是群同态。则有 $ \#G_1 = (\#"Ker" psi) dot.c (\#psi(G_1)) $
+  设 $G_1$ 是有限群，且 $psi : G_1 -> G_2$ 是群同态。则有 $ \#G_1 = (\#"Ker" psi) (\#psi(G_1)) $
 ]
 
 实际上，从商群的角度来看，有 $G_1 \/ "Ker" psi tilde.eq psi(G_1)$。
 /// END: Appendix
 
 /// START: Appendix
-= Fields <appendix:fields>
+= 域 <appendix:fields>
+
+令 $K$ 为一个域。存在环同态 $psi: ZZ -> K$ 将 $1 in ZZ$ 映射到 $1 in K$。如果 $psi$ 是单射，那么我们称 $K$ 的 *特征为 $0$*，否则存在最小的正整数 $p$，使得 $psi(p) = 0$，此时我们称 $K$ 的 *特征为 $p$*。如果 $p$ 可分解为 $a b$，其中 $1 < a <= b < p$，那么 $psi(a) psi(b) = psi(p) = 0$，得 $psi(a) = 0$ 或 $psi(b) = 0$，这与 $p$ 是最小的矛盾。因此 $p$ 是质数。
+
+当 $K$ 的特征为 $0$ 时，有理数域 $QQ$ 包含在 $K$ 中。
+
+当 $K$ 的特征为 $p$ 时，模 $p$ 的有限域 $FF_p$ 包含在 $K$ 中。
+
+令域 $K$ 和 $L$ 满足 $K subset.eq L$，若 $alpha in L$，且存在一个非常数多项式 $ f(X) = X^n + a_(n - 1) X^(n - 1) + dots.c + a_0 $ 使得 $f(alpha) = 0$，其中 $a_0, dots.c, a_(n - 1) in K$，则称 $alpha$ 是 $K$ 上的 *代数元*。若 $L$ 的每一个元素都是 $K$ 上的代数元，则称 $L$ 在 $K$ 上是 *代数的*，或称 $L$ 是 $K$ 上的 *代数扩域*。
+
+域 $K$ 的代数闭包是一个包含 $K$ 的域 $overline(K)$，且满足
+
++ $overline(K)$ 是 $K$ 的代数扩域。
+
++ 所有系数在 $overline(K)$ 中的非常数多项式 $g(X)$ 在 $overline(K)$ 中都有根（即 $overline(K)$ 是代数封闭的）。
+
+如果 $g(X)$ 的次数为 $n$，且在 $K$ 中有根 $alpha$，那么可以写成 $g(X) = (X − alpha) g_1(X)$，其中 $g_1(X)$ 的次数为 $n - 1$。通过归纳可知，$g(X)$ 在 $overline(K)$ 中有恰好 $n$ 个根（按重数计）。
+
+可以证明，每个域 $K$ 都有一个代数闭包，并且任意两个代数闭包都是同构的。在本书中，我们默认已选择某个特定的 $K$ 的代数闭包，并称其为 $K$ 的代数闭包。
+
+当 $K = QQ$ 时，其代数闭包 $overline(QQ)$ 是所有在 $QQ$ 上为代数元的复数组成的集合。当 $K = CC$ 时，其代数闭包就是 $CC$ 本身，因为由代数基本定理可知 $CC$ 就是代数封闭的。
+
+#heading(numbering: none, outlined: false, level: 2)[有限域]
+
+/// TODO: Keep translate here...
+
 /// END: Appendix
 
 /// START: Appendix
