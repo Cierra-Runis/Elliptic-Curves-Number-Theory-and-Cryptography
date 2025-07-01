@@ -752,7 +752,7 @@ $
 ]
 
 #warning[
-  对于 WeierStrass 方程，若 $P = (x，y)$，则 $-P = (x，−y)$，对于广义 WeierStrass 方程 @eq:generalized-weierstrass-equation，情况不再如此。如果 $P = (x，y)$ 在 @eq:generalized-weierstrass-equation 描述的曲线上，那么 $ -P =(x，-a_1x -a_3 - y) $（见 @exercise:2-9）。
+  对于 Weierstrass 方程，若 $P = (x，y)$，则 $-P = (x，−y)$，对于广义 Weierstrass 方程 @eq:generalized-weierstrass-equation，情况不再如此。如果 $P = (x，y)$ 在 @eq:generalized-weierstrass-equation 描述的曲线上，那么 $ -P =(x，-a_1x -a_3 - y) $（见 @exercise:2-9）。
 ]
 
 #example[
@@ -2279,6 +2279,19 @@ Copyright (C) 2000-2006 The PARI Group
 PARI/GP is free software, covered by the GNU General Public License, and comes WITHOUT ANY WARRANTY WHATSOEVER.
 Type ? for help, \q to quit. Type ?12 for how to get moral (and possibly technical) support.
 parisize = 4000000, primelimit = 500000
+```
+
+首先我们需要输入并初始化一个椭圆曲线。令 $[a_1, a_2, a_3, a_4, a_6]$ 是曲线在广义 Weierstrass 形式下的系数。让我们从例 9.3 的曲线 $E_1: y^2 = x^3 - 58347 x + 3954150$ 开始。/// TODO: Ref to example 9.3
+
+```
+? e1=ellinit([0,0,0,-58347,3954150])
+%1 = [0, 0, 0, -58347, 3954150, 0, -116694, 15816600,
+-3404372409, 2800656, -3416385600, 5958184124547072,
+10091699281/2737152, [195.1547871847901607239497645,
+75.00000000000000000000000000, -270.1547871847901607239497645],
+0.1986024692687475355260042188, 0.1567132675477145982613047883*I,
+-6.855899811988574944063544705, -21.22835194662770142565252843*I,
+0.03112364190214999895971387115]
 ```
 
 /// TODO: Keep translate here...
