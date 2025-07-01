@@ -240,7 +240,7 @@
 关于椭圆曲线的优秀著作在文献中已有多种。本书并无意取代 Silverman 所著的两卷经典作品 @ref:silverman1986arithmetic、@ref:silverman1994advancedtopics，后者已成为椭圆曲线数论方面的标准参考资料。相反，本书从更基础的视角出发，涵盖了部分相同内容，并加入了对密码学应用的讨论。我们希望读者在阅读本书之后，能更容易理解 Silverman 的著作，并欣赏其略显进阶的处理方式。对于更偏解析方法的椭圆曲线算术研究，建议参考 Knapp @ref:knapp1992elliptic 和 Koblitz @ref:koblitz1993ellipticmodular 的著作，它们在这方面的处理比本书或 Silverman 的 @ref:silverman1986arithmetic 更为深入。在椭圆曲线密码学方面，Blake 等人近期的著作 @ref:blake2000elliptic 提供了多个算法的更详尽细节，尽管其中几乎没有证明，仍是学习椭圆曲线密码学的重要资料。本书旨在为理解该书中所用的数学提供良好的入门与解释。此外，Enge @ref:enge1999elliptic、Koblitz @ref:koblitz1998algebraiccrypto、@ref:koblitz1994course 以及 Menezes @ref:menezes1993eccpubkey 等人的著作也从密码学角度探讨了椭圆曲线，值得深入阅读。
 
 #note(variant: "符号说明")[
-  符号 $ZZ, FF_q, QQ, RR, CC$ 分别表示整数集、有 $q$ 个元素的有限域、有理数域、实数域和复数域。我们使用 $ZZ_n$（而不是 $ZZ \/ n ZZ$）来表示模 $n$ 的整数集。然而，当 $p$ 是素数，并且我们将 $ZZ_p$ 视为域而不是作为群或环来使用时，我们使用 $FF_p$ 这个记号，以与 $FF_q$ 的记法保持一致。注意，$ZZ_p$ 并不表示 $p$ 进整数。我们之所以这样选用，主要出于排版的考虑，因为模 $p$ 的整数频繁出现，而 $p$ 进整数的符号仅在 @chap:hyperelliptic-curves 的少数几个例子中出现（其中我们用 $cal(O)_p$ 表示）。$p$ 进有理数表示为 $QQ_p$。
+  符号 $ZZ, FF_q, QQ, RR, CC$ 分别表示整数集、有 $q$ 个元素的有限域、有理数域、实数域和复数域。我们使用 $ZZ_n$（而不是 $ZZ \/ n ZZ$）来表示模 $n$ 的整数集。然而，当 $p$ 是质数，并且我们将 $ZZ_p$ 视为域而不是作为群或环来使用时，我们使用 $FF_p$ 这个记号，以与 $FF_q$ 的记法保持一致。注意，$ZZ_p$ 并不表示 $p$ 进整数。我们之所以这样选用，主要出于排版的考虑，因为模 $p$ 的整数频繁出现，而 $p$ 进整数的符号仅在 @chap:hyperelliptic-curves 的少数几个例子中出现（其中我们用 $cal(O)_p$ 表示）。$p$ 进有理数表示为 $QQ_p$。
 
   如果 $K$ 是一个域，那么 $overline(K)$ 表示其代数闭包。如果 $R$ 是一个环，则 $R^times$ 表示 $R$ 中的可逆元素。当 $K$ 是域时，$K^times$ 因此表示 $K$ 的非零元素所构成的乘法群。在全书中，字母 $K$ 和 $E$ 通常分别用来表示一个域和一条椭圆曲线（但在 @chap:elliptic-curves-over-C 中，$K$ 有几处用来表示椭圆积分）。
 ]
@@ -528,7 +528,7 @@ $
 
 == Weierstrass 方程
 
-在本书的大多数情形中，椭圆曲线 $E$ 是形如 $ y^2 = x^3 + A x + B $ 的方程图像，其中 $A$ 和 $B$ 是常数。这个形式被称为 *椭圆曲线的 Weierstrass 方程*。我们需要明确 $A, B, x$ 和 $y$ 分别属于哪个集合。通常，它们被看作某个域中的元素，例如实数域 $RR$、复数域 $CC$、有理数域 $QQ$、有限域 $FF_p (= ZZ_p)$，其中 $p$ 为素数，或更一般的有限域 $FF_q$，其中 $q = p^k$ 且 $k >= 1$。事实上，在本书几乎所有地方，如果读者对域这个概念不熟悉，也可以直接将其理解为上述这些常见的域之一即可。如果 $K$ 是一个域，且 $A, B in K$，那么我们说椭圆曲线 $E$ 是 *定义在* $K$ *上的*。在本书中，$E$ 和 $K$ 一般默认表示一个椭圆曲线及其定义所在的域。
+在本书的大多数情形中，椭圆曲线 $E$ 是形如 $ y^2 = x^3 + A x + B $ 的方程图像，其中 $A$ 和 $B$ 是常数。这个形式被称为 *椭圆曲线的 Weierstrass 方程*。我们需要明确 $A, B, x$ 和 $y$ 分别属于哪个集合。通常，它们被看作某个域中的元素，例如实数域 $RR$、复数域 $CC$、有理数域 $QQ$、有限域 $FF_p (= ZZ_p)$，其中 $p$ 为质数，或更一般的有限域 $FF_q$，其中 $q = p^k$ 且 $k >= 1$。事实上，在本书几乎所有地方，如果读者对域这个概念不熟悉，也可以直接将其理解为上述这些常见的域之一即可。如果 $K$ 是一个域，且 $A, B in K$，那么我们说椭圆曲线 $E$ 是 *定义在* $K$ *上的*。在本书中，$E$ 和 $K$ 一般默认表示一个椭圆曲线及其定义所在的域。
 
 如果我们希望讨论定义在某个扩域 $L supset.eq K$ 上的点，我们记作 $E(L)$。按照定义，这个集合总是包含一个将在本节后面定义的特殊点 $infinity$：
 
@@ -1549,7 +1549,7 @@ $
 
 == 奇异曲线 <sec:singular-curves>
 
-我们一直在研究 $y^2 = x^3 + A x + B$ 并假设 $x^3 + A x + B$ 有不同的根。然而，当有重根时会发生什么是有趣的。椭圆曲线的加法将变为域 $K$ 中元素的加法，或者域 $K^times$ 中元素的乘法，又或者域 $K$ 的二次扩张中的乘法。这意味着椭圆曲线群 $E(K)$ 的算法，如解决离散对数问题的算法（见 @chap:the-discrete-logarithm-problem），也可能适用于这些更熟悉的情况，见 @chap:other-applications。此外，如本节末尾将简要讨论的，奇异曲线在椭圆曲线定义于整数并模各种素数时自然出现。
+我们一直在研究 $y^2 = x^3 + A x + B$ 并假设 $x^3 + A x + B$ 有不同的根。然而，当有重根时会发生什么是有趣的。椭圆曲线的加法将变为域 $K$ 中元素的加法，或者域 $K^times$ 中元素的乘法，又或者域 $K$ 的二次扩张中的乘法。这意味着椭圆曲线群 $E(K)$ 的算法，如解决离散对数问题的算法（见 @chap:the-discrete-logarithm-problem），也可能适用于这些更熟悉的情况，见 @chap:other-applications。此外，如本节末尾将简要讨论的，奇异曲线在椭圆曲线定义于整数并模各种质数时自然出现。
 
 我们先考虑 $x^3 + A x + B$ 在 $x=0$ 处有三重根的情况，曲线方程为 $ y^2 = x^3 $
 
@@ -1755,7 +1755,7 @@ $
 
 === The Frey-Rück Attack
 
-== Anomalous Curves
+== Anomalous Curves <sec:anomalous-curves>
 
 == Other Attacks
 
@@ -1784,7 +1784,7 @@ Alice 想要给 Bob 发送一条消息，通常称为 *明文*。为了防止窃
 
 Alice 和 Bob 希望协商出一个共同的密钥，用于通过对称加密方案如 DES 或 AES 交换数据。例如，Alice 和 Bob 可以是希望传输金融数据的银行。使用信使递送密钥既不现实又耗时。且假设 Alice 和 Bob 之前没有任何联系，他们之间唯一的通信渠道是公开的。一种建立密钥的方法是迪菲和赫尔曼提出的（实际上，他们使用的是有限域的乘法群）。
 
-+ Alice 和 Bob 商定一条定义在有限域 $FF_q$ 上的椭圆曲线 $E$，使得在 $E(FF_q)$ 上离散对数问题是困难的。他们还同意选定曲线上的一点 $P in E(FF_q)$，使得 $P$ 生成的子群阶数很大（通常选择阶为大素数的曲线和点）。
++ Alice 和 Bob 商定一条定义在有限域 $FF_q$ 上的椭圆曲线 $E$，使得在 $E(FF_q)$ 上离散对数问题是困难的。他们还同意选定曲线上的一点 $P in E(FF_q)$，使得 $P$ 生成的子群阶数很大（通常选择阶为大质数的曲线和点）。
 
 + Alice 选择一个秘密整数 $a$，计算 $P_a = a P$，并将 $P_a$ 发送给 Bob。
 
@@ -1838,9 +1838,9 @@ Alice 想通过公开信道向 Bob 发送一条消息。他们尚未建立一个
 
 + Alice 将她的消息表示为曲线上的一点 $M in E(FF_q)$（我们将在后面讨论如何实现这一点）。
 
-+ Alice 选择一个与 $N$ 互素的秘密整数 $m_A$，计算 $M_1 = m_A M$，并将 $M_1$ 发送给 Bob。
++ Alice 选择一个与 $N$ 互质的秘密整数 $m_A$，计算 $M_1 = m_A M$，并将 $M_1$ 发送给 Bob。
 
-+ Bob 选择一个与 $N$ 互素的秘密整数 $m_B$，计算 $M_2 = m_B M_1$，并将 $M_2$ 发送给 Alice。
++ Bob 选择一个与 $N$ 互质的秘密整数 $m_B$，计算 $M_2 = m_B M_1$，并将 $M_2$ 发送给 Alice。
 
 + Alice 计算 $m_A^(-1) in ZZ_N$，再计算 $M_3 = m_A^(-1) M_2$，并将 $M_3$ 发送给 Bob。
 
@@ -1884,7 +1884,7 @@ Alice 想通过公开信道向 Bob 发送一条消息。他们尚未建立一个
 /// START: Chapter
 = Elliptic Curves over $QQ$ <chap:elliptic-curves-over-Q>
 
-== The Torsion Subgroup. The Lutz-Nagell Theorem
+== The Torsion Subgroup. The Lutz-Nagell Theorem <sec:the-torsion-subgroup-the-lutz-nagell-theorem>
 
 == Descent and the Weak Mordell-Weil Theorem
 
@@ -2040,7 +2040,6 @@ Alice 想通过公开信道向 Bob 发送一条消息。他们尚未建立一个
 
 /// START: Appendix
 = 数论 <appendix:number-theory>
-/// END: Appendix
 
 #heading(numbering: none, outlined: false, level: 2)[基本结论]
 
@@ -2048,18 +2047,18 @@ Alice 想通过公开信道向 Bob 发送一条消息。他们尚未建立一个
 
 令 $a in ZZ_n^times$，则使得 $a^k equiv 1 (mod n)$ 的最小正整数 $k$ 称为 *$a$ 模 $n$ 的阶*。$a$ 模 $n$ 的阶 $k$ 整除 $phi.alt(n)$，其中 $phi.alt$ 是欧拉函数。
 
-令 $p$ 为一个素数，$a in ZZ_p^times$。$a$ 模 $p$ 的阶整除 $p - 1$。模 $p$ 的一个 *原根* #footnote[译者注：在抽象代数中，原根就是循环群的生成元。这个概念只在模 $n$ 缩剩余系关于乘法形成的群中有「原根」这个名字，在一般的循环群中都称作「生成元」—— 见 #link("https://oi-wiki.org/math/number-theory/primitive-root/#%E5%8E%9F%E6%A0%B9")[此链接]] 是一个整数 $g$，使得 $g$ 在模 $p$ 下的阶等于 $p - 1$。如果 $g$ 是模 $p$ 的一个原根，则每个整数模 $p$ 同余于 0 或某个 $g$ 的幂。例如，3 是模 7 的一个原根，且 $ { 1, 3, 9, 27, 81, 243 } equiv { 1, 3, 2, 6, 4, 5 } quad (mod 7) $
+令 $p$ 为一个质数，$a in ZZ_p^times$。$a$ 模 $p$ 的阶整除 $p - 1$。模 $p$ 的一个 *原根* #footnote[译者注：在抽象代数中，原根就是循环群的生成元。这个概念只在模 $n$ 缩剩余系关于乘法形成的群中有「原根」这个名字，在一般的循环群中都称作「生成元」—— 见 #link("https://oi-wiki.org/math/number-theory/primitive-root/#%E5%8E%9F%E6%A0%B9")[此链接]] 是一个整数 $g$，使得 $g$ 在模 $p$ 下的阶等于 $p - 1$。如果 $g$ 是模 $p$ 的一个原根，则每个整数模 $p$ 同余于 0 或某个 $g$ 的幂。例如，3 是模 7 的一个原根，且 $ { 1, 3, 9, 27, 81, 243 } equiv { 1, 3, 2, 6, 4, 5 } quad (mod 7) $
 
 模 $p$ 的原根一共有 $phi.alt(p - 1)$ 个。特别地，模 $p$ 的原根总是存在，因此 $ZZ_p^times$ 是一个循环群。
 
-如果已知 $p − 1$ 的素因子分解，可以用如下判据判断某个整数 $g$ 是否是模 $p$ 的原根：若对所有素因子 $q divides p - 1$，都有 $g^((p - 1) \/ q) equiv.not a$，则 $g$ 是模 $p$ 的原根。这可以通过注意到以下事实来证明：如果 $g$ 不是模 $p$ 的原根，那么它的阶是 $p - 1$ 的一个真因子，即存在某个素数 $q$ 使得它整除 $(p - 1) \/ q$。 /// TODO: Check translation
+如果已知 $p − 1$ 的素因子分解，可以用如下判据判断某个整数 $g$ 是否是模 $p$ 的原根：若对所有素因子 $q divides p - 1$，都有 $g^((p - 1) \/ q) equiv.not a$，则 $g$ 是模 $p$ 的原根。这可以通过注意到以下事实来证明：如果 $g$ 不是模 $p$ 的原根，那么它的阶是 $p - 1$ 的一个真因子，即存在某个质数 $q$ 使得它整除 $(p - 1) \/ q$。 /// TODO: Check translation
 
 在知道 $p - 1$ 的分解的前提下，寻找原根的一个简单方法是从 $2, 3, 5, 6, dots.c$ 这些小整数开始依次试验，直到找到满足上述条件的一个原根为止。由于原根数量较多，通常很快就能找到。
 
 数论中的一个非常有用的结论如下。
 
 #theorem[中国剩余定理][
-  令 $n_1, n_2, dots.c, n_r$ 为两两互素的正整数，且令 $a_1, a_2, dots.c, a_r$ 为整数，则存在整数 $x$，使得 $ x equiv a_i (mod n_i) $ 对所有的 $i$ 成立。
+  令 $n_1, n_2, dots.c, n_r$ 为两两互质的正整数，且令 $a_1, a_2, dots.c, a_r$ 为整数，则存在整数 $x$，使得 $ x equiv a_i (mod n_i) $ 对所有的 $i$ 成立。
 
   这样的 $x$ 在模 $n_1 n_2 dots.c n_r$ 时是唯一的。
 ] <theorem:chinese-remainder-theorem>
@@ -2068,10 +2067,72 @@ Alice 想通过公开信道向 Bob 发送一条消息。他们尚未建立一个
 
 $ x equiv 1 quad (mod 4) quad quad x equiv 2 quad (mod 3) quad quad x equiv 3 quad (mod 5) $
 
-且任意解 $x$ 都满足 $x equiv 53 space (mod 60)$。
+且任意解 $x$ 都满足 $x equiv 53 (mod 60)$。
 
-中国剩余定理的另一种表述方式是：如果对所有 $i != j$ 都有 $gcd(n_i, n_j) = 1$，则 $ ZZ_(n_1 n_2 dots.c n_r) tilde.eq ZZ_(n_1) plus.circle dots.c plus.circle ZZ_(n_r) $
+中国剩余定理的另一种表述方式是：如果 $n_1, n_2, dots.c, n_r$ 两两互质，则 $ ZZ_(n_1 n_2 dots.c n_r) tilde.eq ZZ_(n_1) plus.circle dots.c plus.circle ZZ_(n_r) $
 （见 @appendix:groups 关于 $plus.circle$ 的定义）。这是加法群的同构，同时也是环的同构。
+
+#heading(numbering: none, outlined: false, level: 2)[p 进数]
+
+令 $p$ 为质数，$x$ 为非零有理数。记 $ x = p^r a/b $ 其中 $a, b$ 是满足 $p divides.not a b$ 的整数。那么 $r$ 被称为 $x$ 的 *$p$ 进赋值*，记作 $ r = v_p (x) $
+
+定义 $v_p (0) = infinity$。（有关 $p$ 进赋值的更多内容，见 @sec:anomalous-curves 和 @sec:the-torsion-subgroup-the-lutz-nagell-theorem）$x$ 的 *$p$ 进绝对值* 定义为 $ abs(x)_p = p^(-r) $ 且定义 $abs(0)_p = 0$。
+
+例如 $ abs(12/35)_2 = 1/4 quad quad abs(11/250)_5 = 125 quad quad abs(1/2 - 41)_3 = 1/81 $ 最后一个例子说明在 3 进意义下 $1 \/ 2$ 与 $41$ 相近。注意：两个整数在 $p$ 进意义下接近，当且仅当它们在模 $p^n$ 意义下对于足够大的 $n$ 同余。
+
+*$p$ 进整数* 最容易被看作是 $ sum_(n = 0)^(infinity) a_n p^n quad a_n in {0, 1, 2, dots.c, p - 1} $ 形式的无穷和。这样的无穷和在实数意义下并不收敛，但在 $p$ 进绝对值下是有意义的，因为当 $n -> infinity$ 时有 $abs(a_n p^n)_p -> 0$。
+
+加法与乘法的运算方法与有限位制数加法类似。例如，在 3 进整数中
+
+$
+  (1 + 2 dot.c 3 + 0 dot.c 3^2 + dots.c) + (1 + 2 dot.c 3 + 1 dot.c 3^2 + dots.c) & = 2 + 4 dot.c 3 + 1 dot.c 3^2 + dots.c \
+  & = 2 + 1 dot.c 3 + 2 dot.c 3^2 + dots.c
+$
+
+（我们将 $4 = 1 + 3$ 重新分组，或者说是进位，以得到最后的结果）。若 $ x = a_k p^k + a_(k + 1) p^(k + 1) + dots.c $ 其中 $a_k != 0$，则 $ -x = (p - a_k) p^k + (p - 1 - a_(k + 1)) p^(k + 1) + (p - 1 - a_(k + 2)) p^(k + 2) + dots.c $ <eq:negation-in-p-adic-integers> /// TODO: A.1
+
+（用到了 $p^(k + 1) + (p - 1) p^(k + 1) + (p - 1) p^(k + 2) + dots.c = 0$ 这一事实，因为裂项求和使得所有的系数都抵消了）。因此 $p$ 进整数有加法逆元，且构成一个环。
+
+任何一个分母不被 $p$ 整除的有理数都是 $p$ 进整数。比如在 3 进整数中 $ 1/2 = (-1)/(1 - 3) = -(1 + 3 + 3^2 + dots.c) = 2 + 3 + 3^2 + dots.c $ 其中最后一个等号我们使用到了 @eq:negation-in-p-adic-integers。实际上，可以证明若 $ x = sum_(n = 0)^(infinity) a_n p_n $ 是 $p$ 进整数，且 $a_0 != 0$，那么 $1 \/ x$ 也是 $p$ 进整数。
+
+*$p$ 进有理数*，记作 $QQ_p$，是如下形式的和 $ y = sum_(n = m)^(infinity) a_n p^n $ <eq:p-adic-rational> 其中 $m$ 为正整数、负整数或零，$a_n in {0, 1, 2, dots.c, p - 1}$。如果 $y in QQ_p$，则存在整数 $k$ 使得 $p^k y$ 为 $p$ 进整数。$p$ 进有理数构成一个域，且每个有理数都在 $QQ_p$ 中。若 @eq:p-adic-rational 中的 $a_m != 0$，则我们定义 $ v_p (y) = m quad quad abs(y)_p = p^(-m) $ 这在 $y$ 为有理数时与前面定义的 $p$ 进赋值和绝对值相一致。
+
+还有另一种理解 $p$ 进整数的方法。考虑一列整数 $x_1, x_2, dots.c$ 满足 $ x_m equiv x_(m + 1) quad (mod p^m) $ <eq:x-m-equiv-x-m-plus-1-mod-p-m> 对所有的 $m >= 1$ 成立。由于对所有 $k >= m$，都有 $x_m equiv x_k (mod p^m)$，所以对所有 $k >= m$，数 $x_k$ 的以 $p$ 为底的展开在 $p^(m - 1)$ 项之前必须一致。因此，整数序列 $x_m$ 确定了一个如下形式的表达式 $ sum_(n = 0)^(infinity) a_n p^n $ 其中 $ x_m equiv sum_(n = 0)^(m - 1) a_n p^n quad (mod p^m) $ 对所有 $m$ 成立。换句话说，这个整数序列确定了一个 $p$ 进整数。反过来，一个 $p$ 进整数的部分和确定了一个满足 @eq:x-m-equiv-x-m-plus-1-mod-p-m 的整数序列。
+
+让我们利用这些想法来展示 $-1$ 是 5 进整数中的平方数。令 $x_1 = 2$，那么 $ x_1^2 equiv -1 quad (mod 5) $
+
+假设我们已定义了某个 $x_m$，使得 $ x_m^2 equiv -1 quad (mod 5) $
+
+令 $x_(m + 1) = x_m + 5^m b$，其中 $ b equiv frac(-1 - x_m^2, 2 dot.c 5^m x_m) quad (mod 5) $
+
+注意，$x_m^2 equiv -1 (mod 5)$ 意味着上一个同余式右边在模 5 下是有定义的。快速计算可得 $ x_(m + 1)^2 equiv -1 quad (mod 5^(m + 1)) $
+
+由于 @eq:x-m-equiv-x-m-plus-1-mod-p-m 被满足，存在一个 5 进整数 $x$ 使得对所有 $m$ 有 $x equiv x_m (mod 5)$。此外 $ x^2 equiv -1 quad (mod 5) $ 对所有 $m$ 成立。这意味着 $x^2 = -1$。
+
+一般而言，这个过程导出了以下非常有用的结果。
+
+#theorem[Hensel 引理][
+  设 $f(X)$ 是一个系数为 $p$ 进整数的多项式，且设 $x_1$ 是一个整数，使得 $ f(x_1) equiv 0 quad (mod p) $
+
+  如果 $ f'(x_1) equiv.not 0 quad (mod p) $ 那么存在一个 $p$ 进整数 $x$，使得 $x equiv x_1 (mod p)$ 且 $ f(x) = 0 $
+]
+
+#corollary[
+  设 $p$ 是一个奇质数，且设 $b$ 是一个在模 $p$ 意义下为非零平方数的 $p$ 进整数，那么 $b$ 是某个 $p$ 进整数的平方。
+
+]
+
+该推论可以用与证明 $-1$ 是 5 进整数中的平方完全相同的方法来证明。该推论也可以由定理推出：设 $f(X) = X^2 - b$，并设 $x_1^2 equiv b (mod p)$。那么 $f(x_1) equiv 0 (mod p)$，且因为 $p$ 是奇数，以及根据假设 $x_1 equiv.not 0$ 有 $ f'(x_1) = 2x_1 equiv.not 0 quad (mod p) $
+
+Hensel 引理表明存在一个 $p$ 进整数 $x$，使得 $f(x) = 0$。这意味着 $x^2 = b$，即得证。
+
+当 $p = 2$ 时，该推论不成立。例如，5 在模 2 下是平方数，但在模 8 下不是平方数，因此不是 2 进平方。不过，上述归纳法可推出以下命题：
+
+#proposition[
+  如果 $b$ 是一个满足 $b equiv 1 (mod 8)$ 的 2 进整数，那么 $b$ 是某个 2 进整数的平方。
+
+]
+/// END: Appendix
 
 /// START: Appendix
 = Groups <appendix:groups>
