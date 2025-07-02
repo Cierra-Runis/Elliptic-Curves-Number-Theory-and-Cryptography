@@ -2065,7 +2065,7 @@ Alice 想通过公开信道向 Bob 发送一条消息。他们尚未建立一个
   令 $n_1, n_2, dots.c, n_r$ 为两两互质的正整数，且令 $a_1, a_2, dots.c, a_r$ 为整数，则存在整数 $x$，使得 $ x equiv a_i (mod n_i) $ 对所有的 $i$ 成立。
 
   这样的 $x$ 在模 $n_1 n_2 dots.c n_r$ 时是唯一的。
-] <theorem:chinese-remainder-theorem>
+] <theo:chinese-remainder-theorem>
 
 例如，令 $n_1 = 4, n_2 = 3, n_3 = 5$，且 $a_1 = 1, a_2 = 2, a_3 = 3$。那么 $x = 53$ 是以下同余方程组的一个解：
 
@@ -2251,15 +2251,17 @@ $psi$ 的像记作 $psi(G_1)$，其是 $G_2$ 的一个子群。
 /// START: Appendix
 = 域 <appendix:fields>
 
-令 $K$ 为一个域。存在环同态 $psi: ZZ -> K$ 将 $1 in ZZ$ 映射到 $1 in K$。如果 $psi$ 是单射，那么我们称 $K$ 的 *特征为 $0$*，否则存在最小的正整数 $p$，使得 $psi(p) = 0$，此时我们称 $K$ 的 *特征为 $p$*。如果 $p$ 可分解为 $a b$，其中 $1 < a <= b < p$，那么 $psi(a) psi(b) = psi(p) = 0$，得 $psi(a) = 0$ 或 $psi(b) = 0$，这与 $p$ 是最小的矛盾。因此 $p$ 是质数。
+令 $K$ 为一个域。存在环同态 $psi: ZZ -> K$ 将 $1 in ZZ$ 映射到 $1 in K$。如果 $psi$ 是单射，那么我们称 $K$ 的 *特征为 $0$*，否则存在最小的正整数 $p$，使得 $psi(p) = 0$，此时我们称 $K$ 的 *特征为 $p$*。如果 $p$ 可分解为 $a b$，其中 $1 < a <= b < p$，那么 $psi(a) psi(b) = psi(p) = 0$，得 $psi(a) = 0$ 或 $psi(b) = 0$，这与 $p$ 最小相矛盾。因此 $p$ 是质数。
 
 当 $K$ 的特征为 $0$ 时，有理数域 $QQ$ 包含在 $K$ 中。
 
 当 $K$ 的特征为 $p$ 时，模 $p$ 的有限域 $FF_p$ 包含在 $K$ 中。
 
-令域 $K$ 和 $L$ 满足 $K subset.eq L$，若 $alpha in L$，且存在一个非常数多项式 $ f(X) = X^n + a_(n - 1) X^(n - 1) + dots.c + a_0 $ 使得 $f(alpha) = 0$，其中 $a_0, dots.c, a_(n - 1) in K$，则称 $alpha$ 是 $K$ 上的 *代数元*。若 $L$ 的每一个元素都是 $K$ 上的代数元，则称 $L$ 在 $K$ 上是 *代数的*，或称 $L$ 是 $K$ 上的 *代数扩域*。
+令域 $K$ 和 $L$ 满足 $K subset.eq L$，若 $alpha in L$，且存在一个非常数多项式 $ f(X) = X^n + a_(n - 1) X^(n - 1) + dots.c + a_0 $ 使得 $f(alpha) = 0$，其中 $a_0, dots.c, a_(n - 1) in K$，则称 $alpha$ 在 $K$ 上是 *代数的* #footnote[译者注：或称 $alpha$ 是 $K$ 的 *代数元*，译者将尽可能取缔 *代数的* 这种说法]。
 
-域 $K$ 的代数闭包是一个包含 $K$ 的域 $overline(K)$，且满足
+若 $L$ 的每一个元素都是 $K$ 的代数元，则称 $L$ 在 $K$ 上是 *代数的*，或称 $L$ 是 $K$ 的 *代数扩张* #footnote[译者注：或称 $L$ 是 $K$ 的 *代数扩域*，两种表述将混用]。
+
+域 $K$ 的 *代数闭包* 是一个包含 $K$ 的域 $overline(K)$，且满足
 
 + $overline(K)$ 是 $K$ 的代数扩域。
 
@@ -2272,6 +2274,61 @@ $psi$ 的像记作 $psi(G_1)$，其是 $G_2$ 的一个子群。
 当 $K = QQ$ 时，其代数闭包 $overline(QQ)$ 是所有在 $QQ$ 上为代数元的复数组成的集合。当 $K = CC$ 时，其代数闭包就是 $CC$ 本身，因为由代数基本定理可知 $CC$ 就是代数封闭的。
 
 #heading(numbering: none, outlined: false, level: 2)[有限域]
+
+令 $p$ 为质数，则模 $p$ 的整数构成有 $p$ 个元素的域 $FF_p$。可以证明，有限域中的元素个数必为某个质数的幂，并且对于每个质数 $p$ 的幂 $p^n$，存在一个唯一的（同构意义下的）有限域，其元素个数为 $p^n$。（注意：当 $n >= 2$ 时，环 $ZZ_(p^n)$ 不是域，因为 $p$ 在其中没有乘法逆元；实际上，因为 $p dot.c p^(n - 1) equiv 0 (mod p^n)$，所以 $p$ 是一个零因子。）在本书中，元素个数为 $p^n$ 的有限域记作 $FF_(p^n)$。另一种在文献中常见的记法是 $"GF"(p^n)$。可以证明 $ FF_(p^m) subset.eq FF_(p^n) <==> m divides n $
+
+域 $FF_(p^n)$ 的代数闭包可以表示为 $ overline(FF)_p = union.big_(n >= 1) FF_(p^n) $
+
+#theorem[
+  令 $overline(FF)_p$ 为 $FF_q$ 的代数闭包，$q = p^n$，那么
+
+  $ FF_q = { alpha in overline(FF)_p divides alpha^q = alpha } $
+] <theo:finite-field-with-its-algebraic-closure>
+
+#proof[
+  域 $FF_q$ 的非零元素构成阶为 $q - 1$ 的群 $FF_q^times$，因此当 $0 != alpha in FF_q$ 时 $alpha^(q - 1) = 1$，因此对所有的 $alpha in FF_q$ 都有 $alpha^q = alpha$。
+
+  回想一个多项式 $g(X)$ 当且仅当 $g(X)$ 与 $g'(X)$ 有公共根时，$g(X)$ 才有重根。因为 $ "d"/("d"x) (X^q - X) = q X^(q - 1) - 1 = -1 $（其中有 $q = p^n = 0$ 在 $FF_p$ 成立），因此多项式 $X^q - X$ 没有重根。故恰有 $q$ 个不同的 $alpha in overline(FF)_p$ 满足 $alpha^q = alpha$。一般来说，确定
+
+  由于定理中的两个集合元素个数都为 $q$，且一个包含于另一个，故它们相等。
+]
+
+若 $ phi.alt_q (x) = x^q $ 对所有 $x in overline(FF)_q$ 成立，我们称 $phi.alt_q$ 为 $overline(FF)_q$ 的 $q$ 次幂 *Frobenius 自同构*。
+
+#proposition[
+  令 $q$ 为质数 $p$ 的幂。
+
+  + $overline(FF)_q = overline(FF)_p$。
+
+  + $phi.alt_q$ 是 $overline(FF)_q$ 的一个自同构。特别地，对所有 $x, y in overline(FF)_q$ 有 $ phi.alt_q (x + y) = phi.alt_q (x) + phi.alt_q (y) quad quad phi.alt_q (x y) = phi.alt_q (x) phi.alt_q (y) $
+
+  + 令 $alpha in overline(FF)_q$，那么 $ alpha in FF_(q^n) quad <==> quad phi.alt_q^n (alpha) = alpha $
+]
+
+#proof[
+  第 1 点是一个更一般事实的特例：若 $K subset.eq L$，且 $L$ 是 $K$ 的代数扩域，则 $overline(L) = overline(K)$。这个结论可以这样证明：如果元素 $alpha$ 是 $L$ 的代数元，而 $L$ 又是 $K$ 的代数扩域，那么根据代数扩张的传递性，$alpha$ 也是 $K$ 的代数元。因此 $overline(L)$ 是 $K$ 的代数扩域，且是代数封闭的。因此它是 $K$ 的代数闭包。
+
+  第 3 点其实就是 @theo:finite-field-with-its-algebraic-closure 的另一种说法，把 $q$ 换成了 $q^n$。
+
+  现在来证第 2 点。设 $1 <= j <= p - 1$，那么二项式系数 $binom(p, j)$ 在分子里含有一个 $p$ 的因子，而分母不会抵消它，所以 $ binom(p, j) equiv 0 quad (mod p) $
+
+  于是
+
+  $
+    (x + y)^p & = x^p + binom(p, 1) x^(p - 1) y + binom(p, 2) x^(p - 2) y^2 + dots.c + y^p \
+              & = x^p + y^p
+  $
+
+  因为我们在特征为 $p$ 的域中讨论。简单的归纳法可以得到 $ (x + y)^(p^n) = x^(p^n) + y^(p^n) $ 对于所有 $x, y in FF_p$ 都成立。这说明了 $phi.alt_q(x + y) = phi.alt_q(x) + phi.alt_q(y)$，而 $phi.alt_q(x y) = phi.alt_q(x) dot.c phi.alt_q(y)$ 也是显然的。因此，$phi.alt_q$ 是域的一个同态。（根据命题 C.5 之前的讨论），域同态一定是单射，现在我们只需要证明 $phi.alt_q$ 是满射。
+
+  若 $alpha in overline(FF)_p$，则存在某个 $n$ 使得 $alpha in FF_(q^n)$，于是 $phi.alt_q^n (alpha) = alpha$。因此 $alpha$ 是 $phi_q$ 的像，故 $phi.alt_q$ 是满射。所以 $phi.alt_q$ 是一个自同构。
+]
+
+在 @appendix:number-theory 中已经指出 $FF_p^times = ZZ_p^times$ 是一个由原根生成的循环群。更一般地，可以证明 $FF_q^times$ 是一个循环群。一个有用的推论如下。
+
+#proposition[
+
+]
 
 /// TODO: Keep translate here...
 
