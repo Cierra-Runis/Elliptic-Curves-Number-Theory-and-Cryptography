@@ -291,6 +291,22 @@
 
   enum.item[复分析路径：阅读 @chap:elliptic-curves-over-C、@chap:complex-multiplication 以及 @sec:complex-theory。],
 )
+
+= 译者的话
+
+== 有关本书
+
+#link("https://github.com/Cierra-Runis")[译者] 是一名计算机科学专业的学生，在了解加密算法的过程中接触到了椭圆曲线密码学。出于对椭圆曲线的兴趣，译者在网络上搜寻到了本书的 PDF 文件，同时因接触到 #link("https://github.com/typst/typst")[Typst] 这一新生的排版工具，便萌生了通过翻译本书，既能学习到椭圆曲线的相关知识，又能熟悉掌握 Typst 工具，以及将本书的内容传播给更多人的想法。
+
+译者在翻译、学习的过程中，发现本书从 @fig:elliptic-curve-over-C 对应列表中的内容就变得有些难懂，对于数学系以外的译者和读者来说，也不能仅通过附录内容就能理解。因此，译者在翻译过程中，也会对这些内容进行适当的补充和解释，以注脚的形式呈现，并提供译者个人认为可能有帮助的链接。
+
+== 有关翻译
+
+翻译是一门艺术，需要在忠实原文与流畅表达之间取得平衡。#link("https://b23.tv/goBz9jO")[不好的翻译] 实在是“令人憋笑”，更何况那些翻译“本该”“理应”翻译好来，而不是糊弄了事。而本书，应当指明的是，译者并非如前文提到的专业人士，翻译、数学水平有限，但即便如此，译者也将贯彻“忠实原文、流畅表达”的原则，力求将本书的内容以最好的方式呈现给读者。
+
+== 有关版权
+
+译者受 #link("https://www.bilibili.com/opus/449347918123679516")[这样的一段文字] 及某些意识形态的影响，因而本译本的内容遵循 #link("https://github.com/Cierra-Runis/Elliptic-Curves-Number-Theory-and-Cryptography/blob/main/LICENSE")[CC0 1.0 通用公共领域贡献许可协议]，即译者放弃对本译本的所有版权和相关权利，读者可以自由使用、修改、再分发本译本的内容。译者并不在意本书英文版的版权，译者所做的，只不过是希望将知识传播给更多人，并不希望这些知识因为所谓的“能保护原作者权益”的版权而被束缚。
 /// END: Front matter
 
 /// START: TOC
@@ -764,7 +780,7 @@ $
 
 #figure(caption: [定义在 $CC$ 上的椭圆曲线])[
   #image(svg-colorize("/assets/Torus.svg", colors.text), width: 24em)
-]
+] <fig:elliptic-curve-over-C>
 
 椭圆曲线上的点构成阿贝尔群这一事实，是大多数有趣性质与应用背后的基础。于是就产生了一个问题：我们所得到的这些点群，具有什么样的结构？下面是一些示例：
 
