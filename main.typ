@@ -246,7 +246,7 @@
 #note(variant: "符号说明")[
   符号 $ZZ, FF_q, QQ, RR, CC$ 分别表示整数集、有 $q$ 个元素的有限域、有理数域、实数域和复数域。我们使用 $ZZ_n$（而不是 $ZZ \/ n ZZ$）来表示模 $n$ 的整数集。然而，当 $p$ 是质数，并且我们将 $ZZ_p$ 视为域而不是作为群或环来使用时，我们使用 $FF_p$ 这个记号，以与 $FF_q$ 的记法保持一致。注意，$ZZ_p$ 并不表示 $p$ 进整数。我们之所以这样选用，主要出于排版的考虑，因为模 $p$ 的整数频繁出现，而 $p$ 进整数的符号仅在 @chap:hyperelliptic-curves 的少数几个例子中出现（其中我们用 $cal(O)_p$ 表示）。$p$ 进有理数表示为 $QQ_p$。
 
-  如果 $K$ 是一个域，那么 $overline(K)$ 表示其代数闭包。如果 $R$ 是一个环，则 $R^times$ 表示 $R$ 中的可逆元素。#footnote[译者注：如 $R = ZZ$ 时，$R^times = { -1, 1 }$] 当 $K$ 是域时，$K^times$ 因此表示 $K$ 的非零元素所构成的乘法群。#footnote[译者注：也记作 $K without {0}$]字母 $K$ 和 $E$ 通常分别用来表示一个域和一条椭圆曲线（但在 @chap:elliptic-curves-over-C 中，$K$ 有几处用来表示椭圆积分）。
+  如果 $K$ 是一个域，那么 $overline(K)$ 表示其代数闭包。如果 $R$ 是一个环，则 $R^times$ 表示 $R$ 中的可逆元素。#footnote[译者注：如 $R = ZZ$ 时，$R^times = { -1, 1 }$] 当 $K$ 是域时，$K^times$ 因此表示 $K$ 的非零元素所构成的乘法群。#footnote[译者注：也记作 $K without {0}$] 在全书中，字母 $K$ 和 $E$ 通常分别用来表示一个域和一条椭圆曲线（但在 @chap:elliptic-curves-over-C 中，$K$ 有几处用来表示椭圆积分）。
 ]
 
 #note(variant: "致谢")[
