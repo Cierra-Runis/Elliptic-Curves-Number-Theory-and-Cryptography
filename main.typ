@@ -2396,7 +2396,22 @@ $
 
 接下来的一个结论非常有用，它的证明依赖于 Zorn 引理（见 @ref:lang2002algebra）。
 
-#proposition[]
+#proposition[
+  令 $K$ 和 $L$ 为域。假定 $L$ 是代数封闭的，且有域同态 $ f : K -> L $
+
+  则存在一个同态 $tilde(f) : overline(K) -> L$ 使得 $tilde(f)$ 在 $K$ 上的 #link("https://zh.wikipedia.org/wiki/%E9%99%90%E5%88%B6_(%E6%95%B8%E5%AD%B8)")[限制] 为 $f$。
+] <pro:tilde-f-restricted-to-K-is-f>
+
+@pro:tilde-f-restricted-to-K-is-f 有着如下非常好的推论。
+
+#corollary[
+  令 $K$ 是一个特征为 0 的域。假定 $K$ 关于 $QQ$ 的超越次数是有限的，则存在一个同态 $K -> CC$。因此，$K$ 可以被认作是 $CC$ 的一个子域。
+
+]
+
+#proof[
+
+]
 
 /// TODO: Keep translate here...
 
