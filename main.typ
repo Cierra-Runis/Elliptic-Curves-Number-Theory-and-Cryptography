@@ -12,8 +12,8 @@
 
 /// START: Fonts
 #let serif-fonts = (
-  (name: "New Computer Modern", covers: regex("[a-zA-Z0-9’—]")),
-  "Source Han Serif SC",
+  (name: "New Computer Modern", covers: regex("[a-zA-Z0-9’]")), // TODO: Remove "’""
+  "FZFW ZhuZi MinchoS",
 )
 #set text(font: serif-fonts, size: 13pt)
 #show emph: text.with(font: "LXGW WenKai GB")
@@ -39,10 +39,12 @@
 /// - file (str): The path to the SVG file.
 /// - color (color): The color to replace the stroke color with.
 #let svg-colorize(file, color) = {
-  bytes(read(file).replace(
-    regex("stroke=\"[^\"]*\""),
-    "stroke=\"" + color.to-hex() + "\"",
-  ))
+  bytes(
+    read(file).replace(
+      regex("stroke=\"[^\"]*\""),
+      "stroke=\"" + color.to-hex() + "\"",
+    ),
+  )
 }
 /// END: Colors
 
@@ -302,7 +304,7 @@
 
 == 有关翻译
 
-翻译是一门艺术，需要在忠实原文与流畅表达之间取得平衡．#link("https://b23.tv/goBz9jO")[不好的翻译] 实在是“令人憋笑”，更何况那些翻译“本该”“理应”翻译好来，而不是糊弄了事．而本书，应当指明的是，译者并非如前文提到的专业人士，翻译、数学水平有限，但即便如此，译者也将贯彻“忠实原文、流畅表达”的原则，力求将本书的内容以最好的方式呈现给读者．
+翻译是一门艺术，需要在忠实原文与流畅表达之间取得平衡．#link("https://b23.tv/goBz9jO")[不好的翻译] 实在是“令人憋笑”，更何况那些翻译“本该”“理应”翻译好来，而不是糊弄了事．而本书，应当指明的是，译者并非如前文提到的专业人士，翻译、数学水平有限，但即便如此，译者也将贯彻“忠实原文、流畅表达”的原则，力求‘将’本书的内容以最好的方式呈现给读者．
 
 == 有关版权
 
@@ -2394,7 +2396,7 @@ $
 其中 $a_i in FF_q$．由于 $a_i^q = a_i$，且 $phi.alt_q^n (beta) = beta$，于是
 
 $
-  x^q & = a_1 beta^q + a_2 phi.alt_q (beta^q) + dots.c + a_n phi.alt_q^(n - 1)(beta^q)               \
+  x^q & = a_1 beta^q + a_2 phi.alt_q (beta^q) + dots.c + a_n phi.alt_q^(n - 1)(beta^q) \
       & = a_n phi.alt_q^n (beta) + a_1 phi.alt_q (beta) + dots.c + a_(n - 1) phi.alt_q^(n - 1)(beta) \
       & = a_n beta + a_1 phi.alt_q (beta) + dots.c + a_(n - 1) phi.alt_q^(n - 1)(beta)
 $
