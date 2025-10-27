@@ -226,6 +226,11 @@
   University of Maryland
 
   College Park, Maryland, U.S.A.
+
+  #v(10%)
+  #text(font: "Cascadia Code", size: 8pt)[
+    Typst #sys.version
+  ]
 ]
 /// END: Title Page
 
