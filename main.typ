@@ -8,7 +8,7 @@
   title: "椭圆曲线 - 数论与密码学（第二版）",
   author: "Lawrence C. Washington",
 )
-#set par(first-line-indent: (amount: 2em, all: true))
+#set par(first-line-indent: (amount: 2em, all: true), justify: true)
 
 /// START: Fonts
 #let serif-fonts = (
@@ -210,7 +210,9 @@
   Elliptic Curves
 
   #set text(weight: "regular", size: 28pt)
-  Number Theory and Cryptography
+  Number Theory and
+
+  Cryptography
 
   #set text(size: 16pt)
   Second Edition
