@@ -1,4 +1,5 @@
 *.pdf
+!assets/**/*.pdf
 
 # Windows thumbnail cache files
 Thumbs.db
