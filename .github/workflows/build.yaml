@@ -37,4 +37,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: PDF-${{ matrix.theme }}-${{ env.DATE }}
-          path: '**/*.pdf'
+          path: '*.pdf'
