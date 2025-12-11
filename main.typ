@@ -17,7 +17,10 @@
 )
 #set text(font: serif-fonts, size: 13pt)
 #set strong(delta: 800)
-#show emph: text.with(font: "LXGW WenKai GB")
+#show emph: text.with(font: (
+  (name: "New Computer Modern", covers: regex("[a-zA-Z0-9’]")),
+  "LXGW WenKai GB",
+))
 #show raw: text.with(font: "Cascadia Code")
 #show math.equation: set text(font: (
   "New Computer Modern Math",
@@ -2705,3 +2708,4 @@ $E_2$ 的单位元是：
 /// START: References
 #bibliography("/references.bib", title: "参考文献")
 // END: References
+
