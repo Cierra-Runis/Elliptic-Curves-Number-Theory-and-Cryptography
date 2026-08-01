@@ -316,7 +316,7 @@
 
 == 有关翻译
 
-翻译是一门艺术，需要在忠实原文与流畅表达之间取得平衡．#link("https://b23.tv/goBz9jO")[不好的翻译] 实在是“令人憋笑”，更何况那些翻译“本该”“理应”翻译好来，而不是糊弄了事．而本书，应当指明的是，译者并非如前文提到的专业人士，翻译、数学水平有限 #footnote[译者注：这句话有两层意思．]，但即便如此，译者也将贯彻“忠实原文、流畅表达”的原则，力求将本书的内容以最好的方式呈现给读者．
+翻译是一门艺术，需要在忠实原文与流畅表达之间取得平衡．#link("https://b23.tv/goBz9jO")[不好的翻译] 实在是“令人憋笑”，更何况那些翻译“本该”“理应”翻译好来，而不是糊弄了事．而本书应当指明的是，译者并非如前文提到的专业人士，翻译、数学水平有限 #footnote[译者注：这句话有两层意思．]，但即便如此，译者也将贯彻“忠实原文、流畅表达”的原则，力求将本书的内容以最好的方式呈现给读者．
 
 == 有关版权
 
@@ -812,11 +812,11 @@ $
 
 + 一个定义在有限域上的椭圆曲线，只有有限个坐标属于该有限域的点．因此，在这种情形下我们得到的是一个有限的阿贝尔群．这类群的性质，以及它们在密码学中的应用，将在后续章节中讨论．
 
-+ 若 $E$ 是定义在有理数域 $QQ$ 上的椭圆曲线，那么 $E(QQ)$ 是一个有限生成的阿贝尔群．这就是 Mordell–Weil 定理，我们将在 @chap:elliptic-curves-over-Q 中给出证明．这样的群与某个形如 $ZZ^r plus.circle F$ 的群同构，其中 $r >= 0$，$F$ 是一个有限群．整数 $r$ 被称为 $E(QQ)$ 的 *秩*．一般来说，确定 $r$ 是一件相当困难的事情，目前尚不清楚 $r$ 是否可以任意大．目前已知存在秩至少为 28 的椭圆曲线．有限群 $F$ 可以通过 @chap:elliptic-curves-over-Q 中的 Lutz–Nagell 定理来容易地计算．此外，Mazur 的一个深刻定理表明：当 $E$ 在所有定义在 $QQ$ 上的椭圆曲线中变化时，$F$ 的可能类型只有有限多种． /// TODO: Ref to theorems
++ 若 $E$ 是定义在有理数域 $QQ$ 上的椭圆曲线，那么 $E(QQ)$ 是一个有限生成的阿贝尔群．这就是 Mordell–Weil 定理，我们将在 @chap:elliptic-curves-over-Q 中给出证明．这样的群与某个形如 $ZZ^r plus.o F$ 的群同构，其中 $r >= 0$，$F$ 是一个有限群．整数 $r$ 被称为 $E(QQ)$ 的 *秩*．一般来说，确定 $r$ 是一件相当困难的事情，目前尚不清楚 $r$ 是否可以任意大．目前已知存在秩至少为 28 的椭圆曲线．有限群 $F$ 可以通过 @chap:elliptic-curves-over-Q 中的 Lutz–Nagell 定理来容易地计算．此外，Mazur 的一个深刻定理表明：当 $E$ 在所有定义在 $QQ$ 上的椭圆曲线中变化时，$F$ 的可能类型只有有限多种． /// TODO: Ref to theorems
 
 + 定义在复数域 $CC$ 上的椭圆曲线同构于一个环面．这一点将在 @chap:elliptic-curves-over-C 中予以证明．环面的常见构造方式是 $ℂ \/ cal(L)$，其中 $cal(L)$ 是复数域中的一个格点．复数的常用加法在商空间 $CC \/ cal(L)$ 上诱导出一个群律，该运算通过环面与椭圆曲线之间的同构对应于椭圆曲线上的群律．
 
-+ 若椭圆曲线 $E$ 定义在实数域 $RR$ 上，那么 $E(RR)$ 同构于单位圆 $S^1$，或同构于 $S^1 plus.circle ZZ_2$．第一种情况对应于三次多项式 $x^3 + A x + B$ 只有一个实根的情形（想象 @subfig:elliptic-curves-shapes-2 中图像的两端在 $infinity$ 处接合，形成一个环）．第二种情况对应于该三次式具有三个实根．@subfig:elliptic-curves-shapes-1 中的闭环曲线就是集合 $S^1 plus.circle {1}$，而那条开口的曲线可以通过加入 $infinity$ 使其闭合，从而得到集合 $S^1 plus.circle {0}$．如果我们有一个定义在 $RR$ 上的椭圆曲线 $E$，我们可以考虑它在复数域上的点集 $E(CC)$．这个集合构成一个环面（如前文 3. 所述）．实点集 $E(RR)$ 是通过将该环面与某个平面相交而得到的．如果这个平面穿过环面中间的洞，我们会得到如 @subfig:elliptic-curves-shapes-1 的曲线；如果没有穿过洞，则得到如 @subfig:elliptic-curves-shapes-2 的曲线（见 @sec:elliptic-curves-over-C-elliptic-curves-over-C）．#footnote[勘误：“实点集 $E(RR)$ 是通过将该环面与某个平面相交而得到的”这句话不准确．如果我们将环面视为在 $CC^2$ 中（即视为 $RR^4$ 中的对象），那么平面 $"Im"(x) = "Im"(y) = 0$ 与环面的交集就是实点集．然而，若将环面放在 $RR^3$ 中情况就不是这样，此时实点集可能对应于环面上的一条或两条不可收缩的圆．第一种情况下这并不是环面与 $RR^3$ 中某个平面的交集．最后一句话“如果没有穿过洞……”也是不正确的．
++ 若椭圆曲线 $E$ 定义在实数域 $RR$ 上，那么 $E(RR)$ 同构于单位圆 $S^1$，或同构于 $S^1 plus.o ZZ_2$．第一种情况对应于三次多项式 $x^3 + A x + B$ 只有一个实根的情形（想象 @subfig:elliptic-curves-shapes-2 中图像的两端在 $infinity$ 处接合，形成一个环）．第二种情况对应于该三次式具有三个实根．@subfig:elliptic-curves-shapes-1 中的闭环曲线就是集合 $S^1 plus.o {1}$，而那条开口的曲线可以通过加入 $infinity$ 使其闭合，从而得到集合 $S^1 plus.o {0}$．如果我们有一个定义在 $RR$ 上的椭圆曲线 $E$，我们可以考虑它在复数域上的点集 $E(CC)$．这个集合构成一个环面（如前文 3. 所述）．实点集 $E(RR)$ 是通过将该环面与某个平面相交而得到的．如果这个平面穿过环面中间的洞，我们会得到如 @subfig:elliptic-curves-shapes-1 的曲线；如果没有穿过洞，则得到如 @subfig:elliptic-curves-shapes-2 的曲线（见 @sec:elliptic-curves-over-C-elliptic-curves-over-C）．#footnote[勘误：“实点集 $E(RR)$ 是通过将该环面与某个平面相交而得到的”这句话不准确．如果我们将环面视为在 $CC^2$ 中（即视为 $RR^4$ 中的对象），那么平面 $"Im"(x) = "Im"(y) = 0$ 与环面的交集就是实点集．然而，若将环面放在 $RR^3$ 中情况就不是这样，此时实点集可能对应于环面上的一条或两条不可收缩的圆．第一种情况下这并不是环面与 $RR^3$ 中某个平面的交集．最后一句话“如果没有穿过洞……”也是不正确的．
   ]
 
 如果 $P$ 在椭圆曲线上，且 $k$ 为正整数，那么 $k P$ 表示 $P + P + dots.c + P$（共 $k$ 次加法）．如果 $k < 0$，则 $k P = (-P) + (-P) + dots.c + (-P)$，共 $abs(k)$ 次加法．计算 $k$ 较大时的 $k P$ 反复将 $P$ 与自身相加是低效的，使用 *连续倍加法* 就快多了．比如求 $19P$ 时，我们计算 $ 2P quad 4P = 2P + 2P quad 8P = 4P + 4P quad 16P = 8P + 8P quad 19P = 16P + 2P + P $
@@ -2134,8 +2134,8 @@ $ x equiv 1 quad (mod 4)，quad quad x equiv 2 quad (mod 3)，quad quad x equiv 
 
 且任意解 $x$ 都满足 $x equiv 53 (mod 60)$．
 
-中国剩余定理的另一种表述方式是：如果 $n_1, n_2, dots.c, n_r$ 两两互质，则 $ ZZ_(n_1 n_2 dots.c n_r) tilde.eq ZZ_(n_1) plus.circle dots.c plus.circle ZZ_(n_r) $
-（见 @appendix:groups 关于 $plus.circle$ 的定义）．这是加法群的同构，同时也是环的同构．
+中国剩余定理的另一种表述方式是：如果 $n_1, n_2, dots.c, n_r$ 两两互质，则 $ ZZ_(n_1 n_2 dots.c n_r) tilde.eq ZZ_(n_1) plus.o dots.c plus.o ZZ_(n_r) $
+（见 @appendix:groups 关于 $plus.o$ 的定义）．这是加法群的同构，同时也是环的同构．
 
 #heading(numbering: none, outlined: false, level: 2)[p 进数]
 
@@ -2240,11 +2240,11 @@ Hensel 引理表明存在一个 $p$ 进整数 $x$，使得 $f(x) = 0$．这意�
 
 例如 $ZZ_6$ 包含一个阶为 3 的子群 ${ 0, 2, 4 }$．元素 $2, 4 in ZZ_6$ 的阶为 3．
 
-两个群 $G_1$ 和 $G_2$ 的 *直和* 定义为由两者元素组成的有序对集合 $ G_1 plus.circle G_2 = { (g_1, g_2) | g_1 in G_1, g_2 in G_2 } $
+两个群 $G_1$ 和 $G_2$ 的 *直和* 定义为由两者元素组成的有序对集合 $ G_1 plus.o G_2 = { (g_1, g_2) | g_1 in G_1, g_2 in G_2 } $
 
 有序对之间按分量相加：$ (g_1, g_2) + (h_1, h_2) = (g_1 + h_1, g_2 + h_2) $
 
-这使得 $G_1 plus.circle G_2$ 构成一个群，其单位元为 $(0, 0)$．多个群的直和也可类似定义．我们记 $G^r$ 为 $G$ 的 $r$ 个拷贝的直和．特别地，$ZZ^r$ 表示所有可能的整数 $r$ 元组的集合，它在加法下构成一个群．
+这使得 $G_1 plus.o G_2$ 构成一个群，其单位元为 $(0, 0)$．多个群的直和也可类似定义．我们记 $G^r$ 为 $G$ 的 $r$ 个拷贝的直和．特别地，$ZZ^r$ 表示所有可能的整数 $r$ 元组的集合，它在加法下构成一个群．
 
 #heading(numbering: none, outlined: false, level: 2)[结构定理]
 
@@ -2254,7 +2254,7 @@ Hensel 引理表明存在一个 $p$ 进整数 $x$，使得 $f(x) = 0$．这意�
   任意有限阿贝尔群同构于如下形式的群
 
   $
-    ZZ_(n_1) plus.circle ZZ_(n_2) plus.circle dots.c plus.circle ZZ_(n_s)
+    ZZ_(n_1) plus.o ZZ_(n_2) plus.o dots.c plus.o ZZ_(n_s)
   $
 
   其中 $n_i divides n_(i + 1)$ 对所有 $i = 1, 2, dots.c, s - 1$ 成立．这些整数 $n_i$ 由群 $G$ 唯一确定．
@@ -2269,7 +2269,7 @@ Hensel 引理表明存在一个 $p$ 进整数 $x$，使得 $f(x) = 0$．这意�
   有限生成的阿贝尔群同构于如下形式的群
 
   $
-    ZZ^r plus.circle ZZ_(n_1) plus.circle ZZ_(n_2) plus.circle dots.c plus.circle ZZ_(n_s)
+    ZZ^r plus.o ZZ_(n_1) plus.o ZZ_(n_2) plus.o dots.c plus.o ZZ_(n_s)
   $
 
   其中 $r >= 0$，且 $n_i divides n_(i + 1)$ 对所有 $i = 1, 2, dots.c, s - 1$ 成立．整数 $r$ 和各 $n_i$ 被群 $G$ 唯一确定．
@@ -2278,7 +2278,7 @@ Hensel 引理表明存在一个 $p$ 进整数 $x$，使得 $f(x) = 0$．这意�
 若 $G$ 的某个子群与
 
 $
-  ZZ_(n_1) plus.circle ZZ_(n_2) plus.circle dots.c plus.circle ZZ_(n_s)
+  ZZ_(n_1) plus.o ZZ_(n_2) plus.o dots.c plus.o ZZ_(n_s)
 $
 
 同构，则其称为 $G$ 的 *挠子群*，整数 $r$ 称为群 $G$ 的 *秩*．
@@ -2582,7 +2582,7 @@ Mod(7, 13), 0, 0, 0, 0, 0, 0]
 
 第一个输出表示该点的第 10 倍是 $infinity$．
 
-高度配对也可以计算．例如，在 $E_2$ 上，例 8.11 中的配对 $angle.l(2, 9),(3,10)angle.r$ 可如下计算： /// TODO: Ref to example 8.11
+高度配对也可以计算．例如，在 $E_2$ 上，例 8.11 中的配对 $chevron.l (2, 9), (3,10) chevron.r$ 可如下计算： /// TODO: Ref to example 8.11
 
 ```
 ? ellbil(e2,[2,9],[3,10])
